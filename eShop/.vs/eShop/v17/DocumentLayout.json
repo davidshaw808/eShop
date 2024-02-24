@@ -1,0 +1,336 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Code\\Repos\\eShop\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F6D15D87-F39F-45F9-930B-0491175BBBAC}|BusinessLayerTests\\BusinessLayerTests.csproj|c:\\code\\repos\\eshop\\businesslayertests\\ordertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6D15D87-F39F-45F9-930B-0491175BBBAC}|BusinessLayerTests\\BusinessLayerTests.csproj|solutionrelative:businesslayertests\\ordertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Common.csproj|c:\\code\\repos\\eshop\\common\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Common.csproj|solutionrelative:common\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Common.csproj|c:\\code\\repos\\eshop\\common\\refund.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Common.csproj|solutionrelative:common\\refund.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\DataLayer.csproj|c:\\code\\repos\\eshop\\datalayer\\implementation\\productdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\implementation\\productdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\DataLayer.csproj|c:\\code\\repos\\eshop\\datalayer\\implementation\\addressdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\implementation\\addressdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\DataLayer.csproj|c:\\code\\repos\\eshop\\datalayer\\databases\\base\\crisphabitatbasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\databases\\base\\crisphabitatbasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|c:\\code\\repos\\eshop\\businesslayer\\testinghelpers\\testinghelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\testinghelpers\\testinghelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|c:\\code\\repos\\eshop\\businesslayer\\implementation\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\implementation\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|c:\\code\\repos\\eshop\\businesslayer\\implementation\\addressservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\implementation\\addressservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\DataLayer.csproj|c:\\code\\repos\\eshop\\datalayer\\databases\\inmemorycontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\databases\\inmemorycontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Common.csproj|c:\\code\\repos\\eshop\\common\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Common.csproj|solutionrelative:common\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\DataLayer.csproj|c:\\code\\repos\\eshop\\datalayer\\implementation\\orderdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\implementation\\orderdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|c:\\code\\repos\\eshop\\businesslayer\\interface\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\interface\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|c:\\code\\repos\\eshop\\businesslayer\\implementation\\customerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\implementation\\customerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|c:\\code\\repos\\eshop\\businesslayer\\implementation\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\implementation\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|c:\\code\\repos\\eshop\\businesslayer\\implementation\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\implementation\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|c:\\code\\repos\\eshop\\businesslayer\\classhelpers\\simpleproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\classhelpers\\simpleproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|c:\\code\\repos\\eshop\\businesslayer\\classhelpers\\groupedproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\classhelpers\\groupedproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Code\\Repos\\CrispHabitat\\CrispHabitat\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Refund.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\Common\\Refund.cs",
+              "RelativeDocumentMoniker": "Common\\Refund.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\Common\\Refund.cs",
+              "RelativeToolTip": "Common\\Refund.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T15:36:54.884Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AddressDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\DataLayer\\Implementation\\AddressDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Implementation\\AddressDataAccess.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\DataLayer\\Implementation\\AddressDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Implementation\\AddressDataAccess.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T15:19:09.32Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CrispHabitatBaseContext.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\DataLayer\\Databases\\Base\\CrispHabitatBaseContext.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Databases\\Base\\CrispHabitatBaseContext.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\DataLayer\\Databases\\Base\\CrispHabitatBaseContext.cs",
+              "RelativeToolTip": "DataLayer\\Databases\\Base\\CrispHabitatBaseContext.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAYwBYAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T11:53:19.903Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "OrderService.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\BusinessLayer\\Implementation\\OrderService.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Implementation\\OrderService.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\BusinessLayer\\Implementation\\OrderService.cs",
+              "RelativeToolTip": "BusinessLayer\\Implementation\\OrderService.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAwwKQAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T08:54:16.905Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrderTests.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\BusinessLayerTests\\OrderTests.cs",
+              "RelativeDocumentMoniker": "BusinessLayerTests\\OrderTests.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\BusinessLayerTests\\OrderTests.cs",
+              "RelativeToolTip": "BusinessLayerTests\\OrderTests.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAQwC4AAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T10:38:55.797Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AddressService.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\BusinessLayer\\Implementation\\AddressService.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Implementation\\AddressService.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\BusinessLayer\\Implementation\\AddressService.cs",
+              "RelativeToolTip": "BusinessLayer\\Implementation\\AddressService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAcAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T08:48:55.635Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\Common\\Product.cs",
+              "RelativeDocumentMoniker": "Common\\Product.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\Common\\Product.cs",
+              "RelativeToolTip": "Common\\Product.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T11:40:55.37Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "InMemoryContext.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\DataLayer\\Databases\\InMemoryContext.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Databases\\InMemoryContext.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\DataLayer\\Databases\\InMemoryContext.cs",
+              "RelativeToolTip": "DataLayer\\Databases\\InMemoryContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAowBIAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T10:09:20.358Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\DataLayer\\Implementation\\ProductDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Implementation\\ProductDataAccess.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\DataLayer\\Implementation\\ProductDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Implementation\\ProductDataAccess.cs",
+              "ViewState": "AQIAACcAAAAAAAAAAAAswCMAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T11:52:11.548Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\CrispHabitat\\CrispHabitat\\Program.cs",
+              "RelativeDocumentMoniker": "..\\CrispHabitat\\CrispHabitat\\Program.cs",
+              "ToolTip": "C:\\Code\\Repos\\CrispHabitat\\CrispHabitat\\Program.cs",
+              "RelativeToolTip": "..\\CrispHabitat\\CrispHabitat\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T08:45:53.422Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TestingHelper.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\BusinessLayer\\TestingHelpers\\TestingHelper.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\TestingHelpers\\TestingHelper.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\BusinessLayer\\TestingHelpers\\TestingHelper.cs",
+              "RelativeToolTip": "BusinessLayer\\TestingHelpers\\TestingHelper.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAA1wCkAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T09:02:09.081Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\BusinessLayer\\Implementation\\ProductService.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Implementation\\ProductService.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\BusinessLayer\\Implementation\\ProductService.cs",
+              "RelativeToolTip": "BusinessLayer\\Implementation\\ProductService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwA0AAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T08:54:19.899Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\Common\\Category.cs",
+              "RelativeDocumentMoniker": "Common\\Category.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\Common\\Category.cs",
+              "RelativeToolTip": "Common\\Category.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAwAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T11:53:42.541Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CustomerService.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\BusinessLayer\\Implementation\\CustomerService.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Implementation\\CustomerService.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\BusinessLayer\\Implementation\\CustomerService.cs",
+              "RelativeToolTip": "BusinessLayer\\Implementation\\CustomerService.cs",
+              "ViewState": "AQIAAIQAAAAAAAAAAAAiwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T08:54:01.938Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "OrderDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\DataLayer\\Implementation\\OrderDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Implementation\\OrderDataAccess.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\DataLayer\\Implementation\\OrderDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Implementation\\OrderDataAccess.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAAowCYAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T10:09:20.367Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IOrderService.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\BusinessLayer\\Interface\\IOrderService.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Interface\\IOrderService.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\BusinessLayer\\Interface\\IOrderService.cs",
+              "RelativeToolTip": "BusinessLayer\\Interface\\IOrderService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T11:31:01.373Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "SimpleProduct.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\BusinessLayer\\ClassHelpers\\SimpleProduct.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\ClassHelpers\\SimpleProduct.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\BusinessLayer\\ClassHelpers\\SimpleProduct.cs",
+              "RelativeToolTip": "BusinessLayer\\ClassHelpers\\SimpleProduct.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T09:28:51.974Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "GroupedProduct.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\BusinessLayer\\ClassHelpers\\GroupedProduct.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\ClassHelpers\\GroupedProduct.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\BusinessLayer\\ClassHelpers\\GroupedProduct.cs",
+              "RelativeToolTip": "BusinessLayer\\ClassHelpers\\GroupedProduct.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAQAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T09:47:48.554Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "CategoryService.cs",
+              "DocumentMoniker": "C:\\Code\\Repos\\eShop\\BusinessLayer\\Implementation\\CategoryService.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Implementation\\CategoryService.cs",
+              "ToolTip": "C:\\Code\\Repos\\eShop\\BusinessLayer\\Implementation\\CategoryService.cs",
+              "RelativeToolTip": "BusinessLayer\\Implementation\\CategoryService.cs",
+              "ViewState": "AQIAACEAAAAAAAAAAAAYwDgAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T08:49:04.102Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
