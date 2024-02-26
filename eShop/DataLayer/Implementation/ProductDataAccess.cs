@@ -6,7 +6,7 @@ namespace DataLayer.Implementation
 {
     public class ProductDataAccess: IProductDataAccess
     {
-        private CrispHabitatBaseContext _db;
+        private readonly CrispHabitatBaseContext _db;
 
         public ProductDataAccess(CrispHabitatBaseContext db)
         {

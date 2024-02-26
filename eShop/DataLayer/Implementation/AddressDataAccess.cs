@@ -1,16 +1,11 @@
 ﻿using DataLayer.Databases.Base;
 using DataLayer.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataLayer.Implementation
 {
     public class AddressDataAccess : IAddressDataAccess
     {
-        private CrispHabitatBaseContext _db;
+        private readonly CrispHabitatBaseContext _db;
 
         public AddressDataAccess(CrispHabitatBaseContext db) {
             this._db = db;

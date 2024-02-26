@@ -17,5 +17,10 @@ namespace DataLayer.Databases
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite($"Data Source={DbPath}");
+
+        public override void Dispose()
+        {
+            base.Dispose();
+        }
     }
 }

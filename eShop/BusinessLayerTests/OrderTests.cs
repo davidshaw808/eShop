@@ -1,23 +1,25 @@
-using BusinessLayer.Implementation;
 using BusinessLayer.Interface;
 using BusinessLayer.TestingHelpers;
 using Common;
 using Common.Enum;
 using DataLayer.Databases;
-using DataLayer.Implementation;
-using DataLayer.Interface;
 
 namespace BusinessLayerTests
 {
     [TestClass]
     public class OrderTests
     {
+        private readonly InMemoryContext _db;
+
+        public OrderTests() {
+            this._db = new InMemoryContext();
+            _db.Database.EnsureCreated();
+        }
+
         [TestMethod]
         public void GenerateOrder()
         {
             //arrange
-            using var db = new InMemoryContext();
-            db.Database.EnsureCreated();
             var addr = new Address() { HouseNameNumber = "22", PostalCode = "test" };
             var cust = new Customer() { Address = addr, Email = "test@test" };
             var pd = new PaymentDetails()
@@ -37,7 +39,7 @@ namespace BusinessLayerTests
                 Customer = cust,
                 PaymentDetails = pd
             };
-            var os = TestingHelper.GetService<IOrderService>(db);
+            var os = TestingHelper.GetService<IOrderService>(this._db);
             //act
             var result = os.Generate(order);
             //assert
@@ -50,8 +52,7 @@ namespace BusinessLayerTests
             //arrange
             using var db = new InMemoryContext();
             db.Database.EnsureCreated();
-
-            var productservice = TestingHelper.GetService<IProductService>(db);
+            var productservice = TestingHelper.GetService<IProductService>(this._db);
             var product = new Product()
             {
                 Active = true,
@@ -83,7 +84,7 @@ namespace BusinessLayerTests
                 PaymentDetails = paymentdetails
             };
             //act
-            var orderservice = TestingHelper.GetService<IOrderService>(db);
+            var orderservice = TestingHelper.GetService<IOrderService>(this._db);
             orderservice.Generate(order);
             Assert.IsNotNull(order.AltId);
             var orderId = order.AltId;

@@ -5,7 +5,7 @@ namespace DataLayer.Implementation
 {
     public class RefundDataAccess: IRefundDataAccess
     {
-        private CrispHabitatBaseContext _db;
+        private readonly CrispHabitatBaseContext _db;
 
         public RefundDataAccess(CrispHabitatBaseContext db)
         {
@@ -36,8 +36,7 @@ namespace DataLayer.Implementation
             }
             t.AltId = Guid.NewGuid();
             this._db.Refunds.Add(t);
-            this._db.SaveChanges();
-            return true;
+            return this._db.SaveChanges() > 0;
         }
 
         public Common.Refund? Get(Guid id)
@@ -48,8 +47,7 @@ namespace DataLayer.Implementation
         public bool Update(Common.Refund t)
         {
             this._db.Refunds.Update(t);
-            this._db.SaveChanges();
-            return true;
+            return this._db.SaveChanges() > 0;
         }
     }
 }
