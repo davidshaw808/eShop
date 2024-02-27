@@ -50,8 +50,7 @@ namespace BusinessLayerTests
         public void UpdateOrder()
         {
             //arrange
-            using var db = new InMemoryContext();
-            db.Database.EnsureCreated();
+            var deliveredToCourier = "Delivered to courier";
             var productservice = TestingHelper.GetService<IProductService>(this._db);
             var product = new Product()
             {
@@ -61,10 +60,19 @@ namespace BusinessLayerTests
                 Price = (decimal)33.50,
                 NumberInStock = 5
             };
+            var product2 = new Product()
+            {
+                Active = true,
+                Name = "Product two",
+                Description = "Glass candle holder",
+                Price = (decimal)22.99,
+                NumberInStock = 10
+            };
             productservice.Generate(product);
+            productservice.Generate(product2);
 
             var addr = new Address() { HouseNameNumber = "The Red Lion", PostalCode = "N21 8NQ" };
-            var basket = new List<Product>() { product };
+            var basket = new List<Product>() { product, product2 };
             var cust = new Customer() { Address = addr, Email = "noreply@theredlion.co.uk", Basket = basket };
             var paymentdetails = new PaymentDetails()
             {
@@ -78,7 +86,7 @@ namespace BusinessLayerTests
             {
                 Active = true,
                 Address = addr,
-                Amount = (decimal)33.50,
+                Amount = (decimal)56.49,
                 Currency = Common.Enum.Currency.GBP,
                 Customer = cust,
                 PaymentDetails = paymentdetails
@@ -89,7 +97,22 @@ namespace BusinessLayerTests
             Assert.IsNotNull(order.AltId);
             var orderId = order.AltId;
             var returnedOrder = orderservice.GetOrder((Guid)orderId);
+            Assert.IsNotNull(returnedOrder);
+            orderservice.AddOrderUpdate(returnedOrder, new OrderUpdate() { 
+                Status = OrderStatus.InTransit,
+                UpdateText = deliveredToCourier
+            });
+            orderservice.Update(returnedOrder);
+            returnedOrder = orderservice.GetOrder((Guid)orderId);
             //assert
+            Assert.AreEqual(returnedOrder?.Updates?.LastOrDefault()?.UpdateText ?? string.Empty, deliveredToCourier);
+        }
+
+        ~OrderTests() {
+            if (this._db != null)
+            { 
+                this._db.Dispose(); 
+            }
         }
     }
 }
