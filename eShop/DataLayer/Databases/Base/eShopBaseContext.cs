@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Databases.Base
 {
-    public class CrispHabitatBaseContext : DbContext
+    public class eShopBaseContext : DbContext
     {
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Category> Categories { get; set; }

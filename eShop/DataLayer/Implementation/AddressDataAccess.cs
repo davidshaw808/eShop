@@ -5,9 +5,9 @@ namespace DataLayer.Implementation
 {
     public class AddressDataAccess : IAddressDataAccess
     {
-        private readonly CrispHabitatBaseContext _db;
+        private readonly eShopBaseContext _db;
 
-        public AddressDataAccess(CrispHabitatBaseContext db) {
+        public AddressDataAccess(eShopBaseContext db) {
             this._db = db;
         }
 

@@ -5,9 +5,9 @@ namespace DataLayer.Implementation
 {
     public class RefundDataAccess: IRefundDataAccess
     {
-        private readonly CrispHabitatBaseContext _db;
+        private readonly eShopBaseContext _db;
 
-        public RefundDataAccess(CrispHabitatBaseContext db)
+        public RefundDataAccess(eShopBaseContext db)
         {
             this._db = db;
         }

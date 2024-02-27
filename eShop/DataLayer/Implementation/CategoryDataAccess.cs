@@ -6,9 +6,9 @@ namespace DataLayer.Implementation
 {
     public class CategoryDataAccess : ICategoryDataAccess
     {
-        private readonly CrispHabitatBaseContext _db;
+        private readonly eShopBaseContext _db;
 
-        public CategoryDataAccess(CrispHabitatBaseContext db)
+        public CategoryDataAccess(eShopBaseContext db)
         {
             this._db = db;
         }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Databases
 {
-    public class InMemoryContext : CrispHabitatBaseContext
+    public class InMemoryContext : eShopBaseContext
     {
         public string DbPath { get; }
 
@@ -12,15 +12,10 @@ namespace DataLayer.Databases
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            DbPath = Path.Join(path, "CrispHabitat.db");
+            DbPath = Path.Join(path, "eShop.db");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite($"Data Source={DbPath}");
-
-        public override void Dispose()
-        {
-            base.Dispose();
-        }
     }
 }
