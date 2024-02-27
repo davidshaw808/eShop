@@ -11,7 +11,7 @@ namespace BusinessLayer.TestingHelpers
     {
         private static IServiceProvider? ServiceProvider { get; set; } = null;
 
-        private static ServiceProvider BuildTestServices(CrispHabitatBaseContext db)
+        private static ServiceProvider BuildTestServices(eShopBaseContext db)
         {
             var services = new ServiceCollection();
 
@@ -24,15 +24,19 @@ namespace BusinessLayer.TestingHelpers
 
 
             services.AddSingleton<IAddressService, AddressService>()
+                .AddSingleton<IAddressOrderService, AddressOrderService>()
                 .AddSingleton<ICategoryService, CategoryService>()
                 .AddSingleton<ICustomerService, CustomerService>()
+                .AddSingleton<ICustomerOrderService, CustomerOrderService>()
                 .AddSingleton<IOrderService, OrderService>()
-                .AddSingleton<IProductService, ProductService>();
+                .AddSingleton<IOrderCustomerService, OrderCustomerService>()
+                .AddSingleton<IProductService, ProductService>()
+                .AddSingleton<IProductOrderService, ProductOrderService>();
 
             return services.BuildServiceProvider();
         }
 
-        public static T GetService<T>(CrispHabitatBaseContext db) where T : class
+        public static T GetService<T>(eShopBaseContext db) where T : class
         {
             if(ServiceProvider == null)
             {

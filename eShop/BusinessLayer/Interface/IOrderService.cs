@@ -11,5 +11,7 @@ namespace BusinessLayer.Interface
         bool AddRefund(Guid orderId, Refund refund);
         bool Generate(Customer customer, string paymentId, string? jsonPaymentResponse, decimal paidAmount, Currency currency, PaymentProvider paymentProvider, Address? a);
         Order? GetOrder(Guid orderId);
+
+        bool AddOrderUpdate(Order order, OrderUpdate orderUpdate);
     }
 }

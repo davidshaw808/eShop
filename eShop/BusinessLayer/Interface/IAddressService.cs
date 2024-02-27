@@ -7,6 +7,5 @@ namespace BusinessLayer.Interface
     public interface IAddressService: IGenerateUpdateDelete<Address>
     {
         Address? Get(Guid addressId);
-
     }
 }

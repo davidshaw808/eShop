@@ -1,46 +1,59 @@
 ﻿using BusinessLayer.Interface;
 using Common;
 using Common.Enum;
-using DataLayer.Implementation;
 using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation
 {
-    public class OrderService : IOrderService
+    public class OrderService : OrderCustomerService, IOrderService
     {
         readonly IOrderDataAccess _orderDataAccess;
         readonly IRefundDataAccess _refundDataAccess;
-        readonly ICustomerService _customerService;
-        readonly IAddressService _addressService;
-        readonly IProductService _productService;
+        readonly ICustomerOrderService _customerOrderService;
+        readonly IAddressOrderService _addressOrderService;
+        readonly IProductOrderService _productOrderService;
 
         public OrderService(IOrderDataAccess orderDataAccess,
             IRefundDataAccess refundDataAccess,
-            ICustomerService customerService,
-            IAddressService addressService,
-            IProductService productService) 
+            ICustomerOrderService customerOrderService,
+            IAddressOrderService addressOrderService,
+            IProductOrderService productOrderService): base(orderDataAccess)
         { 
             this._orderDataAccess = orderDataAccess;
             this._refundDataAccess = refundDataAccess;
-            this._customerService = customerService;
-            this._addressService = addressService;
-            this._productService = productService;
+            this._customerOrderService = customerOrderService;
+            this._addressOrderService = addressOrderService;
+            this._productOrderService = productOrderService;
         }
 
         public bool AddOrderUpdate(Guid orderId, OrderUpdate update)
         {
             var order = this._orderDataAccess.Get(orderId);
-            if(order == null || order.Delivered)
+            return AddOrderUpdate(order, update);
+        }
+
+        public bool AddOrderUpdate(Order order, OrderUpdate orderUpdate)
+        {
+            if (order == null || order.Delivered)
             {
                 return false;
             }
-            update.Order = order;
-            if(update.Status == OrderStatus.Delivered)
+            orderUpdate.Order = order;
+            order.Updates ??= [];
+            if(orderUpdate.CreatedDate == DateTime.MinValue)
+            {
+                orderUpdate.CreatedDate = DateTime.UtcNow;
+            }
+            order.Updates.Add(orderUpdate);
+            if (orderUpdate.Status == OrderStatus.Delivered)
             {
                 order.Delivered = true;
             }
-            this._orderDataAccess.Update(order);
-            return true;
+            else if(orderUpdate.Status == OrderStatus.Cancelled)
+            {
+                order.Cancelled = true;
+            }
+            return this._orderDataAccess.Update(order);
         }
 
         public bool AddRefund(Guid orderId, Refund refund)
@@ -52,8 +65,7 @@ namespace BusinessLayer.Implementation
             }
             order.Refunds ??= new List<Refund>();
             order.Refunds.Add(refund);
-            this._orderDataAccess.Update(order);
-            return true;
+            return this._orderDataAccess.Update(order);
         }
 
         public bool Delete(Order t)
@@ -65,83 +77,76 @@ namespace BusinessLayer.Implementation
             return this._orderDataAccess.Delete(t);
         }
 
-        public bool Generate(Order t)
+        public bool Generate(Order order)
         {
-            if (t.AltId != null || t.PaymentDetails == null)
+            if (order.AltId != null || order.PaymentDetails == null)
             {
                 return false;
             }
-            
-            if(t.Customer.AltId == null)
+            this._orderDataAccess.Generate(order);
+            if(order.Customer.AltId == null)
             {
-                this._customerService.Generate(t.Customer);
-                this._customerService.AddOrder((Guid)t.Customer.AltId, t);
+                this._customerOrderService.Generate(order.Customer);
+                  this._customerOrderService.AddOrder((Guid)order.Customer.AltId, order);
             }
-            if(t.Address.AltId == null)
+            this.AddOrderUpdate(order, OrderStatus.Paid, "Order generated");
+            if (order.Address.AltId == null)
             {
-                this._addressService.Generate(t.Address);
+                this._addressOrderService.Generate(order.Address);
             }
-            if(t.PaymentDetails.Id == null)
+            if(order.PaymentDetails.Id == null)
             {
-                this._orderDataAccess.Generate(t.PaymentDetails);
+                this._orderDataAccess.Generate(order.PaymentDetails);
             }
-            t.Active = true;
-            this._orderDataAccess.Generate(t);
-            var result = this._productService.UpdateAfterSale(t);
+            order.Active = true;
+            var result = this._productOrderService.UpdateAfterSale(order);
             if (result != null)
             {
                 //log here
-                GenerateRefund(t, result.Value.RefundAmount, result.Value.Message);
+                GenerateRefund(order, result.Value.RefundAmount, result.Value.Message);
             }
             return true;
         }
 
-        public bool Generate(Customer c,
+        public bool Generate(Customer customer,
             string paymentId,
             string jsonPaymentResponse,
             decimal paidAmount,
             Currency currency,
             PaymentProvider paymentProvider,
-            Address? a)
+            Address? address)
         {
-            if (c.AltId == null || (a == null && c.Address == null))
+            if (customer.AltId == null || (address == null && customer.Address == null))
             {
                 throw new InvalidDataException("Cannot complete order, it must contain an address.");
             }
             
-            var pd = new PaymentDetails()
+            var paymentDetails = GenerateOrder(paymentId, jsonPaymentResponse, currency, paidAmount, paymentProvider);
+            this._orderDataAccess.Generate(paymentDetails);
+            var order = new Order()
             {
-                PaymentProviderId = paymentId,
-                JsonPaymentProviderResponse = jsonPaymentResponse,
-                Currency = currency,
-                Amount = paidAmount,
-                PaymentProvider = paymentProvider,
-                Created = DateTime.UtcNow
-            };
-            this._orderDataAccess.Generate(pd);
-            var o = new Order()
-            {
-                Customer = c,
-                Address = a ?? c.Address,
-                Products = c.Basket,
-                PaymentDetails = pd,
+                Customer = customer,
+                Address = address ?? customer.Address,
+                Products = customer.Basket,
+                PaymentDetails = paymentDetails,
                 Active = true,
-                Amount = c.Basket?.Sum(p => p.Price) ?? 0
+                Amount = customer.Basket?.Sum(p => p.Price) ?? 0
             };
-            if (o.Address.AltId == null)
+            if (order.Address.AltId == null)
             {
-                this._addressService.Generate(o.Address);
+                this._addressOrderService.Generate(order.Address);
             }
-            this._orderDataAccess.Generate(o);
-            pd.Order = o;
-            this._orderDataAccess.Update(pd);
-            this._customerService.AddOrder((Guid)c.AltId, o);
-            this._customerService.Update(c);
-            var result = this._productService.UpdateAfterSale(o);
+            AddOrderUpdate(order, OrderStatus.Paid, "Order generated");
+            this._orderDataAccess.Generate(order);
+            paymentDetails.Order = order;
+            this._orderDataAccess.Update(paymentDetails);
+            this._customerOrderService.AddOrder((Guid)customer.AltId, order);
+            this._customerOrderService.Update(customer);
+            var result = this._productOrderService.UpdateAfterSale(order);
             if (result != null)
             {
                 //log here
-                GenerateRefund(o, result.Value.RefundAmount, result.Value.Message);
+                GenerateRefund(order, result.Value.RefundAmount, result.Value.Message);
             }
             return true;
         }
@@ -151,13 +156,13 @@ namespace BusinessLayer.Implementation
             return this._orderDataAccess.Get(o => !o.Delivered && o.Active);
         }
 
-        public bool Update(Order t)
+        public bool Update(Order order)
         {
-            if (t.Id == null || t.AltId == null)
+            if (order.Id == null || order.AltId == null)
             {
                 return false;
             }
-            return this._orderDataAccess.Update(t);
+            return this._orderDataAccess.Update(order);
         }
 
         public Order? GetOrder(Guid orderId)
@@ -179,5 +184,38 @@ namespace BusinessLayer.Implementation
             this._orderDataAccess.Update(o);
             return refund;
         }
+
+        private PaymentDetails GenerateOrder(string paymentId, string jsonPaymentResponse, Currency currency, decimal paidAmount, PaymentProvider paymentProvider)
+        {
+            return new PaymentDetails()
+            {
+                PaymentProviderId = paymentId,
+                JsonPaymentProviderResponse = jsonPaymentResponse,
+                Currency = currency,
+                Amount = paidAmount,
+                PaymentProvider = paymentProvider,
+                Created = DateTime.UtcNow
+            };
+        }
+
+        private bool AddOrderUpdate(Order order, OrderStatus orderStatus, string text)
+        {
+            var ou = new OrderUpdate()
+            {
+                Order = order,
+                Status = orderStatus,
+                UpdateText = text
+            };
+            if(order.AltId == null)
+            {
+                if (!this.Generate(order))
+                {
+                    return false;
+                }
+            }
+            return this.AddOrderUpdate((Guid)order.AltId, ou);
+        }
+
+        
     }
 }
