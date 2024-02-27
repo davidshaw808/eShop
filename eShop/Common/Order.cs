@@ -20,7 +20,7 @@ namespace Common
     public record OrderUpdate
     {
         public int Id { get; set; }
-        public DateTime CreatedDate { get; }
+        public DateTime CreatedDate { get; set; }
         public string UpdateText { get; set; }
         public OrderStatus Status { get; set; }
 
@@ -36,14 +36,15 @@ namespace Common
         public bool Active { get; set; }
         public Customer Customer { get; set; }
         public Address Address { get; set; }
-        public IEnumerable<OrderUpdate>? Updates { get; set; }
+        public IList<OrderUpdate>? Updates { get; set; }
         public IEnumerable<Product>? Products { get; set; }
         public IList<Refund>? Refunds { get; set; }
         public PaymentDetails? PaymentDetails { get; set; }
 
 
         public bool Delivered { get; set; }
-        
+        public bool Cancelled { get; set; }
+
         public S Visit<S>(Func<Order, S> visitor)
         {
             return visitor(this);

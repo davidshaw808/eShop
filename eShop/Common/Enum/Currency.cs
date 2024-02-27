@@ -16,6 +16,7 @@ namespace Common.Enum
         Paid,
         Shipped,
         InTransit,
-        Delivered
+        Delivered,
+        Cancelled
     }
 }
