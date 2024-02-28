@@ -1,16 +1,17 @@
-﻿using BusinessLayer.Interface;
+﻿using BusinessLayer.Interface.Admin;
+using BusinessLayer.Interface.User;
 using Common;
-using Common.Enum;  
+using Common.Enum;
 using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation
 {
-    public class CustomerService : CustomerOrderService, ICustomerService
+    public class CustomerService : CustomerOrderService, ICustomerServiceAdmin, ICustomerService
     {
         readonly ICustomerDataAccess _customerDataAccess;
-        readonly IOrderCustomerService _orderCustomerService;
+        readonly IOrderCustomerServiceAdmin _orderCustomerService;
 
-        public CustomerService(ICustomerDataAccess custDl, IOrderCustomerService orderCustomerService): base(custDl)
+        public CustomerService(ICustomerDataAccess custDl, IOrderCustomerServiceAdmin orderCustomerService): base(custDl)
         {
             this._customerDataAccess = custDl;
             this._orderCustomerService = orderCustomerService;
@@ -65,10 +66,10 @@ namespace BusinessLayer.Implementation
             return this._customerDataAccess.Get(id)?.OrderHistory;
         }
 
-        public bool RemoveAllCustomerInfo(Guid id)
+        public bool RemoveAllCustomerInfo(Guid id, string email)
         {
             var deletedCustomer = this._customerDataAccess.Get(id);
-            if(deletedCustomer == null)
+            if(deletedCustomer == null || deletedCustomer.Email != email)
             {
                 return false;//possible malicious query
             }

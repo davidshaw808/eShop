@@ -1,10 +1,9 @@
 ﻿using Common;
 
-namespace BusinessLayer.Interface
+namespace BusinessLayer.Interface.User
 {
     public interface ICustomerOrderService
     {
-        bool AddOrder(Guid id, Order order);
         bool Generate(Customer t);
         bool Update(Customer t);
     }

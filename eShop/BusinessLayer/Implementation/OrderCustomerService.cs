@@ -1,4 +1,4 @@
-﻿using BusinessLayer.Interface;
+﻿using BusinessLayer.Interface.Admin;
 using Common;
 using DataLayer.Interface;
 using System;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Implementation
 {
-    public class OrderCustomerService: IOrderCustomerService
+    public class OrderCustomerService: IOrderCustomerServiceAdmin
     {
         readonly IOrderDataAccess _orderDataAccess;
         public OrderCustomerService(IOrderDataAccess orderDataAccess) 

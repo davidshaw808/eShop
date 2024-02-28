@@ -1,11 +1,11 @@
 ﻿using BusinessLayer.ClassHelpers;
-using BusinessLayer.Interface;
+using BusinessLayer.Interface.Admin;
 using Common;
 using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation
 {
-    public class ProductService: ProductOrderService, IProductService
+    public class ProductService: ProductOrderService, IProductServiceAdmin
     {
         readonly IProductDataAccess _productDataAccess;
 

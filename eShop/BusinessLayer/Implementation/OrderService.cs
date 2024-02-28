@@ -1,23 +1,24 @@
-﻿using BusinessLayer.Interface;
+﻿using BusinessLayer.Interface.Admin;
+using BusinessLayer.Interface.User;
 using Common;
 using Common.Enum;
 using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation
 {
-    public class OrderService : OrderCustomerService, IOrderService
+    public class OrderService : OrderCustomerService, IOrderServiceAdmin, IOrderService
     {
         readonly IOrderDataAccess _orderDataAccess;
         readonly IRefundDataAccess _refundDataAccess;
-        readonly ICustomerOrderService _customerOrderService;
         readonly IAddressOrderService _addressOrderService;
-        readonly IProductOrderService _productOrderService;
+        readonly ICustomerOrderServiceAdmin _customerOrderService;
+        readonly IProductOrderServiceAdmin _productOrderService;
 
         public OrderService(IOrderDataAccess orderDataAccess,
             IRefundDataAccess refundDataAccess,
-            ICustomerOrderService customerOrderService,
             IAddressOrderService addressOrderService,
-            IProductOrderService productOrderService): base(orderDataAccess)
+            ICustomerOrderServiceAdmin customerOrderService,
+            IProductOrderServiceAdmin productOrderService): base(orderDataAccess)
         { 
             this._orderDataAccess = orderDataAccess;
             this._refundDataAccess = refundDataAccess;

@@ -1,6 +1,6 @@
 ﻿using Common;
 
-namespace BusinessLayer.Interface
+namespace BusinessLayer.Interface.User
 {
     public interface IAddressOrderService
     {

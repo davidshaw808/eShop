@@ -1,5 +1,5 @@
 ﻿using BusinessLayer.ClassHelpers;
-using BusinessLayer.Interface;
+using BusinessLayer.Interface.Admin;
 using Common;
 using DataLayer.Interface;
 using System;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Implementation
 {
-    public class ProductOrderService: IProductOrderService
+    public class ProductOrderService: IProductOrderServiceAdmin
     {
         readonly IProductDataAccess _productDataAccess;
 

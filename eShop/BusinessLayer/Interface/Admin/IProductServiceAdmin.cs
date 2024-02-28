@@ -1,9 +1,9 @@
 ﻿using Common.Interface;
 using Common;
 
-namespace BusinessLayer.Interface
+namespace BusinessLayer.Interface.Admin
 {
-    public interface IProductService : IGenerateUpdateDelete<Product>
+    public interface IProductServiceAdmin : IGenerateUpdateDelete<Product>
     {
         bool IsValidTransaction(IEnumerable<Product> p);
     }

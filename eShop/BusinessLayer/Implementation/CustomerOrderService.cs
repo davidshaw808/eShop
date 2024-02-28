@@ -1,11 +1,12 @@
-﻿using BusinessLayer.Interface;
+﻿using BusinessLayer.Interface.Admin;
+using BusinessLayer.Interface.User;
 using Common;
 using DataLayer.Interface;
 
 
 namespace BusinessLayer.Implementation
 {
-    public class CustomerOrderService: ICustomerOrderService
+    public class CustomerOrderService: ICustomerOrderServiceAdmin, ICustomerOrderService
     {
         readonly ICustomerDataAccess _customerDataAccess;
 

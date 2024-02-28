@@ -1,15 +1,15 @@
-﻿using BusinessLayer.Interface;
+﻿using BusinessLayer.Interface.Admin;
 using Common;
 using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService : ICategoryServiceAdmin
     {
         readonly ICategoryDataAccess _categoryDataAccess;
-        readonly IProductService _productService;
+        readonly IProductServiceAdmin _productService;
 
-        public CategoryService(ICategoryDataAccess categoryDataAccess, IProductService productService)
+        public CategoryService(ICategoryDataAccess categoryDataAccess, IProductServiceAdmin productService)
         {
             this._categoryDataAccess = categoryDataAccess;
             this._productService = productService;

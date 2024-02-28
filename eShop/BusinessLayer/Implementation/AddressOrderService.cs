@@ -1,4 +1,4 @@
-﻿using BusinessLayer.Interface;
+﻿using BusinessLayer.Interface.User;
 using Common;
 using DataLayer.Interface;
 

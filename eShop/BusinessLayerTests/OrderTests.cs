@@ -1,4 +1,5 @@
-using BusinessLayer.Interface;
+using BusinessLayer.Interface.Admin;
+using BusinessLayer.Interface.User;
 using BusinessLayer.TestingHelpers;
 using Common;
 using Common.Enum;
@@ -39,7 +40,7 @@ namespace BusinessLayerTests
                 Customer = cust,
                 PaymentDetails = pd
             };
-            var os = TestingHelper.GetService<IOrderService>(this._db);
+            var os = TestingHelper.GetService<IOrderServiceAdmin>(this._db);
             //act
             var result = os.Generate(order);
             //assert
@@ -51,7 +52,7 @@ namespace BusinessLayerTests
         {
             //arrange
             var deliveredToCourier = "Delivered to courier";
-            var productservice = TestingHelper.GetService<IProductService>(this._db);
+            var productservice = TestingHelper.GetService<IProductServiceAdmin>(this._db);
             var product = new Product()
             {
                 Active = true,
@@ -92,7 +93,7 @@ namespace BusinessLayerTests
                 PaymentDetails = paymentdetails
             };
             //act
-            var orderservice = TestingHelper.GetService<IOrderService>(this._db);
+            var orderservice = TestingHelper.GetService<IOrderServiceAdmin>(this._db);
             orderservice.Generate(order);
             Assert.IsNotNull(order.AltId);
             var orderId = order.AltId;
