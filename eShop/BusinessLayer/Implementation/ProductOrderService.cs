@@ -2,11 +2,7 @@
 using BusinessLayer.Interface.Admin;
 using Common;
 using DataLayer.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLayer.Implementation
 {
@@ -19,15 +15,15 @@ namespace BusinessLayer.Implementation
             this._productDataAccess = productDataAccess;
         }
 
-        public (decimal RefundAmount, string Message)? UpdateAfterSale(Order o)
+        public (decimal RefundAmount, string Message)? UpdateAfterSale(Order order)
         {
-            StringBuilder error = new StringBuilder();
+            var error = new StringBuilder();
             decimal refundAmmount = 0;
-            if (o.Products == null)
+            if (order.Products == null)
             {
                 return null;
             }
-            var groupedProds = o.Products
+            var groupedProds = order.Products
                 .GroupBy(p => p.Id)
                 .Select(p => new GroupedProduct { Id = (int)p.Key, Products = p.ToList() });
 
@@ -35,7 +31,7 @@ namespace BusinessLayer.Implementation
                 .Select(gp => new SimpleProduct()
                 {
                     Id = gp.Id,
-                    Name = o.Products.FirstOrDefault(p => p.Id == gp.Id)?.Name ?? "",
+                    Name = order.Products.FirstOrDefault(p => p.Id == gp.Id)?.Name ?? "",
                     Price = gp.Products.Average(p => p.Price),
                     Quantity = gp.Products.Sum(p => p.NumberInStock)
                 })
@@ -54,7 +50,7 @@ namespace BusinessLayer.Implementation
             }
             if (error.Length == 0 && refundAmmount == 0)
             {
-                this._productDataAccess.UpdateAll(o.Products);
+                this._productDataAccess.UpdateAll(order.Products);
                 return null;
             }
             return (refundAmmount, error.ToString());
