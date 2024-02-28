@@ -35,14 +35,7 @@ namespace BusinessLayer.Implementation
             {
                 return false;
             }
-            var groupedProds = products
-                .GroupBy(p => p.Id)
-                .Select(p => new GroupedProduct { Id = (int)p.Key, Products = p.ToList() });
-
-            var prodList = groupedProds
-                .Select(gp => new SimpleProduct(){Id = gp.Id, Quantity = gp.Products.Sum(p => p.NumberInStock)})
-                .ToArray();
-
+            var prodList = GetProducsFromOrder(products);
             foreach (var p in prodList)
             {
                 if (p.Quantity > 0)
