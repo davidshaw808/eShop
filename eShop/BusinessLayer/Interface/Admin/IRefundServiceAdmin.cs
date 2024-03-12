@@ -7,5 +7,6 @@ namespace BusinessLayer.Interface.Admin
     {
         public bool ApproveRefund(Guid refundId);
         public bool RejectRefund(Guid refundId);
+        public IEnumerable<Refund> GetAllOutstandingRefunds();
     }
 }

@@ -105,11 +105,6 @@ namespace BusinessLayer.Implementation.Admin
             return (paymentDetails, order);
         }
 
-        public IEnumerable<Refund> GetAllOutstandingRefunds()
-        {
-            return this._refundDataAccess.GetAllRequiringApproval();
-        }
-
         public bool UpdateRefund(Guid orderId,
             Guid refundId,
             string? jsonPaymentGatewayResponse,
@@ -118,7 +113,7 @@ namespace BusinessLayer.Implementation.Admin
             var order = this._orderDataAccess.Get(orderId) ?? throw new ArgumentException("OrderId provided is invalid");
             var refund = order?.Refunds?.FirstOrDefault(r => r.AltId == refundId) ?? throw new ArgumentException("RefundId provided is invalid");
             refund.jsonPaymentProviderResponse = jsonPaymentGatewayResponse;
-            refund.DateApproved = DateTime.UtcNow;
+            refund.DatePaid = DateTime.UtcNow;
             refund.PaymentProvider = provider;
             return this._orderDataAccess.Update(order);
         }

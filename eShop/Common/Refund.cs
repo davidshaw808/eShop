@@ -13,6 +13,7 @@ namespace Common
         public bool Active { get; set; }
         public DateTime DateGenerated { get; set; }
         public DateTime? DateApproved { get; set; }
+        public DateTime? DatePaid { get; set; }
         public string? jsonPaymentProviderResponse {  get; set; }
         public PaymentProvider PaymentProvider { get; set; }
 

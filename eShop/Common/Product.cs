@@ -10,6 +10,7 @@ namespace Common
         public string Description { get; set; }
         public decimal Price { get; set; }
         public int? NumberInStock { get; set; }
+        public int? RestrictedAge { get; set; } 
 
         public Category? Category { get; set; }
         public IList<Review>? Reviews { get; set; }

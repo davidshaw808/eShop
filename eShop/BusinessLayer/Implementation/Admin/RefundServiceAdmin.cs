@@ -45,5 +45,10 @@ namespace BusinessLayer.Implementation.Admin
         {
             return _dataAccess.Update(refund);
         }
+
+        public IEnumerable<Refund> GetAllOutstandingRefunds()
+        {
+            return this._dataAccess.GetAllRequiringApproval();
+        }
     }
 }
