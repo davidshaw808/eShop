@@ -3,35 +3,35 @@ using BusinessLayer.Interface.Admin;
 using Common;
 using DataLayer.Interface;
 
-namespace BusinessLayer.Implementation
+namespace BusinessLayer.Implementation.Admin
 {
-    public class ProductService: ProductOrderService, IProductServiceAdmin
+    public class ProductServiceAdmin : IProductServiceAdmin
     {
         readonly IProductDataAccess _productDataAccess;
 
-        public ProductService(IProductDataAccess productDataAccess): base(productDataAccess)
+        public ProductServiceAdmin(IProductDataAccess productDataAccess)
         {
-            this._productDataAccess = productDataAccess;
-        }   
+            _productDataAccess = productDataAccess;
+        }
 
         public bool Delete(Product t)
         {
-            if(t.Id == null)
+            if (t.Id == null)
             {
                 return false;
             }
-            this._productDataAccess.Delete(t);
+            _productDataAccess.Delete(t);
             return true;
         }
 
         public bool Generate(Product t)
         {
-            return this._productDataAccess.Generate(t);
+            return _productDataAccess.Generate(t);
         }
 
         public bool IsValidTransaction(IEnumerable<Product> products)
         {
-            if(products.Any(p => p.Id == null || p.NumberInStock == null))
+            if (products.Any(p => p.Id == null || p.NumberInStock == null))
             {
                 return false;
             }
@@ -40,7 +40,7 @@ namespace BusinessLayer.Implementation
                 .Select(p => new GroupedProduct { Id = (int)p.Key, Products = p.ToList() });
 
             var prodList = groupedProds
-                .Select(gp => new SimpleProduct(){Id = gp.Id, Quantity = gp.Products.Sum(p => p.NumberInStock)})
+                .Select(gp => new SimpleProduct() { Id = gp.Id, Quantity = gp.Products.Sum(p => p.NumberInStock) })
                 .ToArray();
 
             foreach (var p in prodList)

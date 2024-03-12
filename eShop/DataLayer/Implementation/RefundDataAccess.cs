@@ -1,4 +1,5 @@
-﻿using DataLayer.Databases.Base;
+﻿using Common;
+using DataLayer.Databases.Base;
 using DataLayer.Interface;
 
 namespace DataLayer.Implementation
@@ -12,7 +13,7 @@ namespace DataLayer.Implementation
             this._db = db;
         }
 
-        public bool Delete(Common.Refund t)
+        public bool Delete(Refund t)
         {
             if(t.AltId == null)
             {
@@ -28,13 +29,14 @@ namespace DataLayer.Implementation
             return true;
         }
 
-        public bool Generate(Common.Refund t)
+        public bool Generate(Refund t)
         {
             if(t.Id != null) 
             {
                 return false;
             }
             t.AltId = Guid.NewGuid();
+            t.DateGenerated = DateTime.UtcNow;
             this._db.Refunds.Add(t);
             return this._db.SaveChanges() > 0;
         }
@@ -44,7 +46,12 @@ namespace DataLayer.Implementation
             return this._db.Refunds.FirstOrDefault(r => r.AltId == id);
         }
 
-        public bool Update(Common.Refund t)
+        public IEnumerable<Refund> GetAllRequiringApproval()
+        {
+           return this._db.Refunds.Where(r => r.DateApproved == null);
+        }
+
+        public bool Update(Refund t)
         {
             this._db.Refunds.Update(t);
             return this._db.SaveChanges() > 0;
