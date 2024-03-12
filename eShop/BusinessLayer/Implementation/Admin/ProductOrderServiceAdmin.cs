@@ -5,16 +5,11 @@ using DataLayer.Interface;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BusinessLayer.Implementation
+namespace BusinessLayer.Implementation.Admin
 {
-    public class ProductOrderService: IProductOrderServiceAdmin
+    public class ProductOrderServiceAdmin(IProductDataAccess productDataAccess) : IProductOrderServiceAdmin
     {
-        readonly IProductDataAccess _productDataAccess;
-
-        public ProductOrderService(IProductDataAccess productDataAccess)
-        {
-            this._productDataAccess = productDataAccess;
-        }
+        readonly IProductDataAccess _productDataAccess = productDataAccess;
 
         public (decimal RefundAmount, string Message)? UpdateAfterSale(Order order)
         {
@@ -39,7 +34,7 @@ namespace BusinessLayer.Implementation
             }
             if (error.Length == 0 && refundAmmount == 0)
             {
-                this._productDataAccess.UpdateAll(order.Products);
+                _productDataAccess.UpdateAll(order.Products);
                 return null;
             }
             return (refundAmmount, error.ToString());

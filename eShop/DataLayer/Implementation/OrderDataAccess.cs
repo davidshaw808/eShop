@@ -54,6 +54,10 @@ namespace DataLayer.Implementation
 
         public bool Update(PaymentDetails pd)
         {
+            if(pd.Order == null)
+            {
+                throw new ArgumentException("Payment does not have an order.");
+            }
             if (pd.Id == null)
             {
                 this._db.PaymentDetails.Add(pd);

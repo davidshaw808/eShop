@@ -60,9 +60,7 @@ namespace DataLayer.Databases.Base
                .WithOne();
             modelBuilder.Entity<Order>()
                 .HasMany(o => o.Refunds)
-                .WithMany(r => r.Orders)
-                .UsingEntity("OrderRefunds");
-
+                .WithOne(r => r.Order);
             modelBuilder.Entity<Order>()
                .HasOne(o => o.PaymentDetails)
                .WithOne()
