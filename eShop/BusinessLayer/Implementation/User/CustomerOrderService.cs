@@ -4,15 +4,15 @@ using Common;
 using DataLayer.Interface;
 
 
-namespace BusinessLayer.Implementation
+namespace BusinessLayer.Implementation.User
 {
-    public class CustomerOrderService: ICustomerOrderServiceAdmin, ICustomerOrderService
+    public class CustomerOrderService : ICustomerOrderServiceAdmin, ICustomerOrderService
     {
         readonly ICustomerDataAccess _customerDataAccess;
 
         public CustomerOrderService(ICustomerDataAccess custDl)
         {
-            this._customerDataAccess = custDl;
+            _customerDataAccess = custDl;
         }
 
         public bool AddOrder(Guid id, Order order)
@@ -21,7 +21,7 @@ namespace BusinessLayer.Implementation
             {
                 return false;
             }
-            var customer = this._customerDataAccess.Get(id);
+            var customer = _customerDataAccess.Get(id);
             if (customer == null)
             {
                 return false;
@@ -42,7 +42,7 @@ namespace BusinessLayer.Implementation
             }
             t.Id = null;
             t.Active = true;
-            return this._customerDataAccess.Generate(t);
+            return _customerDataAccess.Generate(t);
         }
 
         public bool Update(Customer t)
@@ -51,7 +51,7 @@ namespace BusinessLayer.Implementation
             {
                 return false;
             }
-            return this._customerDataAccess.Update(t);
+            return _customerDataAccess.Update(t);
         }
     }
 }

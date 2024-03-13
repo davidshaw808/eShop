@@ -14,6 +14,7 @@ namespace DataLayer.Databases.Base
         public DbSet<HistoryLog> HistoryLogs { get; set; }
         public DbSet<OrderUpdate> OrderUpdates { get; set; }
         public DbSet<PaymentDetails> PaymentDetails { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -65,7 +66,10 @@ namespace DataLayer.Databases.Base
                .HasOne(o => o.PaymentDetails)
                .WithOne()
                .HasForeignKey<Order>("PaymentId");
-
+            modelBuilder.Entity<Product>()
+                .HasMany(p => p.Reviews)
+                .WithOne(r => r.Product)
+                .HasForeignKey(r => r.ProductId);
         }
     }
 }

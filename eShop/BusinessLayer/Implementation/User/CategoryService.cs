@@ -2,7 +2,7 @@
 using Common;
 using DataLayer.Interface;
 
-namespace BusinessLayer.Implementation
+namespace BusinessLayer.Implementation.User
 {
     public class CategoryService : ICategoryServiceAdmin
     {
@@ -11,17 +11,17 @@ namespace BusinessLayer.Implementation
 
         public CategoryService(ICategoryDataAccess categoryDataAccess, IProductServiceAdmin productService)
         {
-            this._categoryDataAccess = categoryDataAccess;
-            this._productService = productService;
+            _categoryDataAccess = categoryDataAccess;
+            _productService = productService;
         }
 
         public bool Delete(Category t)
         {
-            if(t.Id == null)
+            if (t.Id == null)
             {
                 return false;
             }
-            var c = this._categoryDataAccess.Get((int)t.Id);
+            var c = _categoryDataAccess.Get((int)t.Id);
             if (c == null)
             {
                 return false;
@@ -33,16 +33,16 @@ namespace BusinessLayer.Implementation
                     k.Parent = c.Parent;
                 }
             }
-            this._categoryDataAccess.Update(c.Children);
-            this._categoryDataAccess.Delete(c);
+            _categoryDataAccess.Update(c.Children);
+            _categoryDataAccess.Delete(c);
             return true;
         }
 
         public bool Generate(Category t)
         {
 
-            if(t.Id != null) { return false;  }
-            this._categoryDataAccess.Generate(t);
+            if (t.Id != null) { return false; }
+            _categoryDataAccess.Generate(t);
             return true;
         }
 
@@ -51,16 +51,16 @@ namespace BusinessLayer.Implementation
             var newProducts = t.Products?.Where(p => p.Id == null);
             if (newProducts.Any())
             {
-                foreach(var p in newProducts)
+                foreach (var p in newProducts)
                 {
-                    this._productService.Generate(p);
+                    _productService.Generate(p);
                 }
             }
             if (t.Id == null)
             {
                 return false;
             }
-            return this._categoryDataAccess.Update(t);
+            return _categoryDataAccess.Update(t);
         }
     }
 }

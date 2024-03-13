@@ -10,14 +10,14 @@ namespace Common
         public string Description { get; set; }
         public decimal Price { get; set; }
         public int? NumberInStock { get; set; }
-        public int? RestrictedAge { get; set; } 
+        public int? RestrictedToAge { get; set; } 
 
         public Category? Category { get; set; }
         public IList<Review>? Reviews { get; set; }
 
-        public S Visit<S>(Func<Product, S> visitor)
+        public Product Visit(IVisitor<Product> visitor)
         {
-            return visitor(this);
+            return visitor.Visit(this);
         }
     }
 }

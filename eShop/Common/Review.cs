@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Common
 {
@@ -13,5 +9,8 @@ namespace Common
         public string Title { get; set; }
         public string Description { get; set; }
         public Product? Product { get; set; }
+
+        [EmailAddress]
+        public string Owner { get; set; }
     }
 }

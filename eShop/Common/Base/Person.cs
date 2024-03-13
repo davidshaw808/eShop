@@ -1,4 +1,5 @@
 ﻿using Common.Interface;
+using System.ComponentModel.DataAnnotations;
 
 namespace Common.Base
 {
@@ -9,6 +10,7 @@ namespace Common.Base
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? UserName { get; set; }
+        [EmailAddress]
         public string? Email { get; set; }
 
         public Address? Address { get; set; }
@@ -17,6 +19,6 @@ namespace Common.Base
         public IList<Product>? Basket { get; set; }
         public bool Active {  get; set; }
 
-        public abstract S Visit<S>(Func<Person, S> visitor);
+        public abstract Person Visit(IVisitor<Person> visitor);
     }
 }

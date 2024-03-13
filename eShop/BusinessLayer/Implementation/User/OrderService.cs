@@ -5,7 +5,7 @@ using Common;
 using Common.Enum;
 using DataLayer.Interface;
 
-namespace BusinessLayer.Implementation
+namespace BusinessLayer.Implementation.User
 {
     public class OrderService(IOrderDataAccess orderDataAccess,
         IRefundDataAccess refundDataAccess,
@@ -21,7 +21,7 @@ namespace BusinessLayer.Implementation
 
         public bool AddOrderUpdate(Guid orderId, OrderUpdate update)
         {
-            var order = this._orderDataAccess.Get(orderId);
+            var order = _orderDataAccess.Get(orderId);
             return AddOrderUpdate(order, update);
         }
 
@@ -33,7 +33,7 @@ namespace BusinessLayer.Implementation
             }
             orderUpdate.Order = order;
             order.Updates ??= [];
-            if(orderUpdate.CreatedDate == DateTime.MinValue)
+            if (orderUpdate.CreatedDate == DateTime.MinValue)
             {
                 orderUpdate.CreatedDate = DateTime.UtcNow;
             }
@@ -42,20 +42,20 @@ namespace BusinessLayer.Implementation
             {
                 order.Delivered = true;
             }
-            else if(orderUpdate.Status == OrderStatus.Cancelled)
+            else if (orderUpdate.Status == OrderStatus.Cancelled)
             {
                 order.Cancelled = true;
             }
-            return this._orderDataAccess.Update(order);
+            return _orderDataAccess.Update(order);
         }
 
         public bool Delete(Order t)
         {
-            if(t.AltId == null)
+            if (t.AltId == null)
             {
                 return false;
             }
-            return this._orderDataAccess.Delete(t);
+            return _orderDataAccess.Delete(t);
         }
 
         public bool Generate(Order order)
@@ -64,23 +64,23 @@ namespace BusinessLayer.Implementation
             {
                 return false;
             }
-            this._orderDataAccess.Generate(order);
-            if(order.Customer.AltId == null)
+            _orderDataAccess.Generate(order);
+            if (order.Customer.AltId == null)
             {
-                this._customerOrderService.Generate(order.Customer);
-                  this._customerOrderService.AddOrder((Guid)order.Customer.AltId, order);
+                _customerOrderService.Generate(order.Customer);
+                _customerOrderService.AddOrder((Guid)order.Customer.AltId, order);
             }
-            this.AddOrderUpdate(order, OrderStatus.Paid, "Order generated");
+            AddOrderUpdate(order, OrderStatus.Paid, "Order generated");
             if (order.Address.AltId == null)
             {
-                this._addressOrderService.Generate(order.Address);
+                _addressOrderService.Generate(order.Address);
             }
-            if(order.PaymentDetails.Id == null)
+            if (order.PaymentDetails.Id == null)
             {
-                this._orderDataAccess.Generate(order.PaymentDetails);
+                _orderDataAccess.Generate(order.PaymentDetails);
             }
             order.Active = true;
-            var result = this._productOrderService.UpdateAfterSale(order);
+            var result = _productOrderService.UpdateAfterSale(order);
             if (result != null)
             {
                 //log here
@@ -95,12 +95,12 @@ namespace BusinessLayer.Implementation
             {
                 return false;
             }
-            return this._orderDataAccess.Update(order);
+            return _orderDataAccess.Update(order);
         }
 
         public Order? GetOrder(Guid orderId)
         {
-            return this._orderDataAccess.Get(orderId);
+            return _orderDataAccess.Get(orderId);
         }
 
         protected bool AddOrderUpdate(Order order, OrderStatus orderStatus, string text)
@@ -111,14 +111,14 @@ namespace BusinessLayer.Implementation
                 Status = orderStatus,
                 UpdateText = text
             };
-            if(order.AltId == null)
+            if (order.AltId == null)
             {
-                if (!this.Generate(order))
+                if (!Generate(order))
                 {
                     return false;
                 }
             }
-            return this.AddOrderUpdate((Guid)order.AltId, ou);
+            return AddOrderUpdate((Guid)order.AltId, ou);
         }
 
         protected Refund GenerateRefund(Order order, decimal amount, string description)
@@ -130,10 +130,10 @@ namespace BusinessLayer.Implementation
                 Amount = amount,
                 DateGenerated = DateTime.UtcNow,
             };
-            this._refundDataAccess.Generate(refund);
+            _refundDataAccess.Generate(refund);
             order.Refunds ??= [];
             order.Refunds.Add(refund);
-            this._orderDataAccess.Update(order);
+            _orderDataAccess.Update(order);
             return refund;
         }
 

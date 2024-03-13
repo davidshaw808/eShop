@@ -1,13 +1,12 @@
-﻿using BusinessLayer.ClassHelpers;
+﻿using BusinessLayer.Implementation.User;
 using BusinessLayer.Interface.Admin;
 using Common;
 using DataLayer.Interface;
-using System.Collections.Generic;
 using System.Text;
 
 namespace BusinessLayer.Implementation.Admin
 {
-    public class ProductOrderServiceAdmin(IProductDataAccess productDataAccess) : IProductOrderServiceAdmin
+    public class ProductOrderServiceAdmin(IProductDataAccess productDataAccess) : BaseProductService, IProductOrderServiceAdmin
     {
         readonly IProductDataAccess _productDataAccess = productDataAccess;
 
@@ -19,7 +18,7 @@ namespace BusinessLayer.Implementation.Admin
             {
                 return null;
             }
-            var prodList = GetProducsFromOrder(order.Products);
+            var prodList = GroupProducts(order.Products);
             foreach (var p in prodList)
             {
                 if (p.Quantity > 0)
@@ -38,23 +37,6 @@ namespace BusinessLayer.Implementation.Admin
                 return null;
             }
             return (refundAmmount, error.ToString());
-        }
-
-        protected static IEnumerable<SimpleProduct> GetProducsFromOrder(IEnumerable<Product> products)
-        {
-            var groupedProds = products
-                .GroupBy(p => p.Id)
-                .Select(p => new GroupedProduct { Id = (int)p.Key, Products = p.ToList() });
-
-            return groupedProds
-                .Select(gp => new SimpleProduct()
-                {
-                    Id = gp.Id,
-                    Name = products.FirstOrDefault(p => p.Id == gp.Id)?.Name ?? "",
-                    Price = gp.Products.Average(p => p.Price),
-                    Quantity = gp.Products.Sum(p => p.NumberInStock)
-                })
-                .ToArray();
         }
     }
 }

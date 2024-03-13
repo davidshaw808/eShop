@@ -17,9 +17,9 @@ namespace Common
         public IList<Product>? Products { get; set;}
         public bool Active { get; set; }
 
-        public S Visit<S>(Func<Category, S> visitor)
+        public Category Visit(IVisitor<Category> visitor)
         {
-            return visitor(this);
+            return visitor.Visit(this);
         }
     }
 }

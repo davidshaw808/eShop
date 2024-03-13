@@ -17,9 +17,9 @@ namespace Common
         public string? Region { get; set; }
         public string PostalCode { get; set; }
         public bool Active {  get; set; }
-        public S Visit<S>(Func<Address, S> visitor)
+        public Address Visit(IVisitor<Address> visitor)
         {
-            return visitor(this);
+            return visitor.Visit(this);
         }
     }
 }

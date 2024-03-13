@@ -17,9 +17,9 @@ namespace Common
         public string? jsonPaymentProviderResponse {  get; set; }
         public PaymentProvider PaymentProvider { get; set; }
 
-        public S Visit<S>(Func<Refund, S> visitor)
+        public Refund Visit(IVisitor<Refund> visitor)
         {
-            return visitor(this);
+            return visitor.Visit(this);
         }
     }
 }

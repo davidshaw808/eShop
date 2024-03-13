@@ -45,9 +45,9 @@ namespace Common
         public bool Delivered { get; set; }
         public bool Cancelled { get; set; }
 
-        public S Visit<S>(Func<Order, S> visitor)
+        public Order Visit(IVisitor<Order> visitor)
         {
-            return visitor(this);
+            return visitor.Visit(this);
         }
     }
 }

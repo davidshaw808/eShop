@@ -4,17 +4,17 @@ using Common;
 using Common.Enum;
 using DataLayer.Interface;
 
-namespace BusinessLayer.Implementation
+namespace BusinessLayer.Implementation.User
 {
     public class CustomerService : CustomerOrderService, ICustomerServiceAdmin, ICustomerService
     {
         readonly ICustomerDataAccess _customerDataAccess;
         readonly IOrderCustomerServiceAdmin _orderCustomerService;
 
-        public CustomerService(ICustomerDataAccess custDl, IOrderCustomerServiceAdmin orderCustomerService): base(custDl)
+        public CustomerService(ICustomerDataAccess custDl, IOrderCustomerServiceAdmin orderCustomerService) : base(custDl)
         {
-            this._customerDataAccess = custDl;
-            this._orderCustomerService = orderCustomerService;
+            _customerDataAccess = custDl;
+            _orderCustomerService = orderCustomerService;
         }
 
         public bool AddItemsToBasket(Guid id, Product product)
@@ -23,7 +23,7 @@ namespace BusinessLayer.Implementation
             {
                 return false;
             }
-            var customer = this._customerDataAccess.Get(id);
+            var customer = _customerDataAccess.Get(id);
             if (customer == null)
             {
                 return false;
@@ -38,58 +38,58 @@ namespace BusinessLayer.Implementation
 
         public bool Delete(Customer t)
         {
-            return this._customerDataAccess.Delete(t);
+            return _customerDataAccess.Delete(t);
         }
 
         public IEnumerable<Customer> GetAllActiveCustomers()
         {
-            return this._customerDataAccess.Get(c => c.Active);
+            return _customerDataAccess.Get(c => c.Active);
         }
 
         public IEnumerable<Customer> GetAllCustomers()
         {
-            return this._customerDataAccess.Get(c => true);
+            return _customerDataAccess.Get(c => true);
         }
 
         public IEnumerable<Customer> GetCustomerByEmail(string email)
         {
-            return this._customerDataAccess.Get(c => c.Email == email);
+            return _customerDataAccess.Get(c => c.Email == email);
         }
 
         public IEnumerable<Customer> GetCustomerByName(string firstName, string lastName)
         {
-            return this._customerDataAccess.Get(c => c.FirstName == firstName && c.LastName == lastName);
+            return _customerDataAccess.Get(c => c.FirstName == firstName && c.LastName == lastName);
         }
 
         public IEnumerable<Order>? GetCustomerOrderHistory(Guid id)
         {
-            return this._customerDataAccess.Get(id)?.OrderHistory;
+            return _customerDataAccess.Get(id)?.OrderHistory;
         }
 
         public bool RemoveAllCustomerInfo(Guid id, string email)
         {
-            var deletedCustomer = this._customerDataAccess.Get(id);
-            if(deletedCustomer == null || deletedCustomer.Email != email)
+            var deletedCustomer = _customerDataAccess.Get(id);
+            if (deletedCustomer == null || deletedCustomer.Email != email)
             {
                 return false;//possible malicious query
             }
-            if(deletedCustomer.OrderHistory?.Any(o => o.Updates?.Any(u => u.Status == OrderStatus.Shipped || u.Status == OrderStatus.InTransit || u.Status == OrderStatus.Paid) ?? true) ?? false)
+            if (deletedCustomer.OrderHistory?.Any(o => o.Updates?.Any(u => u.Status == OrderStatus.Shipped || u.Status == OrderStatus.InTransit || u.Status == OrderStatus.Paid) ?? true) ?? false)
             {
                 throw new InvalidOperationException("Customer has items yet to be delivered");
             }
             var dummyCustomer = GenerateDummyCustomer("RemovedCustomer");
-            this.Generate(dummyCustomer);
-            if(dummyCustomer.AltId == null)
+            Generate(dummyCustomer);
+            if (dummyCustomer.AltId == null)
             {
                 dummyCustomer.AltId = Guid.NewGuid();
             }
-            this._orderCustomerService.TransferOrderHistory(id, dummyCustomer);
-            return this._customerDataAccess.PermanentlyRemoveAllCustomerData(id);
+            _orderCustomerService.TransferOrderHistory(id, dummyCustomer);
+            return _customerDataAccess.PermanentlyRemoveAllCustomerData(id);
         }
 
         public IEnumerable<Address>? GetCustomerAddresses(Guid altId)
         {
-            return this._customerDataAccess.Get(altId)?.OrderHistory?.Select(oh => oh.Address);
+            return _customerDataAccess.Get(altId)?.OrderHistory?.Select(oh => oh.Address);
         }
 
         private Customer GenerateDummyCustomer(string email)

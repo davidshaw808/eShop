@@ -2,14 +2,14 @@
 using Common;
 using DataLayer.Interface;
 
-namespace BusinessLayer.Implementation
+namespace BusinessLayer.Implementation.User
 {
-    public class AddressService: AddressOrderService, IAddressService
+    public class AddressService : AddressOrderService, IAddressService
     {
         readonly IAddressDataAccess _addressDataAccess;
-        public AddressService(IAddressDataAccess addressDataAccess): base(addressDataAccess)
+        public AddressService(IAddressDataAccess addressDataAccess) : base(addressDataAccess)
         {
-            this._addressDataAccess = addressDataAccess;
+            _addressDataAccess = addressDataAccess;
         }
 
         public bool Delete(Address t)
@@ -18,12 +18,12 @@ namespace BusinessLayer.Implementation
             {
                 return false;
             }
-            return this._addressDataAccess.Delete(t);
+            return _addressDataAccess.Delete(t);
         }
 
         public Address? Get(Guid addressId)
         {
-            return this._addressDataAccess.Get(addressId);
+            return _addressDataAccess.Get(addressId);
         }
 
         public bool Update(Address t)
@@ -32,11 +32,11 @@ namespace BusinessLayer.Implementation
             {
                 throw new InvalidDataException("house name/number and post code cannot be null");
             }
-            if(t.Id == null)
+            if (t.Id == null)
             {
                 return false;
             }
-            return this._addressDataAccess.Update(t);
+            return _addressDataAccess.Update(t);
         }
     }
 }

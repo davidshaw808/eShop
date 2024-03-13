@@ -1,18 +1,14 @@
-﻿using BusinessLayer.ClassHelpers;
+﻿using BusinessLayer.Implementation.User;
 using BusinessLayer.Interface.Admin;
 using Common;
 using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation.Admin
 {
-    public class ProductServiceAdmin : IProductServiceAdmin
+    public class ProductServiceAdmin(IProductDataAccess productDataAccess,
+        IReviewDataAccess reviewDataAccess) : ProductService(reviewDataAccess), IProductServiceAdmin
     {
-        readonly IProductDataAccess _productDataAccess;
-
-        public ProductServiceAdmin(IProductDataAccess productDataAccess)
-        {
-            _productDataAccess = productDataAccess;
-        }
+        readonly IProductDataAccess _productDataAccess = productDataAccess;
 
         public bool Delete(Product t)
         {
@@ -35,15 +31,7 @@ namespace BusinessLayer.Implementation.Admin
             {
                 return false;
             }
-            var groupedProds = products
-                .GroupBy(p => p.Id)
-                .Select(p => new GroupedProduct { Id = (int)p.Key, Products = p.ToList() });
-
-            var prodList = groupedProds
-                .Select(gp => new SimpleProduct() { Id = gp.Id, Quantity = gp.Products.Sum(p => p.NumberInStock) })
-                .ToArray();
-
-            var prodList = GetProducsFromOrder(products);
+            var prodList = GroupProducts(products);
             foreach (var p in prodList)
             {
                 if (p.Quantity > 0)

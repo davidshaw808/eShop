@@ -2,7 +2,7 @@
 using Common;
 using DataLayer.Interface;
 
-namespace BusinessLayer.Implementation
+namespace BusinessLayer.Implementation.User
 {
     public class AddressOrderService : IAddressOrderService
     {
@@ -18,7 +18,7 @@ namespace BusinessLayer.Implementation
             {
                 throw new InvalidDataException("house name/number and post code cannot be null");
             }
-            return this._addressDataAccess.Generate(t);
+            return _addressDataAccess.Generate(t);
         }
     }
 }
