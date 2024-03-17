@@ -13,7 +13,7 @@ namespace DataLayer.Implementation
             this._db = db;
         }
 
-        public bool Delete(Common.Order t)
+        public bool LogicalDelete(Common.Order t)
         {
             if(t.AltId == null)
             {

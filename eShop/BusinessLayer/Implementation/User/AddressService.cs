@@ -12,13 +12,13 @@ namespace BusinessLayer.Implementation.User
             _addressDataAccess = addressDataAccess;
         }
 
-        public bool Delete(Address t)
+        public bool LogicalDelete(Address t)
         {
             if (t.Id == null)
             {
                 return false;
             }
-            return _addressDataAccess.Delete(t);
+            return _addressDataAccess.LogicalDelete(t);
         }
 
         public Address? Get(Guid addressId)

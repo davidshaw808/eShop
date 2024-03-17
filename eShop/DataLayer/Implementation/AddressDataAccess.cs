@@ -7,11 +7,12 @@ namespace DataLayer.Implementation
     {
         private readonly eShopBaseContext _db;
 
-        public AddressDataAccess(eShopBaseContext db) {
+        public AddressDataAccess(eShopBaseContext db) 
+        {
             this._db = db;
         }
 
-        public bool Delete(Common.Address t)
+        public bool LogicalDelete(Common.Address t)
         {
             var add = this._db.Addresses.FirstOrDefault(a => a.Id.Equals(t.Id));
             if (add != null)
@@ -42,22 +43,6 @@ namespace DataLayer.Implementation
 
         public bool Update(Common.Address t)
         {
-            /*if(t.Id == null || t.AltId == null)
-            {
-                return false;
-            }
-            var a = this.Get((Guid)t.AltId);
-            if (a == null)
-            {
-                return false;
-            }
-            this._db.Addresses.Update(a);
-            a.Active = t.Active;
-            a.AddressLines = t.AddressLines;
-            if (t.CityTown != null) { a.CityTown = t.CityTown; };
-            a.HouseNameNumber = t.HouseNameNumber;
-            if (t.PostalCode != null) { a.PostalCode = t.PostalCode; };
-            a.Region = t.Region;*/
             this._db.Addresses.Update(t);
             this._db.SaveChanges();
             return true;

@@ -1,57 +1,74 @@
-﻿using BusinessLayer.Interface.Admin;
+﻿using BusinessLayer.ClassHelpers.Extensions;
 using BusinessLayer.Interface.User;
 using Common;
 using DataLayer.Interface;
 
-
 namespace BusinessLayer.Implementation.User
 {
-    public class CustomerOrderService : ICustomerOrderServiceAdmin, ICustomerOrderService
+    public class CustomerOrderService(ICustomerDataAccess customerDataAccess): ICustomerOrderService
     {
-        readonly ICustomerDataAccess _customerDataAccess;
+        private readonly ICustomerDataAccess _customerDataAccess = customerDataAccess;
 
-        public CustomerOrderService(ICustomerDataAccess custDl)
+        public (bool CanProcess, string Message) CanProcessBasket(Guid altCustId)
         {
-            _customerDataAccess = custDl;
+            var products = this._customerDataAccess.Get(altCustId)?.Basket;
+            if (products == null)
+            {
+                return (false, "No products in basket");
+            }
+            if(products.Any(p => p.Id == null || p.NumberInStock == null))
+            {
+                var error = products
+                    .Where(p => p.Id == null || p.NumberInStock == null)
+                    .Select(p => p.Name);
+                var errorMessage = string.Join(", ", error);
+                return (false, $"Product(s) '{errorMessage}' either have invalid Id's or stock numbers");
+            }
+            var prodList = products.GroupProducts();
+            foreach (var p in prodList)
+            {
+                var instock = products.FirstOrDefault(prod =>  prod.Id == p.Id).NumberInStock;
+                if (p.Quantity > instock)
+                {
+                    return (false, $"'{p.Name}' has {p.Quantity} in basket but only {instock} in stock");
+                }
+            }
+            return (true, "");
         }
 
-        public bool AddOrder(Guid id, Order order)
+        public bool ClearBasket(Guid altCustId)
         {
-            if (order.Id == null || order.AltId == null)
+            var customer = this._customerDataAccess.Get(altCustId);
+            if(customer == null)
             {
                 return false;
             }
-            var customer = _customerDataAccess.Get(id);
-            if (customer == null)
-            {
-                return false;
-            }
-            if (customer.OrderHistory == null)
-            {
-                customer.OrderHistory = new List<Order>();
-            }
-            customer.OrderHistory.Add(order);
-            return true;
+            customer.Basket?.Clear();
+            customer.LockBasket = false;
+            return this._customerDataAccess.Update(customer);
         }
 
-        public bool Generate(Customer t)
+        public bool Generate(Customer customer)
         {
-            if (t == null || t.Email == null)
+            if(customer.AltId != null)
             {
                 return false;
             }
-            t.Id = null;
-            t.Active = true;
-            return _customerDataAccess.Generate(t);
+            customer.AltId = Guid.NewGuid();
+            return _customerDataAccess.Generate(customer);
         }
 
-        public bool Update(Customer t)
+        public IEnumerable<Product> PrepareBasketPayment(Guid altCustId)
         {
-            if (t.Id == null || t.AltId == null)
-            {
-                return false;
-            }
-            return _customerDataAccess.Update(t);
+            var customer = this._customerDataAccess.Get(altCustId);
+            customer.LockBasket = true;
+            this._customerDataAccess.Update(customer);
+            return customer.Basket;
+        }
+
+        public bool Update(Customer customer)
+        {
+            return _customerDataAccess.Update(customer);
         }
     }
 }

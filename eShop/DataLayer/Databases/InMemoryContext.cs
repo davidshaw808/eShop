@@ -1,6 +1,7 @@
-﻿using Common;
-using DataLayer.Databases.Base;
+﻿using DataLayer.Databases.Base;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Logging;
 
 namespace DataLayer.Databases
 {
@@ -16,6 +17,11 @@ namespace DataLayer.Databases
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite($"Data Source={DbPath}");
+        {
+            options.UseSqlite($"Data Source={DbPath}");
+            var ignoreWarnings = new EventId[] { RelationalEventId.AmbientTransactionWarning };//TransactionScope does not support a non-relational database
+            options.ConfigureWarnings(warnConfig => warnConfig.Ignore(ignoreWarnings));
+        }
+
     }
 }

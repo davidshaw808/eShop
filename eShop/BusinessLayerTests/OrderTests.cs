@@ -1,6 +1,8 @@
+using BusinessLayer.Implementation.Admin;
+using BusinessLayer.Implementation.User;
 using BusinessLayer.Interface.Admin;
 using BusinessLayer.Interface.User;
-using BusinessLayer.TestingHelpers;
+using BusinessLayerTests.TestingHelpers;
 using Common;
 using Common.Enum;
 using DataLayer.Databases;
@@ -18,41 +20,78 @@ namespace BusinessLayerTests
         }
 
         [TestMethod]
-        public void GenerateOrder()
+        public void GenerateOrderAdmin()
         {
+            var productservice = TestingHelper.GetService<IProductServiceAdmin>(this._db);
+            var orderService = TestingHelper.GetService<IOrderServiceAdmin>(this._db);
+            var customerService = TestingHelper.GetService<ICustomerService>(this._db);
+            var addressService = TestingHelper.GetService<IAddressService>(this._db);
+            var numberInStock = 10;
             //arrange
-            var addr = new Address() { HouseNameNumber = "22", PostalCode = "test" };
-            var cust = new Customer() { Address = addr, Email = "test@test" };
-            var pd = new PaymentDetails()
-            {
-                Amount = (decimal)100.01,
-                Currency = Currency.GBP,
-                PaymentProvider = PaymentProvider.Paypal,
-                Created = DateTime.UtcNow,
-                PaymentProviderId = Guid.NewGuid().ToString()
-            };
-            var order = new Order()
+            var product = new Product()
             {
                 Active = true,
-                Address = addr,
-                Amount = (decimal)100.01,
-                Currency = Common.Enum.Currency.GBP,
-                Customer = cust,
-                PaymentDetails = pd
+                Name = "Bowl",
+                Description = "Clay bowl",
+                Price = (decimal)5.99,
+                NumberInStock = numberInStock
             };
-            var os = TestingHelper.GetService<IOrderServiceAdmin>(this._db);
+            productservice.Generate(product);
+            var addr = new Address() { Active = true, HouseNameNumber = "22", PostalCode = "test" };
+            addressService.Generate(addr);
+            var cust = new Customer() { Active = true, Address = addr, Email = "test@test", Basket = [product] };
+            customerService.Generate(cust);
             //act
-            var result = os.Generate(order);
+            var canProcess = orderService.CanProcessBasket((Guid)cust.AltId);
+            Assert.IsFalse(canProcess.IsError);
+            var result = orderService.Generate(cust, "0123456", "{ id:0123456, paymentDate:'12/3/24' payment:5.99 }", (decimal)5.99, Currency.GBP, PaymentProvider.Paypal, addr);
             //assert
-            Assert.IsTrue(result);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(product.NumberInStock, numberInStock-1);
         }
 
         [TestMethod]
-        public void UpdateOrder()
+        public void GenerateOrderWithRefundAdmin()
         {
+            var productservice = TestingHelper.GetService<IProductServiceAdmin>(this._db);
+            var orderService = TestingHelper.GetService<IOrderServiceAdmin>(this._db);
+            var customerService = TestingHelper.GetService<ICustomerService>(this._db);
+            var addressService = TestingHelper.GetService<IAddressService>(this._db);
+            var numberInStock = 10;
+            //arrange
+            var product = new Product()
+            {
+                Active = true,
+                Name = "Bowl",
+                Description = "Clay bowl",
+                Price = (decimal)5.99,
+                NumberInStock = numberInStock
+            };
+            productservice.Generate(product);
+            var addr = new Address() { Active = true, HouseNameNumber = "22", PostalCode = "test" };
+            addressService.Generate(addr);
+            var cust = new Customer() { Active = true, Address = addr, Email = "test@test", Basket = [product] };
+            customerService.Generate(cust);
+            //act
+            var canProcess = orderService.CanProcessBasket((Guid)cust.AltId);
+            Assert.IsFalse(canProcess.IsError);
+            var result = orderService.Generate(cust, "0123456", "{ id:0123456, paymentDate:'12/3/24' payment:11.99 }", (decimal)11.98, Currency.GBP, PaymentProvider.Paypal, addr);
+            //assert
+            Assert.IsNotNull(result);
+            var order = orderService.GetOrder((Guid)result);
+            Assert.AreEqual(product.NumberInStock, numberInStock - 1);
+            Assert.AreEqual(order.Refunds.First().Amount, (decimal)5.99);
+        }
+
+        [TestMethod]
+        public void UpdateOrderAdmin()
+        {
+            var productservice = TestingHelper.GetService<IProductServiceAdmin>(this._db);
+            var orderservice = TestingHelper.GetService<IOrderServiceAdmin>(this._db);
+            var addressService = TestingHelper.GetService<IAddressService>(this._db);
+            var customerService = TestingHelper.GetService<ICustomerService>(this._db);
             //arrange
             var deliveredToCourier = "Delivered to courier";
-            var productservice = TestingHelper.GetService<IProductServiceAdmin>(this._db);
             var product = new Product()
             {
                 Active = true,
@@ -73,30 +112,13 @@ namespace BusinessLayerTests
             productservice.Generate(product2);
 
             var addr = new Address() { HouseNameNumber = "The Red Lion", PostalCode = "N21 8NQ" };
+            addressService.Generate(addr);
             var basket = new List<Product>() { product, product2 };
             var cust = new Customer() { Address = addr, Email = "noreply@theredlion.co.uk", Basket = basket };
-            var paymentdetails = new PaymentDetails()
-            {
-                Amount = (decimal)33.50,
-                Currency = Currency.GBP,
-                PaymentProvider = PaymentProvider.Paypal,
-                Created = DateTime.UtcNow,
-                PaymentProviderId = Guid.NewGuid().ToString()
-            };
-            var order = new Order()
-            {
-                Active = true,
-                Address = addr,
-                Amount = (decimal)56.49,
-                Currency = Common.Enum.Currency.GBP,
-                Customer = cust,
-                PaymentDetails = paymentdetails
-            };
+            customerService.Generate(cust);
             //act
-            var orderservice = TestingHelper.GetService<IOrderServiceAdmin>(this._db);
-            orderservice.Generate(order);
-            Assert.IsNotNull(order.AltId);
-            var orderId = order.AltId;
+            var orderId = orderservice.Generate(cust, "0123456", "{ id:0123456, paymentDate:'12/3/24' payment:89.99 }", (decimal)56.49, Currency.GBP, PaymentProvider.Paypal, addr);
+            Assert.IsNotNull(orderId);
             var returnedOrder = orderservice.GetOrder((Guid)orderId);
             Assert.IsNotNull(returnedOrder);
             orderservice.AddOrderUpdate(returnedOrder, new OrderUpdate() { 
@@ -106,7 +128,55 @@ namespace BusinessLayerTests
             orderservice.Update(returnedOrder);
             returnedOrder = orderservice.GetOrder((Guid)orderId);
             //assert
-            Assert.AreEqual(returnedOrder?.Updates?.LastOrDefault()?.UpdateText ?? string.Empty, deliveredToCourier);
+            var updateText = returnedOrder?.Updates?.LastOrDefault()?.UpdateText ?? string.Empty;
+            Assert.AreEqual(updateText, deliveredToCourier);
+            Assert.AreEqual(product.NumberInStock, 4);
+            Assert.AreEqual(product2.NumberInStock, 9);
+        }
+        
+        [TestMethod]
+        public void UpdateOrderCustomer()
+        {
+            var productservice = TestingHelper.GetService<IProductServiceAdmin>(this._db);
+            var customerService = TestingHelper.GetService<ICustomerService>(this._db);
+            var orderService = TestingHelper.GetService<IOrderService>(this._db);
+            //arrange
+            var product = new Product()
+            {
+                Active = true,
+                Name = "Ceramic Jug",
+                Description = "Jug with intricate detail",
+                Price = (decimal)12.50,
+                NumberInStock = 3
+            };
+            var product2 = new Product()
+            {
+                Active = true,
+                Name = "Tablecloth",
+                Description = "Detailed woven tableware",
+                Price = (decimal)19.99,
+                NumberInStock = 5
+            };
+            productservice.Generate(product);
+            productservice.Generate(product2);
+            var addr = new Address() { HouseNameNumber = "22", PostalCode = "HU5 1LN" };
+            var cust = new Customer() { Address = addr, Email = "noreply@visithull.co.uk" };
+            customerService.Generate(cust);
+
+            Assert.IsNotNull(cust.AltId);
+            customerService.AddItemToBasket((Guid)cust.AltId, product);
+            customerService.AddItemToBasket((Guid)cust.AltId, product);
+            customerService.AddItemToBasket((Guid)cust.AltId, product);
+            customerService.AddItemToBasket((Guid)cust.AltId, product2);
+            customerService.AddItemToBasket((Guid)cust.AltId, product2);
+            customerService.AddItemToBasket((Guid)cust.AltId, product2);
+            customerService.AddItemToBasket((Guid)cust.AltId, product2);
+            var canProcess = orderService.CanProcessBasket((Guid)cust.AltId);
+            Assert.IsFalse(canProcess.IsError);
+            customerService.AddItemToBasket((Guid)cust.AltId, product);
+            canProcess = orderService.CanProcessBasket((Guid)cust.AltId);
+            Assert.IsTrue(canProcess.IsError);
+            Assert.IsTrue(canProcess.Message.Length > 0);
         }
 
         ~OrderTests() {

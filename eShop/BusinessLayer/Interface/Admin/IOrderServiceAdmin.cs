@@ -5,11 +5,14 @@ using Common.Interface;
 
 namespace BusinessLayer.Interface.Admin
 {
-    public interface IOrderServiceAdmin : IGenerateUpdateDelete<Order>, IOrderService
+    public interface IOrderServiceAdmin : IOrderService
     {
+        bool Update(Order t);
+        bool LogicalDelete(Order t);
         IEnumerable<Order>? GetAllAwaitingDelivery();
-        bool AddRefund(Guid orderId, Refund refund);
+        bool AddRefund(Guid orderId, RefundRequest refund);
+        bool BeforePayment(Customer customer);
         bool UpdateRefund(Guid orderId, Guid refundId, string? jsonPaymentResponse, PaymentProvider provider);
-        bool Generate(Customer customer, string paymentId, string? jsonPaymentResponse, decimal paidAmount, Currency currency, PaymentProvider paymentProvider, Address? a);
+        Guid? Generate(Customer customer, string paymentId, string? jsonPaymentResponse, decimal paidAmount, Currency currency, PaymentProvider paymentProvider, Address? a);
     }
 }

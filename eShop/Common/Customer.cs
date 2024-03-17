@@ -3,9 +3,11 @@ using Common.Interface;
 
 namespace Common
 {
-    public class Customer : Person
+    public class Customer : Person, IElement<Customer>
     {
-        public override Person Visit(IVisitor<Person> visitor)
+        public DateTime? RemoveAllCustomerDataRequest { get; set; }
+
+        public Customer Visit(IVisitor<Customer> visitor)
         {
             return visitor.Visit(this);
         }

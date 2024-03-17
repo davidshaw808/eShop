@@ -1,14 +1,16 @@
 ﻿using Common.Enum;
 using Common.Interface;
+using System.Text.Json.Serialization;
 
 namespace Common
 {
-    public class Refund : IElement<Refund>, ISecureElement
+    public class FinancialTransaction : IElement<FinancialTransaction>, ISecureElement
     {
+        [JsonIgnore]
         public int? Id { get; set; }
         public Guid? AltId { get; set; }
         public Order Order { get; set; }
-        public string DescriptionOfRefund { get; set; }
+        public string Description { get; set; }
         public decimal? Amount { get; set; }
         public bool Active { get; set; }
         public DateTime DateGenerated { get; set; }
@@ -17,9 +19,13 @@ namespace Common
         public string? jsonPaymentProviderResponse {  get; set; }
         public PaymentProvider PaymentProvider { get; set; }
 
-        public Refund Visit(IVisitor<Refund> visitor)
+        public FinancialTransaction Visit(IVisitor<FinancialTransaction> visitor)
         {
             return visitor.Visit(this);
         }
     }
+
+    public class RefundRequest : FinancialTransaction { }
+
+    public class PaymentRequest : FinancialTransaction { }
 }

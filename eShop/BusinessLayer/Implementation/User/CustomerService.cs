@@ -6,39 +6,49 @@ using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation.User
 {
-    public class CustomerService : CustomerOrderService, ICustomerServiceAdmin, ICustomerService
+    public class CustomerService(ICustomerDataAccess custDl) : ICustomerService
     {
-        readonly ICustomerDataAccess _customerDataAccess;
-        readonly IOrderCustomerServiceAdmin _orderCustomerService;
+        readonly ICustomerDataAccess _customerDataAccess = custDl;
 
-        public CustomerService(ICustomerDataAccess custDl, IOrderCustomerServiceAdmin orderCustomerService) : base(custDl)
+        public bool AddItemToBasket(Guid customerAltId, Product product)
         {
-            _customerDataAccess = custDl;
-            _orderCustomerService = orderCustomerService;
-        }
-
-        public bool AddItemsToBasket(Guid id, Product product)
-        {
-            if (product.Id == null)
+            if (product.AltId == null)
             {
                 return false;
             }
-            var customer = _customerDataAccess.Get(id);
-            if (customer == null)
+            var customer = _customerDataAccess.Get(customerAltId);
+            if (customer == null && !customer.LockBasket)
             {
                 return false;
             }
-            if (customer.Basket == null)
-            {
-                customer.Basket = new List<Product>();
-            }
+            customer.Basket ??= new List<Product>();
             customer.Basket.Add(product);
             return true;
         }
 
-        public bool Delete(Customer t)
+        public bool LogicalDelete(Customer t)
         {
-            return _customerDataAccess.Delete(t);
+            return _customerDataAccess.LogicalDelete(t);
+        }
+
+        public bool Generate(Customer t)
+        {
+            if (t == null || t.Email == null)
+            {
+                return false;
+            }
+            t.Id = null;
+            t.Active = true;
+            return _customerDataAccess.Generate(t);
+        }
+
+        public bool Update(Customer t)
+        {
+            if (t.Id == null || t.AltId == null)
+            {
+                return false;
+            }
+            return _customerDataAccess.Update(t);
         }
 
         public IEnumerable<Customer> GetAllActiveCustomers()
@@ -66,43 +76,14 @@ namespace BusinessLayer.Implementation.User
             return _customerDataAccess.Get(id)?.OrderHistory;
         }
 
-        public bool RemoveAllCustomerInfo(Guid id, string email)
+        public IEnumerable<Address> GetCustomerAddresses(Guid altId)
         {
-            var deletedCustomer = _customerDataAccess.Get(id);
-            if (deletedCustomer == null || deletedCustomer.Email != email)
-            {
-                return false;//possible malicious query
-            }
-            if (deletedCustomer.OrderHistory?.Any(o => o.Updates?.Any(u => u.Status == OrderStatus.Shipped || u.Status == OrderStatus.InTransit || u.Status == OrderStatus.Paid) ?? true) ?? false)
-            {
-                throw new InvalidOperationException("Customer has items yet to be delivered");
-            }
-            var dummyCustomer = GenerateDummyCustomer("RemovedCustomer");
-            Generate(dummyCustomer);
-            if (dummyCustomer.AltId == null)
-            {
-                dummyCustomer.AltId = Guid.NewGuid();
-            }
-            _orderCustomerService.TransferOrderHistory(id, dummyCustomer);
-            return _customerDataAccess.PermanentlyRemoveAllCustomerData(id);
+            return _customerDataAccess.Get(altId)?.OrderHistory?.Select(oh => oh.Address) ?? Enumerable.Empty<Address>();
         }
 
-        public IEnumerable<Address>? GetCustomerAddresses(Guid altId)
+        public bool RequestRemoveAllCustomerData(Guid altId)
         {
-            return _customerDataAccess.Get(altId)?.OrderHistory?.Select(oh => oh.Address);
-        }
-
-        private Customer GenerateDummyCustomer(string email)
-        {
-            return new Customer()
-            {
-                FirstName = "User_",
-                LastName = Guid.NewGuid().ToString(),
-                Active = false,
-                Email = email,
-                Address = null,
-                Basket = null
-            };
+            throw new NotImplementedException();
         }
     }
 }

@@ -8,5 +8,7 @@ namespace BusinessLayer.Interface.Admin
     {
         public IEnumerable<Customer> GetAllCustomers();
         public IEnumerable<Customer> GetAllActiveCustomers();
+        public IEnumerable<Customer> GetCustomersRequestingRemoval();
+        public bool RemoveAllCustomerInfo(Guid id, string email);
     }
 }

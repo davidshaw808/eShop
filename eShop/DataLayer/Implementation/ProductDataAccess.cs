@@ -13,13 +13,13 @@ namespace DataLayer.Implementation
             this._db = db;
         }
 
-        public bool Delete(Common.Product t)
+        public bool LogicalDelete(Product t)
         {
-            if(t.Id == null)
+            if(t.AltId == null)
             {
                 return false;
             }
-            var p = this.Get((int)t.Id);
+            var p = this.Get((Guid)t.AltId);
             if(p == null)
             {
                 return false;
@@ -40,12 +40,12 @@ namespace DataLayer.Implementation
             return true;
         }
 
-        public Common.Product? Get(int id)
+        public Product? Get(Guid altId)
         {
-            return this._db.Products.FirstOrDefault(p => p.Id == id);
+            return this._db.Products.FirstOrDefault(p => p.AltId == altId);
         }
 
-        public bool Update(Common.Product t)
+        public bool Update(Product t)
         {
             this._db.Products.Update(t);
             this._db.SaveChanges();
@@ -57,6 +57,11 @@ namespace DataLayer.Implementation
             this._db.Products.UpdateRange(products);
             this._db.SaveChanges();
             return true;
+        }
+
+        public IEnumerable<Product>? GetAll(IEnumerable<Guid> AltIds)
+        {
+            return this._db.Products.Join(AltIds, p => p.AltId, aid => aid, (p, aid) =>  p).ToArray();
         }
     }
 }

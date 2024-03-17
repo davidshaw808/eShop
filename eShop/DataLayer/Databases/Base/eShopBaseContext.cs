@@ -10,7 +10,8 @@ namespace DataLayer.Databases.Base
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Refund> Refunds { get; set; }
+        public DbSet<RefundRequest> RefundRequests { get; set; }
+        public DbSet<PaymentRequest> PaymentRequests { get; set; }
         public DbSet<HistoryLog> HistoryLogs { get; set; }
         public DbSet<OrderUpdate> OrderUpdates { get; set; }
         public DbSet<PaymentDetails> PaymentDetails { get; set; }
@@ -21,16 +22,18 @@ namespace DataLayer.Databases.Base
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Customer>()
-               .HasIndex(a => a.AltId);
+                .HasIndex(a => a.AltId);
             modelBuilder.Entity<Customer>()
-              .HasIndex(a => a.Email);
-            modelBuilder.Entity<Refund>()
-               .HasIndex(a => a.AltId);
+                .HasIndex(a => a.Email);
+            modelBuilder.Entity<RefundRequest>()
+                .HasIndex(a => a.AltId);
+            modelBuilder.Entity<Product>()
+                .HasIndex(a => a.AltId);
 
             modelBuilder.Entity<Category>()
-               .HasOne(c => c.Parent)
-               .WithMany()
-               .HasForeignKey(a => a.ParentId);
+                .HasOne(c => c.Parent)
+                .WithMany()
+                .HasForeignKey(a => a.ParentId);
 
             modelBuilder.Entity<Category>()
                 .HasMany(c => c.Products)
@@ -63,9 +66,9 @@ namespace DataLayer.Databases.Base
                 .HasMany(o => o.Refunds)
                 .WithOne(r => r.Order);
             modelBuilder.Entity<Order>()
-               .HasOne(o => o.PaymentDetails)
+               .HasMany(o => o.PaymentDetails)
                .WithOne()
-               .HasForeignKey<Order>("PaymentId");
+               .HasForeignKey("PaymentId");
             modelBuilder.Entity<Product>()
                 .HasMany(p => p.Reviews)
                 .WithOne(r => r.Product)

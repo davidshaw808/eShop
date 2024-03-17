@@ -6,7 +6,8 @@ namespace DataLayer.Interface
 {
     public interface IProductDataAccess : IGenerateUpdateDelete<Product>
     {
-        public Product? Get(int id);
+        public Product? Get(Guid AltId);
+        public IEnumerable<Product>? GetAll(IEnumerable<Guid> AltIds);
         public bool UpdateAll(IEnumerable<Product> products);
     }
 }

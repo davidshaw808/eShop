@@ -5,6 +5,6 @@ namespace DataLayer.Interface
 {
     public interface IReviewDataAccess : IGenerateUpdateDelete<Review>
     {
-        IEnumerable<Review> GetReviewsForProduct(int productId);
+        IEnumerable<Review> GetReviewsForProduct(Guid productId);
     }
-}
+}   

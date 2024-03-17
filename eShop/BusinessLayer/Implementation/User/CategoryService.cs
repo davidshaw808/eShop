@@ -15,7 +15,7 @@ namespace BusinessLayer.Implementation.User
             _productService = productService;
         }
 
-        public bool Delete(Category t)
+        public bool LogicalDelete(Category t)
         {
             if (t.Id == null)
             {
@@ -34,7 +34,7 @@ namespace BusinessLayer.Implementation.User
                 }
             }
             _categoryDataAccess.Update(c.Children);
-            _categoryDataAccess.Delete(c);
+            _categoryDataAccess.LogicalDelete(c);
             return true;
         }
 

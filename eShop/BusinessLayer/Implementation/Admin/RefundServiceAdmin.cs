@@ -4,9 +4,9 @@ using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation.Admin
 {
-    public class RefundServiceAdmin(IRefundDataAccess dataAccess) : IRefundServiceAdmin
+    public class RefundServiceAdmin(IFinancialTransaction dataAccess) : IRefundServiceAdmin
     {
-        private readonly IRefundDataAccess _dataAccess = dataAccess;
+        private readonly IFinancialTransaction _dataAccess = dataAccess;
 
         public bool ApproveRefund(Guid refundId)
         {
@@ -20,13 +20,13 @@ namespace BusinessLayer.Implementation.Admin
             return true;
         }
 
-        public bool Delete(Refund refund)
+        public bool LogicalDelete(RefundRequest refund)
         {
-            _dataAccess.Delete(refund);
+            _dataAccess.LogicalDelete(refund);
             return true;
         }
 
-        public bool Generate(Refund refund)
+        public bool Generate(RefundRequest refund)
         {
             _dataAccess.Generate(refund);
             return true;
@@ -34,21 +34,26 @@ namespace BusinessLayer.Implementation.Admin
 
         public bool RejectRefund(Guid refundId)
         {
-            var refund = new Refund()
+            var refund = new RefundRequest()
             {
                 AltId = refundId
             };
-            return _dataAccess.Delete(refund);
+            return _dataAccess.LogicalDelete(refund);
         }
 
-        public bool Update(Refund refund)
+        public bool Update(RefundRequest refund)
         {
             return _dataAccess.Update(refund);
         }
 
-        public IEnumerable<Refund> GetAllOutstandingRefunds()
+        public IEnumerable<RefundRequest> GetAllPendingApproval()
         {
-            return this._dataAccess.GetAllRequiringApproval();
+            return this._dataAccess.GetAll((RefundRequest r) => r.DateApproved == null);
+        }
+
+        public IEnumerable<RefundRequest> GetAllRequiringPayment()
+        {
+            return this._dataAccess.GetAll((RefundRequest r) => r.DateApproved != null && r.DatePaid == null);
         }
     }
 }

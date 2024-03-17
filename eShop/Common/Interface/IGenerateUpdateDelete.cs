@@ -4,6 +4,6 @@
     {
         public bool Generate(T t);
         public bool Update(T t);
-        public bool Delete(T t);
+        public bool LogicalDelete(T t);
     }
 }

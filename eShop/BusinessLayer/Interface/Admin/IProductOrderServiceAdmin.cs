@@ -4,6 +4,6 @@ namespace BusinessLayer.Interface.Admin
 {
     public interface IProductOrderServiceAdmin
     {
-        (decimal RefundAmount, string Message)? UpdateAfterSale(Order o);
+        (decimal DebitAmount, decimal CreditAmount, string Message)? UpdateAfterSale(Order o);
     }
 }

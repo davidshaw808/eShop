@@ -13,7 +13,7 @@ namespace DataLayer.Implementation
             this._db = db;
         }
 
-        public bool Delete(Common.Customer t)
+        public bool LogicalDelete(Common.Customer t)
         {
             if(t.AltId == null)
             {

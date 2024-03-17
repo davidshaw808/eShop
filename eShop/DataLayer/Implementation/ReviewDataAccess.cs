@@ -13,7 +13,7 @@ namespace DataLayer.Implementation
             this._db = db;
         }
 
-        public bool Delete(Review review)
+        public bool LogicalDelete(Review review)
         {
             this._db.Reviews.Remove(review);
             return true;
@@ -31,9 +31,9 @@ namespace DataLayer.Implementation
             return true;
         }
 
-        public IEnumerable<Review> GetReviewsForProduct(int productId)
+        public IEnumerable<Review> GetReviewsForProduct(Guid productId)
         {
-            return this._db.Products.FirstOrDefault(p => p.Id == productId)?.Reviews?.ToArray() ?? Enumerable.Empty<Review>();
+            return this._db.Products.FirstOrDefault(p => p.AltId == productId)?.Reviews?.ToArray() ?? Enumerable.Empty<Review>();
         }
     }
 }

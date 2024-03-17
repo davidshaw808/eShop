@@ -3,9 +3,9 @@ using Common.Interface;
 
 namespace Common
 {
-    public class Admin : Person
+    public class Admin : Person, IElement<Admin>
     {
-        public override Person Visit(IVisitor<Person> visitor)
+        public Admin Visit(IVisitor<Admin> visitor)
         {
             return visitor.Visit(this);
         }

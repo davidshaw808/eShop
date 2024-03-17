@@ -7,7 +7,7 @@ using DataLayer.Implementation;
 using DataLayer.Interface;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BusinessLayer.TestingHelpers
+namespace BusinessLayerTests.TestingHelpers
 {
     public static class TestingHelper
     {
@@ -22,16 +22,18 @@ namespace BusinessLayer.TestingHelpers
                 .AddSingleton<ICustomerDataAccess>(provider => new CustomerDataAccess(db))
                 .AddSingleton<IOrderDataAccess>(provider => new OrderDataAccess(db))
                 .AddSingleton<IProductDataAccess>(provider => new ProductDataAccess(db))
-                .AddSingleton<IRefundDataAccess>(provider => new RefundDataAccess(db));
+                .AddSingleton<IFinancialTransaction>(provider => new FinancialTransaction(db))
+                .AddSingleton<IReviewDataAccess>(provider => new ReviewDataAccess(db));
 
 
             services.AddSingleton<IAddressService, AddressService>()
                 .AddSingleton<IAddressOrderService, AddressOrderService>()
-                .AddSingleton<ICategoryServiceAdmin, CategoryService>()
                 .AddSingleton<ICustomerService, CustomerService>()
-                .AddSingleton<ICustomerOrderService, CustomerOrderService>()
-                .AddSingleton<ICustomerOrderServiceAdmin, CustomerOrderService>()
+                .AddSingleton<ICustomerOrderService, CustomerOrderServiceAdmin>()
+                .AddSingleton<ICustomerOrderServiceAdmin, CustomerOrderServiceAdmin>()
                 .AddSingleton<IOrderService, OrderService>()
+                .AddSingleton<ICategoryServiceAdmin, CategoryService>()
+
                 .AddSingleton<IOrderServiceAdmin, OrderServiceAdmin>()
                 .AddSingleton<IOrderCustomerServiceAdmin, OrderCustomerServiceAdmin>()
                 .AddSingleton<IProductServiceAdmin, ProductServiceAdmin>()

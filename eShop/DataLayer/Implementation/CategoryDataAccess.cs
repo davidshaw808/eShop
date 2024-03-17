@@ -29,7 +29,7 @@ namespace DataLayer.Implementation
             return true;
         }
 
-        public bool Delete(Category t)
+        public bool LogicalDelete(Category t)
         {
             this._db.Categories.Remove(t);
             this._db.SaveChanges();

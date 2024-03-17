@@ -1,7 +1,9 @@
-﻿using Common.Interface;
-namespace Common.Visitor
+﻿using Common;
+using Common.Interface;
+
+namespace BusinessLayer.CommonVisitor
 {
-    public class BeforeSerialise : IVisitor<Address>, IVisitor<Order>, IVisitor<Refund>
+    public class BeforeSerialise: IVisitor<Address>, IVisitor<Order>, IVisitor<RefundRequest>
     {
         public Address Visit(IElement<Address> visitor)
         {
@@ -25,12 +27,23 @@ namespace Common.Visitor
             return ret;
         }
 
-        public Refund Visit(IElement<Refund> visitor)
+        public RefundRequest Visit(IElement<RefundRequest> visitor)
         {
-            var ret = (Refund)visitor;
+            var ret = (RefundRequest)visitor;
             if (ret.AltId == null)
             {
                 throw new ArgumentException("AltId cannot be null when serialising a Refund");
+            }
+            ret.Id = null;
+            return ret;
+        }
+
+        public Product Visit(IElement<Product> visitor)
+        {
+            var ret = (Product)visitor;
+            if (ret.AltId == null)
+            {
+                throw new ArgumentException("AltId cannot be null when serialising a Product");
             }
             ret.Id = null;
             return ret;

@@ -3,7 +3,7 @@ using Common;
 
 namespace BusinessLayer.Interface.Admin
 {
-    public interface ICustomerOrderServiceAdmin : ICustomerOrderService
+    public interface ICustomerOrderServiceAdmin: ICustomerOrderService
     {
         bool AddOrder(Guid id, Order order);
     }
