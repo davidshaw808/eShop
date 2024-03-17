@@ -73,8 +73,6 @@ namespace BusinessLayer.Implementation.Admin
             return order.AltId;
         }
 
-        
-
         public bool LogicalDelete(Order t)
         {
             if (t.AltId == null)

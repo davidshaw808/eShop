@@ -15,7 +15,7 @@ namespace BusinessLayer.Implementation.Admin
             {
                 return false;
             }
-            refund.DateApproved = DateTime.Now;
+            refund.DateApproved = DateTime.UtcNow;
             _dataAccess.Update(refund);
             return true;
         }
