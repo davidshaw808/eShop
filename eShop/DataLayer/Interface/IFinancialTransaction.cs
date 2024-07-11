@@ -5,16 +5,19 @@ namespace DataLayer.Interface
 {
     public interface IFinancialTransaction
     {
-        public RefundRequest? Get(Guid id);
-        public IEnumerable<PaymentRequest> GetAll(Func<PaymentRequest, bool> condition);
-        public IEnumerable<RefundRequest> GetAll(Func<RefundRequest, bool> condition);
+        RefundRequest? Get(Guid id);
+        IEnumerable<PaymentRequest?> GetAll(Func<PaymentRequest, bool> condition);
+        IEnumerable<RefundRequest?> GetAll(Func<RefundRequest, bool> condition);
 
-        public bool Generate(RefundRequest t);
-        public bool Update(RefundRequest t);
-        public bool LogicalDelete(RefundRequest t);
+        Task<IEnumerable<PaymentRequest?>> GetAllAsync(Func<PaymentRequest, bool> condition);
+        Task<IEnumerable<RefundRequest?>> GetAllAsync(Func<RefundRequest, bool> condition);
 
-        public bool Generate(PaymentRequest t);
-        public bool Update(PaymentRequest t);
-        public bool LogicalDelete(PaymentRequest t);
+        bool Generate(RefundRequest t);
+        bool Update(RefundRequest t);
+        bool LogicalDelete(RefundRequest t);
+
+        bool Generate(PaymentRequest t);
+        bool Update(PaymentRequest t);
+        bool LogicalDelete(PaymentRequest t);
     }
 }

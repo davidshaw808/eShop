@@ -20,7 +20,16 @@ namespace BusinessLayerTests
         }
 
         [TestMethod]
-        public void GenerateOrderAdmin()
+        [DataRow("Bowl", "Clay bowl", 5.99, "22", "test", "test@test", "0123456", "{ id:0123456, paymentDate:'12/3/24' payment:5.99 }")]
+        public void GenerateOrderAdmin(string name,
+            string description,
+            double price,
+            string houseNumber,
+            string postalCode,
+            string email,
+            string paymentId,
+            string jsonPaymentResponse
+            )
         {
             var productservice = TestingHelper.GetService<IProductServiceAdmin>(this._db);
             var orderService = TestingHelper.GetService<IOrderServiceAdmin>(this._db);
@@ -31,20 +40,20 @@ namespace BusinessLayerTests
             var product = new Product()
             {
                 Active = true,
-                Name = "Bowl",
-                Description = "Clay bowl",
-                Price = (decimal)5.99,
+                Name = name,
+                Description = description,
+                Price = (decimal)price,
                 NumberInStock = numberInStock
             };
             productservice.Generate(product);
-            var addr = new Address() { Active = true, HouseNameNumber = "22", PostalCode = "test" };
-            addressService.Generate(addr);
-            var cust = new Customer() { Active = true, Address = addr, Email = "test@test", Basket = [product] };
+            var addr = new Address() { Active = true, HouseNameNumber = houseNumber, PostalCode = postalCode };
+            addressService.Generate(addr); 
+            var cust = new Customer() { Active = true, Address = addr, Email = email, Basket = [product] };
             customerService.Generate(cust);
             //act
             var canProcess = orderService.CanProcessBasket((Guid)cust.AltId);
             Assert.IsFalse(canProcess.IsError);
-            var result = orderService.Generate(cust, "0123456", "{ id:0123456, paymentDate:'12/3/24' payment:5.99 }", (decimal)5.99, Currency.GBP, PaymentProvider.Paypal, addr);
+            var result = orderService.Generate(cust, paymentId, jsonPaymentResponse, (decimal)5.99, Currency.GBP, PaymentProvider.Paypal, addr);
             //assert
             Assert.IsNotNull(result);
             Assert.AreEqual(product.NumberInStock, numberInStock-1);

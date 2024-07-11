@@ -95,5 +95,15 @@ namespace DataLayer.Implementation
             this._db.PaymentRequests.Update(t);
             return this._db.SaveChanges() > 0;
         }
+
+        public Task<IEnumerable<PaymentRequest?>> GetAllAsync(Func<PaymentRequest, bool> condition)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<RefundRequest?>> GetAllAsync(Func<RefundRequest, bool> condition)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

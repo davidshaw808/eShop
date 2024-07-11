@@ -1,6 +1,8 @@
 ﻿using Common;
 using DataLayer.Databases.Base;
+using DataLayer.Implementation.Extensions;
 using DataLayer.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Implementation
 {
@@ -13,67 +15,117 @@ namespace DataLayer.Implementation
             this._db = db;
         }
 
-        public bool AddChild(Category p, Category c)
+        public Task<int> AddChildAsync(Category p, Category c)
         {
-            var par = this._db.Categories.FirstOrDefault(t => t.Id.Equals(p.Id));
-            if (par == null)
-            {
-               return false;
-            }
-            if (par.Children == null)
-            {
-                par.Children = new List<Common.Category>();
-            }
-            par.Children.Add(c);
-            this._db.SaveChanges();
-            return true;
+            this._db.Track(p);//if not tracked ensure at least the added subcategories are added
+            p.Children ??= [];
+            p.Children.Add(c);
+            return this._db.SaveChangesAsync();
         }
 
-        public bool LogicalDelete(Category t)
+        public int LogicalDelete(Category t, bool commit)
         {
-            this._db.Categories.Remove(t);
-            this._db.SaveChanges();
-            return true;
+            this._db.Track(t);
+            t.Active = false;
+            if(commit)
+            {
+                return this._db.SaveChanges();
+            }
+            return 0;
         }
 
-        public bool Generate(Category t)
+        public int Generate(Category t, bool commit)
         {
             if (t.Id != null)
             {
-                return false;
+                return 0;
             }
             this._db.Categories.Add(t);
-            this._db.SaveChanges();
-            return true;
+            if(commit)
+            {
+                return this._db.SaveChanges();
+            }
+            return 0;
+        }
+
+        public Task<int> GenerateAsync(Category t)
+        {
+            if (t.Id != null)
+            {
+                return Task.FromResult(0);
+            }
+            this._db.Categories.Add(t);
+            return this._db.SaveChangesAsync();
         }
 
         public Category? Get(int id)
         {
             return this._db.Categories.FirstOrDefault(ca => ca.Id.Equals(id));
         }
-
-        public bool Update(Category t)
+        public Task<Category?> GetAsync(int id)
         {
-            /*var c = this._db.Categories.FirstOrDefault(ca => ca.Id.Equals(t.Id));
-            if (c != null)
-            {
-                return false;
-            }
-            c.Active = t.Active;
-            c.Children = t.Children;
-            c.Name = t.Name;
-            c.Parent = t.Parent;
-            c.Products = t.Products;*/
-            this._db.Categories.Update(t);
-            this._db.SaveChanges();
-            return true;
+            return this._db.Categories.FirstOrDefaultAsync(ca => ca.Id.Equals(id));
         }
 
-        public bool Update(IEnumerable<Category> t)
+        public int Update(IEnumerable<Category> t, bool commit)
         {
             this._db.Categories.UpdateRange(t);
-            this._db.SaveChanges();
-            return true;
+            if(commit)
+            {
+                this._db.SaveChanges();
+            }
+            return 0;            
+        }
+
+        /// <summary>
+        /// multiple async updates
+        /// </summary>
+        /// <param name="cats"></param>
+        /// <returns></returns>
+        public async Task<int> UpdateAsync(IEnumerable<Category> cats)
+        {
+            int recordsUpdated = 0;
+            var options = new ParallelOptions()
+            {
+                MaxDegreeOfParallelism = 15//15 continuations
+            };
+
+            await Parallel.ForEachAsync(
+                source: cats,
+                parallelOptions: options,
+                body: async (cat, ct) =>
+                {
+                    this._db.Categories.Update(cat);
+                    recordsUpdated += await this._db.SaveChangesAsync();
+                });
+            return recordsUpdated;
+        }
+
+        public Task<int> UpdateAsync(Category t)
+        {
+            this._db.Categories.Update(t);
+            return this._db.SaveChangesAsync();
+        }
+
+        public int Update(Category t, bool commit)
+        {
+            this._db.Categories.Update(t);
+            return commit ? this._db.SaveChanges() : 0;
+        }
+
+        public Task<int> LogicalDeleteAsync(Category t)
+        {
+            this._db.Track(t);
+            t.Parent?.AssignParentToChildren();
+            t.Active = false;
+            return this._db.SaveChangesAsync();
+        }
+
+        public Task<int> LogicalDeleteAsync(int id)
+        {
+            var cat = this._db.Categories.First(c => c.Id.Equals(id) && c.Active);
+            cat.Active = false;
+            return this._db.SaveChangesAsync();
         }
     }
 }

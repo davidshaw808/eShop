@@ -31,5 +31,20 @@ namespace BusinessLayer.Implementation.Admin
         {
             throw new NotImplementedException();
         }
+
+        public Task<bool> GenerateAsync(Product t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateAsync(Product t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> LogicalDeleteAsync(Product t)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

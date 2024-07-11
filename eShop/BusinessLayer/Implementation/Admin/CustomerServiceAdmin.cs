@@ -33,7 +33,7 @@ namespace BusinessLayer.Implementation.Admin
             Generate(dummyCustomer);
             dummyCustomer.AltId ??= Guid.NewGuid();
             _orderCustomerServiceAdmin.TransferOrderHistory(id, dummyCustomer);
-            return _customerDataAccess.PermanentlyRemoveAllCustomerData(id);
+            return _customerDataAccess.PermanentlyRemoveCustomer(id);
         }
 
         private Customer GenerateDummyCustomer(string email)

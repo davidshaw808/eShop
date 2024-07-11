@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Databases.Base
@@ -73,6 +74,11 @@ namespace DataLayer.Databases.Base
                 .HasMany(p => p.Reviews)
                 .WithOne(r => r.Product)
                 .HasForeignKey(r => r.ProductId);
+        }
+
+        public override int SaveChanges()
+        {
+            return base.SaveChanges();
         }
     }
 }

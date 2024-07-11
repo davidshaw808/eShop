@@ -5,6 +5,7 @@ namespace DataLayer.Interface
 {
     public interface IAddressDataAccess : IGenerateUpdateDelete<Address>
     {
-        public Address? Get(Guid altId);
+        IAsyncEnumerable<Address> GetAllAsync(Guid custId, bool active);
+        Task<Address?> GetAsync(Guid altId, bool active);
     }
 }

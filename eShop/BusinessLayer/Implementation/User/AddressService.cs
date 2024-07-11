@@ -21,7 +21,7 @@ namespace BusinessLayer.Implementation.User
             return _addressDataAccess.LogicalDelete(t);
         }
 
-        public Address? Get(Guid addressId)
+        public Task<Address?> Get(Guid addressId)
         {
             return _addressDataAccess.Get(addressId);
         }

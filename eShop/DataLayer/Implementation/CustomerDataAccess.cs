@@ -1,4 +1,6 @@
-﻿using DataLayer.Databases.Base;
+﻿using Common;
+using DataLayer.Databases.Base;
+using DataLayer.Implementation.Extensions;
 using DataLayer.Interface;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,49 +15,33 @@ namespace DataLayer.Implementation
             this._db = db;
         }
 
-        public bool LogicalDelete(Common.Customer t)
+        public int LogicalDelete(Customer t, bool commit)
         {
             if(t.AltId == null)
             {
-                return false;
+                return 0;
             }
-            var cus = this.Get((Guid)t.AltId);
-            if(cus == null) { 
-                return false;            
-            }  
-            cus.Active = false;
-            this._db.SaveChanges();
-            return true;
+            this._db.Track(t);
+            t.Active = false;
+            return commit ? this._db.SaveChanges() : 0;
         }
 
-        public bool Generate(Common.Customer t)
+        public int Generate(Customer t, bool commit)
         {
             if (t.Id != null)
             {
-                return false;
+                return 0;
             }
             t.AltId = Guid.NewGuid();
             this._db.Customers.Add(t);
-            this._db.SaveChanges();
-            return true;
+            return commit ? this._db.SaveChanges() : 0;
         }
 
-        public Common.Customer? Get(Guid altId)
-        {
-            return _db.Customers.FirstOrDefault(c => c.AltId == altId);
-        }
+        public Customer? Get(Guid altId) => _db.Customers.FirstOrDefault(c => c.AltId.Equals(altId));
 
-        public Common.Customer? Get(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Customer> Get(Func<Customer, bool> filter) => this._db.Customers.Where(filter);
 
-        public IEnumerable<Common.Customer> Get(Func<Common.Customer, bool> filter)
-        {
-            return this._db.Customers.Where(filter);
-        }
-
-        public bool PermanentlyRemoveAllCustomerData(Guid altId)
+        public bool PermanentlyRemoveCustomer(Guid altId)
         {
             this._db.Customers
                 .Where(c => c.AltId == altId)
@@ -63,11 +49,43 @@ namespace DataLayer.Implementation
             return true;
         }
 
-        public bool Update(Common.Customer t)
+        public int Update(Customer t, bool commit)
         {
             this._db.Customers.Update(t);
-            this._db.SaveChanges();
-            return true;
+            return commit ? this._db.SaveChanges() : 0;
+        }
+
+        public IAsyncEnumerable<Customer> GetAsync(Func<Customer, bool> filter)
+        {
+            return this._db.Customers.Where(filter).AsQueryable().AsAsyncEnumerable();
+        }
+
+        public Task<int> GenerateAsync(Customer t)
+        {
+            if (t.Id != null)
+            {
+                return Task.FromResult(0);
+            }
+            t.AltId = Guid.NewGuid();
+            this._db.Customers.Add(t);
+            return this._db.SaveChangesAsync();
+        }
+
+        public Task<int> UpdateAsync(Customer t)
+        {
+            this._db.Customers.Update(t);
+            return this._db.SaveChangesAsync();
+        }
+
+        public Task<int> LogicalDeleteAsync(Customer t)
+        {
+            if (t.AltId == null)
+            {
+                return Task.FromResult(0);
+            }
+            this._db.Track(t);
+            t.Active = false;
+            return this._db.SaveChangesAsync();
         }
     }
 }

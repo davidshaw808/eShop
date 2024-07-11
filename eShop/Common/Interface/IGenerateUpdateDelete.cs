@@ -2,8 +2,11 @@
 {
     public interface IGenerateUpdateDelete<T>
     {
-        public bool Generate(T t);
-        public bool Update(T t);
-        public bool LogicalDelete(T t);
+        Task<int> GenerateAsync(T t);
+        Task<int> UpdateAsync(T t);
+        Task<int> LogicalDeleteAsync(T t);
+        int Generate(T t, bool commit);
+        int Update(T t, bool commit);
+        int LogicalDelete(T t, bool commit);
     }
 }
