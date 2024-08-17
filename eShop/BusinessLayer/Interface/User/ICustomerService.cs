@@ -5,11 +5,11 @@ namespace BusinessLayer.Interface.User
 {
     public interface ICustomerService : IGenerateUpdateDelete<Customer>
     {
-        public IEnumerable<Order>? GetCustomerOrderHistory(Guid id);
-        public bool AddItemToBasket(Guid customerAltId, Product product);
-        public IEnumerable<Customer> GetCustomerByName(string firstName, string lastName);
-        public IEnumerable<Customer> GetCustomerByEmail(string email);
-        public IEnumerable<Address> GetCustomerAddresses(Guid altId);
-        public bool RequestRemoveAllCustomerData(Guid altId);
+        public Task<IAsyncEnumerable<Order>?> GetCustomerOrderHistoryAsync(Guid id);
+        public Task<bool> AddItemToBasketAsync(Guid customerAltId, Product product);
+        public Task<IAsyncEnumerable<Customer>> GetCustomerByNameAsync(string firstName, string lastName);
+        public Task<IAsyncEnumerable<Customer>> GetCustomerByEmailAsync(string email);
+        public Task<IAsyncEnumerable<Address>> GetCustomerAddressesAsync(Guid altId);
+        public Task<bool> RequestRemoveAllCustomerDataAsync(Guid altId);
     }
 }

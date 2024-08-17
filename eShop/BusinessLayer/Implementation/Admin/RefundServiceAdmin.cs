@@ -4,9 +4,9 @@ using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation.Admin
 {
-    public class RefundServiceAdmin(IFinancialTransaction dataAccess) : IRefundServiceAdmin
+    public class RefundServiceAdmin(IFinancialTransactionDataAccess dataAccess) : IRefundServiceAdmin
     {
-        private readonly IFinancialTransaction _dataAccess = dataAccess;
+        private readonly IFinancialTransactionDataAccess _dataAccess = dataAccess;
 
         public bool ApproveRefund(Guid refundId)
         {

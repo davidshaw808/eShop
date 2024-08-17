@@ -10,13 +10,13 @@ using System.Transactions;
 namespace BusinessLayer.Implementation.Admin
 {
     public class OrderServiceAdmin(IOrderDataAccess orderDataAccess,
-        IFinancialTransaction refundDataAccess,
+        IFinancialTransactionDataAccess refundDataAccess,
         IAddressOrderService addressOrderService,
         ICustomerOrderServiceAdmin customerOrderServiceAdmin,
         IProductOrderServiceAdmin productOrderService) : OrderService(orderDataAccess, customerOrderServiceAdmin), IOrderServiceAdmin
     {
         readonly IOrderDataAccess _orderDataAccess = orderDataAccess;
-        readonly IFinancialTransaction _finTransactionDataAccess = refundDataAccess;
+        readonly IFinancialTransactionDataAccess _finTransactionDataAccess = refundDataAccess;
         readonly IAddressOrderService _addressOrderService = addressOrderService;
         readonly ICustomerOrderServiceAdmin _customerOrderServiceAdmin = customerOrderServiceAdmin;
         readonly IProductOrderServiceAdmin _productOrderService = productOrderService; 

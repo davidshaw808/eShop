@@ -1,14 +1,17 @@
 ﻿using Common;
 using DataLayer.Databases.Base;
 using DataLayer.Interface;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace DataLayer.Implementation
 {
-    public class FinancialTransaction: IFinancialTransaction
+    public class FinancialTransactionDataAccess: IFinancialTransactionDataAccess
     {
         private readonly eShopBaseContext _db;
 
-        public FinancialTransaction(eShopBaseContext db)
+        public FinancialTransactionDataAccess(eShopBaseContext db)
         {
             this._db = db;
         }
@@ -19,6 +22,7 @@ namespace DataLayer.Implementation
             {
                 return false;
             }
+
             var r = this._db.RefundRequests.FirstOrDefault(r => r.AltId == t.AltId);
             if (r == null)
             {
@@ -35,8 +39,7 @@ namespace DataLayer.Implementation
             {
                 return false;
             }
-            t.AltId = Guid.NewGuid();
-            t.DateGenerated = DateTime.UtcNow;
+            Populate(t);
             this._db.RefundRequests.Add(t);
             return this._db.SaveChanges() > 0;
         }
@@ -74,8 +77,7 @@ namespace DataLayer.Implementation
             {
                 return false;
             }
-            t.AltId = Guid.NewGuid();
-            t.DateGenerated = DateTime.UtcNow;
+            Populate(t);
             this._db.PaymentRequests.Add(t);
             return this._db.SaveChanges() > 0;
         }
@@ -96,14 +98,56 @@ namespace DataLayer.Implementation
             return this._db.SaveChanges() > 0;
         }
 
-        public Task<IEnumerable<PaymentRequest?>> GetAllAsync(Func<PaymentRequest, bool> condition)
+        public IAsyncEnumerable<PaymentRequest> GetAllAsync(Expression<Func<PaymentRequest, bool>> condition)
+        {
+            return this._db.PaymentRequests.Where(condition).AsQueryable().AsAsyncEnumerable();
+        }
+
+        public IAsyncEnumerable<RefundRequest?> GetAllAsync(Expression<Func<RefundRequest, bool>> condition)
+        {
+            return this._db.RefundRequests.Where(condition).AsAsyncEnumerable();
+        }
+
+        public Task<int> GenerateAsync(RefundRequest t)
+        {
+            if (t.Id != null)
+            {
+                return false;
+            }
+            Populate(t);
+            this._db.RefundRequests.Add(t);
+            return this._db.SaveChangesAsync();
+        }
+
+        public Task<bool> UpdateASync(RefundRequest t)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<RefundRequest?>> GetAllAsync(Func<RefundRequest, bool> condition)
+        public Task<bool> LogicalDeleteAsync(RefundRequest t)
         {
             throw new NotImplementedException();
+        }
+
+        public Task<bool> GenerateAsync(PaymentRequest t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateAsync(PaymentRequest t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> LogicalDeleteAsync(PaymentRequest t)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Populate(FinancialTransaction t)
+        {
+            t.AltId = Guid.NewGuid();
+            t.DateGenerated = DateTime.UtcNow;
         }
     }
 }

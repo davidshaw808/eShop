@@ -13,14 +13,14 @@ namespace BusinessLayer.Implementation.Admin
         private readonly ICustomerDataAccess _customerDataAccess = customerDataAccess;
         private readonly IOrderCustomerServiceAdmin _orderCustomerServiceAdmin = orderCustomerServiceAdmin;
 
-        public IEnumerable<Customer> GetCustomersRequestingRemoval()
+        public IAsyncEnumerable<Customer> GetCustomersRequestingRemovalAsync()
         {
-            return _customerDataAccess.Get(c => c.RemoveAllCustomerDataRequest != null);
+            return _customerDataAccess.GetAsync(c => c.RemoveAllCustomerDataRequest != null);
         }
 
-        public bool RemoveAllCustomerInfo(Guid id, string email)
+        public async Task<bool> RemoveAllCustomerInfoAsync(Guid id, string email)
         {
-            var deletedCustomer = _customerDataAccess.Get(id);
+            var deletedCustomer = await _customerDataAccess.GetAsync(id);
             if (deletedCustomer == null || deletedCustomer.Email != email || deletedCustomer.RemoveAllCustomerDataRequest == null)
             {
                 return false;//possible malicious query
@@ -47,6 +47,26 @@ namespace BusinessLayer.Implementation.Admin
                 Address = null,
                 Basket = null
             };
+        }
+
+        Task<IAsyncEnumerable<Customer>> ICustomerServiceAdmin.GetAllActiveCustomers()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IAsyncEnumerable<Customer>> ICustomerServiceAdmin.GetAllCustomersAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IAsyncEnumerable<Customer>> ICustomerServiceAdmin.GetCustomersRequestingRemoval()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<bool> ICustomerServiceAdmin.RemoveAllCustomerInfoAsync(Guid id, string email)
+        {
+            throw new NotImplementedException();
         }
     }
 }

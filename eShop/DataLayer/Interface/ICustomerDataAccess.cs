@@ -7,6 +7,7 @@ namespace DataLayer.Interface
     {
         bool PermanentlyRemoveCustomer(Guid altId);
         Customer? Get(Guid altId);
+        Task<Customer?> GetAsync(Guid altId);
         IEnumerable<Customer?> Get(Func<Customer, bool> filter);
         IAsyncEnumerable<Customer> GetAsync(Func<Customer, bool> filter);
     }

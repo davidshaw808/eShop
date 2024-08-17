@@ -13,7 +13,7 @@ namespace Common.Base
         [EmailAddress(ErrorMessage = "Customer email is invalid")]
         public string? Email { get; set; }
 
-        public Address? Address { get; set; }
+        public Address Address { get; set; }
 
         public IList<Order>? OrderHistory { get; set; }
         public IList<Product>? Basket { get; set; }

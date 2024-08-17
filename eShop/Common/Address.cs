@@ -12,6 +12,7 @@ namespace Common
     public class AddressExtern : ISecureElement, IElement<AddressExtern>
     {
         public Guid? AltId { get; set; }
+        public Customer Customer { get; set; }
         public string HouseNameNumber { get; set; }
         public IEnumerable<string>? AddressLines { get; set; }
         public string? CityTown { get; set; }

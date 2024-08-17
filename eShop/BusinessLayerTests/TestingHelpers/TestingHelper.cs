@@ -22,7 +22,7 @@ namespace BusinessLayerTests.TestingHelpers
                 .AddSingleton<ICustomerDataAccess>(provider => new CustomerDataAccess(db))
                 .AddSingleton<IOrderDataAccess>(provider => new OrderDataAccess(db))
                 .AddSingleton<IProductDataAccess>(provider => new ProductDataAccess(db))
-                .AddSingleton<IFinancialTransaction>(provider => new FinancialTransaction(db))
+                .AddSingleton<IFinancialTransactionDataAccess>(provider => new FinancialTransaction(db))
                 .AddSingleton<IReviewDataAccess>(provider => new ReviewDataAccess(db));
 
 

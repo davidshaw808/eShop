@@ -39,6 +39,8 @@ namespace DataLayer.Implementation
 
         public Customer? Get(Guid altId) => _db.Customers.FirstOrDefault(c => c.AltId.Equals(altId));
 
+        public Task<Customer?> GetAsync(Guid altId) => _db.Customers.FirstOrDefaultAsync(c => c.AltId.Equals(altId));
+
         public IEnumerable<Customer> Get(Func<Customer, bool> filter) => this._db.Customers.Where(filter);
 
         public bool PermanentlyRemoveCustomer(Guid altId)

@@ -21,7 +21,7 @@ namespace DataLayer.Databases.Base
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            //build non-clustered indexs
             modelBuilder.Entity<Customer>()
                 .HasIndex(a => a.AltId);
             modelBuilder.Entity<Customer>()
@@ -29,6 +29,8 @@ namespace DataLayer.Databases.Base
             modelBuilder.Entity<RefundRequest>()
                 .HasIndex(a => a.AltId);
             modelBuilder.Entity<Product>()
+                .HasIndex(a => a.AltId);
+            modelBuilder.Entity<Address>()
                 .HasIndex(a => a.AltId);
 
             modelBuilder.Entity<Category>()
@@ -40,9 +42,6 @@ namespace DataLayer.Databases.Base
                 .HasMany(c => c.Products)
                 .WithOne();
 
-            modelBuilder.Entity<Customer>()
-                .HasOne(c => c.Address)
-                .WithMany();
             modelBuilder.Entity<Customer>()
                 .HasMany(c => c.OrderHistory)
                 .WithOne(o => o.Customer);
