@@ -1,13 +1,11 @@
 ﻿using Common;
-using Common.Interface;
-using Microsoft.EntityFrameworkCore.Update.Internal;
+using DataLayer.Interface.General;
 
-namespace DataLayer.Interface
+namespace DataLayer.Interface;
+
+public interface IProductDataAccess : IUnitOfWorkCUD<Product>, IAtomicCRUD<Product>
 {
-    public interface IProductDataAccess : IGenerateUpdateDelete<Product>
-    {
-        public Product? Get(Guid AltId);
-        public IEnumerable<Product>? GetAll(IEnumerable<Guid> AltIds);
-        public bool UpdateAll(IEnumerable<Product> products);
-    }
+    public Product? Get(Guid Key);
+    public IEnumerable<Product>? GetAll(IEnumerable<Guid> Keys);
+    public bool UpdateAll(IEnumerable<Product> products);
 }

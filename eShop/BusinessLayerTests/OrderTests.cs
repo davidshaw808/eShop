@@ -46,12 +46,12 @@ namespace BusinessLayerTests
                 NumberInStock = numberInStock
             };
             productservice.Generate(product);
-            var addr = new Address() { Active = true, HouseNameNumber = houseNumber, PostalCode = postalCode };
+            var addr = new AddressInternal() { Active = true, HouseNameNumber = houseNumber, PostalCode = postalCode };
             addressService.Generate(addr); 
             var cust = new Customer() { Active = true, Address = addr, Email = email, Basket = [product] };
             customerService.Generate(cust);
             //act
-            var canProcess = orderService.CanProcessBasket((Guid)cust.AltId);
+            var canProcess = orderService.CanProcessBasket((Guid)cust.Key);
             Assert.IsFalse(canProcess.IsError);
             var result = orderService.Generate(cust, paymentId, jsonPaymentResponse, (decimal)5.99, Currency.GBP, PaymentProvider.Paypal, addr);
             //assert
@@ -77,12 +77,12 @@ namespace BusinessLayerTests
                 NumberInStock = numberInStock
             };
             productservice.Generate(product);
-            var addr = new Address() { Active = true, HouseNameNumber = "22", PostalCode = "test" };
+            var addr = new AddressInternal() { Active = true, HouseNameNumber = "22", PostalCode = "test" };
             addressService.Generate(addr);
             var cust = new Customer() { Active = true, Address = addr, Email = "test@test", Basket = [product] };
             customerService.Generate(cust);
             //act
-            var canProcess = orderService.CanProcessBasket((Guid)cust.AltId);
+            var canProcess = orderService.CanProcessBasket((Guid)cust.Key);
             Assert.IsFalse(canProcess.IsError);
             var result = orderService.Generate(cust, "0123456", "{ id:0123456, paymentDate:'12/3/24' payment:11.99 }", (decimal)11.98, Currency.GBP, PaymentProvider.Paypal, addr);
             //assert
@@ -120,7 +120,7 @@ namespace BusinessLayerTests
             productservice.Generate(product);
             productservice.Generate(product2);
 
-            var addr = new Address() { HouseNameNumber = "The Red Lion", PostalCode = "N21 8NQ" };
+            var addr = new AddressInternal() { HouseNameNumber = "The Red Lion", PostalCode = "N21 8NQ" };
             addressService.Generate(addr);
             var basket = new List<Product>() { product, product2 };
             var cust = new Customer() { Address = addr, Email = "noreply@theredlion.co.uk", Basket = basket };
@@ -168,22 +168,22 @@ namespace BusinessLayerTests
             };
             productservice.Generate(product);
             productservice.Generate(product2);
-            var addr = new Address() { HouseNameNumber = "22", PostalCode = "HU5 1LN" };
+            var addr = new AddressInternal() { HouseNameNumber = "22", PostalCode = "HU5 1LN" };
             var cust = new Customer() { Address = addr, Email = "noreply@visithull.co.uk" };
             customerService.Generate(cust);
 
-            Assert.IsNotNull(cust.AltId);
-            customerService.AddItemToBasket((Guid)cust.AltId, product);
-            customerService.AddItemToBasket((Guid)cust.AltId, product);
-            customerService.AddItemToBasket((Guid)cust.AltId, product);
-            customerService.AddItemToBasket((Guid)cust.AltId, product2);
-            customerService.AddItemToBasket((Guid)cust.AltId, product2);
-            customerService.AddItemToBasket((Guid)cust.AltId, product2);
-            customerService.AddItemToBasket((Guid)cust.AltId, product2);
-            var canProcess = orderService.CanProcessBasket((Guid)cust.AltId);
+            Assert.IsNotNull(cust.Key);
+            customerService.AddItemToBasket((Guid)cust.Key, product);
+            customerService.AddItemToBasket((Guid)cust.Key, product);
+            customerService.AddItemToBasket((Guid)cust.Key, product);
+            customerService.AddItemToBasket((Guid)cust.Key, product2);
+            customerService.AddItemToBasket((Guid)cust.Key, product2);
+            customerService.AddItemToBasket((Guid)cust.Key, product2);
+            customerService.AddItemToBasket((Guid)cust.Key, product2);
+            var canProcess = orderService.CanProcessBasket((Guid)cust.Key);
             Assert.IsFalse(canProcess.IsError);
-            customerService.AddItemToBasket((Guid)cust.AltId, product);
-            canProcess = orderService.CanProcessBasket((Guid)cust.AltId);
+            customerService.AddItemToBasket((Guid)cust.Key, product);
+            canProcess = orderService.CanProcessBasket((Guid)cust.Key);
             Assert.IsTrue(canProcess.IsError);
             Assert.IsTrue(canProcess.Message.Length > 0);
         }

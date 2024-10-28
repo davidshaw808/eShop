@@ -1,8 +1,11 @@
-﻿namespace Common
+﻿namespace Common;
+
+public class HistoryLog
 {
-    public class HistoryLog
-    {
-        public int? Id {  get; set; }
-        public string LogEvent { get; set; }
-    }
+    int? Id { get; set; }
+}
+
+public class HistoryLog
+{
+    public string LogEvent { get; set; }
 }

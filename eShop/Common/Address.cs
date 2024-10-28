@@ -1,27 +1,23 @@
 ﻿using Common.Interface;
 using System.Text.Json.Serialization;
 
-namespace Common
-{
-    public class Address : AddressExtern, IInternalElement<AddressExtern>
-    {
-        [JsonIgnore]
-        public int? Id { get; set; }
-    }
+namespace Common;
 
-    public class AddressExtern : ISecureElement, IElement<AddressExtern>
+public class Address : IElement<Address>
+{
+    public int? Id { get; set; }
+    public Guid? Key { get; set; }
+    public Customer Customer { get; set; }
+    public string HouseNameNumber { get; set; }
+    public IEnumerable<string>? AddressLines { get; set; }
+    public string? CityTown { get; set; }
+    public string? Region { get; set; }
+    public string PostalCode { get; set; }
+    public bool Active { get; set; }
+    public Address Value { get => this; }
+
+    public U Visit<U>(IVisitor<Address, U> visitor)
     {
-        public Guid? AltId { get; set; }
-        public Customer Customer { get; set; }
-        public string HouseNameNumber { get; set; }
-        public IEnumerable<string>? AddressLines { get; set; }
-        public string? CityTown { get; set; }
-        public string? Region { get; set; }
-        public string PostalCode { get; set; }
-        public bool Active { get; set; }
-        public AddressExtern Visit(IVisitor<AddressExtern> visitor)
-        {
-            return visitor.Visit(this);
-        }
+        return visitor.Visit(this);
     }
 }

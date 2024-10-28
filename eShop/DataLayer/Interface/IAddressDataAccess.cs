@@ -1,11 +1,10 @@
 ﻿using Common;
-using Common.Interface;
+using DataLayer.Interface.General;
 
-namespace DataLayer.Interface
+namespace DataLayer.Interface;
+
+public interface IAddressDataAccess : IUnitOfWorkCUD<Address>, IAtomicCRUD<Address>
 {
-    public interface IAddressDataAccess : IGenerateUpdateDelete<Address>
-    {
-        Task<IAsyncEnumerable<Address>> GetAllAsync(Guid custId, bool active);
-        Task<Address?> GetAsync(Guid altId, bool active);
-    }
+    Task<IAsyncEnumerable<Address>> GetAllAsync(Guid customerKey, bool active);
+    Task<Address?> GetAsync(Guid Key, bool active);
 }

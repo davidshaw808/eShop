@@ -1,14 +1,13 @@
 ﻿using Common;
 using Common.Interface;
+using DataLayer.Interface.General;
 
-namespace DataLayer.Interface
+namespace DataLayer.Interface;
+
+public interface ICustomerDataAccess : IUnitOfWorkCUD<Customer>, IAtomicCRUD<Customer>
 {
-    public interface ICustomerDataAccess : IGenerateUpdateDelete<Customer>
-    {
-        bool PermanentlyRemoveCustomer(Guid altId);
-        Customer? Get(Guid altId);
-        Task<Customer?> GetAsync(Guid altId);
-        IEnumerable<Customer?> Get(Func<Customer, bool> filter);
-        IAsyncEnumerable<Customer> GetAsync(Func<Customer, bool> filter);
-    }
+    Task<int> PermanentlyRemoveCustomer(Guid Key);
+    Task<Customer?> GetAsync(Guid Key);
+    IEnumerable<Customer?> Get(Func<Customer, bool> filter);
+    IAsyncEnumerable<Customer> GetAsync(Func<Customer, bool> filter);
 }

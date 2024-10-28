@@ -1,32 +1,21 @@
 ﻿using Common.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
-namespace Common
+namespace Common;
+
+public class Category : IElement<Category>
 {
-    public class Category : CategoryExtern, IInternalElement<CategoryExtern>
-    {
-        [JsonIgnore]
-        public int? Id { get; set; }
-    }
+    public int? Id { get; set; }
+    public Guid? Key { get; set; }
+    public int? ParentId { get; set; }
+    public string? Name { get; set; }
+    public Category? Parent { get; set; }
+    public IList<IParentChild>? Children { get; set; }
+    public IList<Product>? Products { get; set; }
+    public bool Active { get; set; }
+    IParentChild? IParentChild.Parent { get => Parent; set => Parent = (Category?)value; }
 
-    public class CategoryExtern : IElement<CategoryExtern>, IParentChild
+    public U Visit<U>(IVisitor<Category, U> visitor)
     {
-        public int? ParentId { get; set; }
-        public string? Name { get; set; }
-        public CategoryExtern? Parent { get; set; }
-        public IList<IParentChild>? Children { get; set;}
-        public IList<Product>? Products { get; set;}
-        public bool Active { get; set; }
-        IParentChild? IParentChild.Parent { get => Parent; set => Parent = (CategoryExtern?)value; }
-
-        public CategoryExtern Visit(IVisitor<CategoryExtern> visitor)
-        {
-            return visitor.Visit(this);
-        }
+        return visitor.Visit(this);
     }
 }

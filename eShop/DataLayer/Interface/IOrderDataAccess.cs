@@ -1,16 +1,17 @@
 ﻿using Common;
 using Common.Interface;
+using DataLayer.Interface.General;
 
-namespace DataLayer.Interface
+namespace DataLayer.Interface;
+
+public interface IOrderDataAccess : IUnitOfWorkCUD<Order>, IAtomicCRUD<Order>
 {
-    public interface IOrderDataAccess : IGenerateUpdateDelete<Order>
-    {
-        Order? Get(Guid altId);
-        Task<Order?> GetAsync(Guid altId);
-        IEnumerable<Order> Get(Func<Order, bool> filter);
-        bool Update(IEnumerable<Order> orders);
-
-        bool Generate(PaymentDetails paymentDetails);
-        bool Update(PaymentDetails paymentDetails);
-    }
+    Order? Get(Guid Key);
+    Task<Order?> GetAsync(Guid Key);
+    IEnumerable<Order> Get(Func<Order, bool> filter);
+    IAsyncEnumerable<Order> GetAsync(Func<Order, bool> filter);
+    IAsyncEnumerable<Order> GetOrdersAsync(Guid CustKey);
+    bool Update(IEnumerable<Order> orders);
+    bool Generate(PaymentDetails paymentDetails);
+    bool Update(PaymentDetails paymentDetails);
 }

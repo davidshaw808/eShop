@@ -2,6 +2,7 @@
 using DataLayer.Databases.Base;
 using DataLayer.Implementation.Extensions;
 using DataLayer.Interface;
+using DataLayer.Interface.General;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Implementation
@@ -10,23 +11,22 @@ namespace DataLayer.Implementation
     {
         private readonly eShopBaseContext _db;
 
-        public CategoryDataAccess(eShopBaseContext db)
+        public CategoryDataAccess(IDbContextUnitOfWorkDataAccess unitOfWork)
         {
-            this._db = db;
+            this._db = unitOfWork.GetContext();
         }
 
         public Task<int> AddChildAsync(Category p, Category c)
         {
-            this._db.Track(p);//if not tracked ensure at least the added subcategories are added
+            _db.Track(p);//if not tracked ensure at least the added subcategories are added
             p.Children ??= [];
             p.Children.Add(c);
             return this._db.SaveChangesAsync();
         }
 
-        public int LogicalDelete(Category t, bool commit)
+        public int LogicalDeleteAsync(Category t, bool commit)
         {
-            this._db.Track(t);
-            t.Active = false;
+            this._db.LogicalDelete(t);
             if(commit)
             {
                 return this._db.SaveChanges();
@@ -113,7 +113,7 @@ namespace DataLayer.Implementation
             return commit ? this._db.SaveChanges() : 0;
         }
 
-        public Task<int> LogicalDeleteAsync(Category t)
+        public Task<int> LogicalDeleteAsync(Category t, bool commit)
         {
             this._db.Track(t);
             t.Parent?.AssignParentToChildren();
@@ -127,5 +127,22 @@ namespace DataLayer.Implementation
             cat.Active = false;
             return this._db.SaveChangesAsync();
         }
+
+        public int Update(IEnumerable<Category> cats)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> LogicalDeleteAsync(Category t)
+        {
+            throw new NotImplementedException();
+        }
+
+        private Func<eShopBaseContext, Guid, int?> GetCompiledCategoryId() => EF.CompileQuery(
+        (eShopBaseContext db, Guid Key) => db.Categories
+            .Where(a => a.Key.Equals(Key))
+            .Select(a => a.Id)
+            .FirstOrDefault()
+        );
     }
 }

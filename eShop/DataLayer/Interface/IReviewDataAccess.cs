@@ -1,10 +1,10 @@
-﻿using Common.Interface;
-using Common;
+﻿using Common;
+using DataLayer.Interface.General;
 
-namespace DataLayer.Interface
+namespace DataLayer.Interface;
+
+public interface IReviewDataAccess : IUnitOfWorkCUD<Review>, IAtomicCRUD<Review>
 {
-    public interface IReviewDataAccess : IGenerateUpdateDelete<Review>
-    {
-        IEnumerable<Review> GetReviewsForProduct(Guid productId);
-    }
-}   
+    IEnumerable<Review> GetReviewsForProduct(Guid productId);
+}
+

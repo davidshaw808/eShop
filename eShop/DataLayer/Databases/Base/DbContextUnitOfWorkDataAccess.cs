@@ -1,21 +1,29 @@
-﻿using DataLayer.Interface;
+﻿using DataLayer.Interface.General;
 
 namespace DataLayer.Databases.Base
 {
-    public class DbContextUnitOfWorkDataAccess: IUnitofWorkDataAccess
+    public class DbContextUnitOfWorkDataAccess : IDbContextUnitOfWorkDataAccess
     {
-        private readonly eShopBaseContext _db;
-        private bool _disposed;
-
-        public DbContextUnitOfWorkDataAccess(eShopBaseContext db)  
-        { 
-            _db = db;
-            _disposed = false;
+        private static eShopBaseContext _db { get
+            {
+                return _db;
+            }
+            set
+            {
+                if(_db is null)
+                    _db = value;
+            }
         }
 
-        public void Dispose()
+        public DbContextUnitOfWorkDataAccess(eShopBaseContext db) => _db = db;
+
+
+        public virtual eShopBaseContext GetContext() =>  _db;
+
+        public async ValueTask DisposeAsync()
         {
-            _disposed = true;
+            await _db.SaveChangesAsync();//.ConfigureAwait(false);
+            GC.SuppressFinalize(this);
         }
     }
 }

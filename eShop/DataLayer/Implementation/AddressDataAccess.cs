@@ -2,103 +2,121 @@
 using DataLayer.Databases.Base;
 using DataLayer.Implementation.Extensions;
 using DataLayer.Interface;
+using DataLayer.Interface.General;
 using Microsoft.EntityFrameworkCore;
+using Z.EntityFramework.Plus;
 
-namespace DataLayer.Implementation
+namespace DataLayer.Implementation;
+
+public class AddressDataAccess : IAddressDataAccess
 {
-    public class AddressDataAccess : IAddressDataAccess
+    private readonly eShopBaseContext _db;
+    private readonly Func<eShopBaseContext,Guid,bool,Task<Address?>> _addressGetterAsync;
+    private readonly Func<eShopBaseContext, Guid, int?> _addressIdGetter;
+    private readonly Func<eShopBaseContext, Guid, bool, Task<IAsyncEnumerable<Address>>> _customerAddressGetterAsync;
+
+    public AddressDataAccess(IDbContextUnitOfWorkDataAccess unitOfWork)
     {
-        private readonly eShopBaseContext _db;
-        private readonly Func<eShopBaseContext,Guid,bool,Task<Address?>> _addressGetter;
-        private readonly Func<eShopBaseContext, Guid, bool, Task<IAsyncEnumerable<Address>>> _customerAddressGetter;
-        private static readonly Task<int> _taskResult = Task.FromResult(0);
+        _db = unitOfWork.GetContext();
+        _addressGetterAsync = GetAsyncCompiledAddressSetter();
+        _customerAddressGetterAsync = GetAsyncCompiledAddressGetter();
+        _addressIdGetter = GetCompiledAddressId();
+    }
 
-        public AddressDataAccess(eShopBaseContext db)
-        {
-            this._db = db;
-            this._addressGetter = EF.CompileAsyncQuery((eShopBaseContext db, Guid altId, bool active) => db.Addresses.FirstOrDefault(a => a.AltId.Equals(altId) && a.Active.Equals(active)));
-            _customerAddressGetter = EF.CompileAsyncQuery(
-                (eShopBaseContext db, Guid custId, bool active) => db.Addresses
-                .Include(a => a.Customer)
-                .Where(a => a.Customer.AltId.Equals(custId) && a.Active.Equals(active))
-                .AsAsyncEnumerable());
-        }
+    public Task<Address?> ReadAtomicAsync(Guid key)
+    {
+        return _db.Addresses.FirstOrDefaultAsync(a => a.Key.Equals(key));
+    }
 
-        public Task<int> GenerateAsync(Address t)
+    public void GenerateElementInUoW(Address address)
+    {
+        Generate(address);
+        _db.Addresses.Add(address);
+    }
+
+    public Task GenerateAtomicAsync(Address address)
+    {
+        Generate(address);
+        return _db.Addresses.SingleInsertAsync(address);
+    }
+
+    public void UpdateElementInUoW(Address address)
+    {
+        if (!address.Key.HasValue)
+            return;
+        //possible to have multiple updates on the same object, if so and is currently tracked don't bother getting the Id from the db
+        if (!_db.ExistsLocally(address))
         {
-            if(!this.GenerateWithChecks(t))
+            var addressId = _addressIdGetter(_db, address.Key.Value);
+            if (!addressId.HasValue)
             {
-                return Task.FromResult(0);
+                return;
             }
-            this._db.Addresses.Add(t);
-            return this._db.SaveChangesAsync();
+            //set pk
+            address.Id = addressId.Value;
+            _db.Attach(address);
         }
+        _db.Addresses.Update(address);
+    }
 
-        public Task<int> UpdateAsync(Address t)
+    public Task<int> UpdateAtomicAsync(Address address)
+    {
+        if (!address.Key.HasValue)
+            return StaticExtensions.Uncommitted;
+        return _db.Addresses
+            .Where(a => a.Key.Equals(address.Key.Value))
+            .ExecuteUpdateAsync( a => a.SetProperty(p => p.Value, address));
+    }
+
+    public Task<Address?> GetAsync(Guid Key, bool active) =>  this._addressGetterAsync(_db, Key, active);
+
+    public Task<IAsyncEnumerable<Address>> GetAllAsync(Guid custId, bool active) => this._customerAddressGetterAsync(this._db, custId, active);
+
+    public void LogicalDeleteElementInUow(Address address)
+    {
+        if (!_db.ExistsLocally(address))
         {
-            this._db.Addresses.Update(t);
-            return this._db.SaveChangesAsync();
-        }
-
-        public Task<Address?> GetAsync(Guid altId, bool active) => this._addressGetter(_db, altId, active);
-
-        public Task<IAsyncEnumerable<Address>> GetAllAsync(Guid custId, bool active) => this._customerAddressGetter(this._db, custId, active);
-
-        public Task<int> LogicalDeleteAsync(Address t, bool commit) => (this.SetDelete(t) && commit) ? this._db.SaveChangesAsync() : _taskResult;
-
-        public int Generate(Address t, bool commit)
-        {
-            if (!this.GenerateWithChecks(t))
+            var addressId = _addressIdGetter(_db, address.Key.Value);
+            if (!addressId.HasValue)
             {
-                return 0;
+                return;
             }
-            this._db.Addresses.Add(t);
-            if(commit)
-            {
-                 return this._db.SaveChanges();
-            }
-            return 0;
+            //set pk
+            address.Id = addressId.Value;
         }
+        _db.LogicalDelete(address);
+    }
 
-        public int Update(Address t, bool commit)
-        {
-            this._db.Addresses.Update(t);
-            if (commit)
-            {
-                return this._db.SaveChanges();
-            }
-            return 0;
-        }
+    public Task<int> LogicalDeleteAtomicAsync(Address address)
+    {
+        if (!address.Key.HasValue)
+            return StaticExtensions.Uncommitted;
+        return _db.Addresses
+            .Where(a => a.Key.Equals(address.Key.Value))
+            .ExecuteUpdateAsync(a => a.SetProperty(p => p.Active, false));
+    }
 
-        public int LogicalDelete(Address t, bool commit) =>  (!this.SetDelete(t) || !commit) ? 0 : this._db.SaveChanges();
+    private Func<eShopBaseContext, Guid, bool, Task<Address?>> GetAsyncCompiledAddressSetter() => EF.CompileAsyncQuery(
+        (eShopBaseContext db, Guid Key, bool active) => db.Addresses.FirstOrDefault(a => a.Key.Equals(Key) && a.Active.Equals(active))
+        );
 
-        /*._db.Customers
-                .Where(c  => c.AltId.Equals(custId) && c.Active.Equals(active) && c.Address != null)
-                .Select(c => c.Address)
-                .AsAsyncEnumerable();
-        }*/
+    private Func<eShopBaseContext, Guid, int?> GetCompiledAddressId() => EF.CompileQuery(
+        (eShopBaseContext db, Guid Key) => db.Addresses
+            .Where(a => a.Key.Equals(Key))
+            .Select(a => a.Id)
+            .FirstOrDefault()
+        );
 
-        private bool GenerateWithChecks(Address address)
-        {
-            if (address.Id != null)
-            {
-                return false;
-            }
-            address.AltId = Guid.NewGuid();//set guid only do not set active status as it is feasible to generate a deactivated address
-            return true;
-        }
-        
-        public Task<int> LogicalDeleteAsync(Address t) => !this.SetDelete(t) ? Task.FromResult(0) : this._db.SaveChangesAsync();
+    private Func<eShopBaseContext, Guid, bool, Task<IAsyncEnumerable<Address>>> GetAsyncCompiledAddressGetter() => EF.CompileAsyncQuery(
+            (eShopBaseContext db, Guid custKey, bool active) =>
+            db.Addresses
+            .Include(a => a.Customer)
+            .Where(a => a.Customer.Key.Equals(custKey) && a.Active.Equals(active))
+            .AsAsyncEnumerable());
 
-        private bool SetDelete(Address address)
-        {
-            if (address == null)
-            {
-                return false;
-            }
-            this._db.Track(address);
-            address.Active = false;
-            return true;
-        }
+    private void Generate(Address address)
+    {
+        address.Id = null;
+        address.Key = Guid.NewGuid();
     }
 }

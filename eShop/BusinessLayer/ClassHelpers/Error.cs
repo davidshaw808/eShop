@@ -1,8 +1,7 @@
-﻿namespace BusinessLayer.ClassHelpers
+﻿namespace BusinessLayer.ClassHelpers;
+
+public record Error
 {
-    public record Error
-    {
-        public bool IsError { get; set; }
-        public string Message { get; set; }
-    }
+    public bool IsError { get; set; }
+    public string Message { get; set; }
 }

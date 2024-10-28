@@ -1,16 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Common.Base;
+using Common.Interface;
 
-namespace Common
+namespace Common;
+
+public class Review : IElement<Review>
 {
-    public class Review
-    {
-        public int? Id {  get; set; }
-        public int? ProductId { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public Product? Product { get; set; }
+    public int? Id { get; set; }
+    public Guid? Key { get; set; }
+    public int? ProductId { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public Product? Product { get; set; }
+    public Person Owner { get; set; }
+    public bool Active { get; set; }
 
-        [EmailAddress]
-        public string Owner { get; set; }
+    public U Visit<U>(IVisitor<Review, U> visitor)
+    {
+        return visitor.Visit(this);
     }
 }

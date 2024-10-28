@@ -1,7 +1,6 @@
-﻿namespace Common.Interface
+﻿namespace Common.Interface;
+
+public interface IVisitor<T,U>
 {
-    public interface IVisitor<T>
-    {
-        public T Visit(IElement<T> visitor);
-    }
+    public U Visit(T visitor);
 }

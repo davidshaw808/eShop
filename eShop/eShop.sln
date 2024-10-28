@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "BusinessLa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayerTests", "BusinessLayerTests\BusinessLayerTests.csproj", "{F6D15D87-F39F-45F9-930B-0491175BBBAC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{051F5AD1-A039-4B5E-A9F4-875179BC1DEE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{48FE3BA1-04F9-4C5B-9D21-F90954D6AB78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +46,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8EC1DE8E-F755-4755-85FC-5E0AC7FB0113} = {051F5AD1-A039-4B5E-A9F4-875179BC1DEE}
+		{CFC3A740-DBB6-42BA-A059-32C68D19D745} = {051F5AD1-A039-4B5E-A9F4-875179BC1DEE}
+		{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1} = {051F5AD1-A039-4B5E-A9F4-875179BC1DEE}
+		{521ED21B-9FAF-47E4-96D1-170D107C3FCF} = {051F5AD1-A039-4B5E-A9F4-875179BC1DEE}
+		{F6D15D87-F39F-45F9-930B-0491175BBBAC} = {48FE3BA1-04F9-4C5B-9D21-F90954D6AB78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {831D731A-D562-4435-918C-A1E57AB44C17}

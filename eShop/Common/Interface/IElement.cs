@@ -1,13 +1,20 @@
-﻿namespace Common.Interface
-{
-    public interface IInternalElement<T> : IElement<T>
-    {
-        public int? Id { get; set; }
-    }
+﻿namespace Common.Interface;
 
-    public interface IElement<T>
-    {
-        public bool Active { get; set; }
-        public T Visit(IVisitor<T> visitor);
-    }
+public interface IElementId
+{
+    int? Id { get; set; }
+}
+public interface IElementKey
+{
+    Guid? Key { get; set; }
+}
+
+public interface IVisit<T>
+{ 
+    U Visit<U>(IVisitor<T,U> visitor);
+}
+
+public interface IElement<T> : IElementKey, IElementId, IVisit<T>
+{
+    bool Active { get; set; }
 }

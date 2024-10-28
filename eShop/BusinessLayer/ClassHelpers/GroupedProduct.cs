@@ -1,10 +1,9 @@
 ﻿using Common;
 
-namespace BusinessLayer.ClassHelpers
+namespace BusinessLayer.ClassHelpers;
+
+public class GroupedProduct
 {
-    public class GroupedProduct
-    {
-        public int Id { get; set; }
-        public IEnumerable<Product>? Products { get; set; }
-    }
+    public int Id { get; set; }
+    public IEnumerable<Product>? Products { get; set; }
 }

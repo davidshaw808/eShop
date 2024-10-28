@@ -1,27 +1,49 @@
 ﻿using Common.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataLayer.Implementation.Extensions
-{
-    internal static class StaticExtensions
-    {
-        public static bool ExistsLocally<TEntity>(this DbContext context, TEntity entity) where TEntity : class
-        {
-            return context.Set<TEntity>().Local.Any(e => e.Equals(entity));
-        }
+namespace DataLayer.Implementation.Extensions;
 
-        /// <summary>
-        /// Ensures you are tracking an existing entity's changes from point of call until 'SubmitChanges' or 'SumbitChangesAsync' is called
-        /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <param name="context"></param>
-        /// <param name="entity"></param>
-        public static void Track<TEntity>(this DbContext context, TEntity entity) where TEntity : class
+internal static class StaticExtensions
+{
+    private static bool ContextEquals<TEntity>(this IElement<TEntity> me,  IElement<TEntity> other) where TEntity : class => me.Key.Equals(other.Key);
+
+    public static bool ExistsLocally<TEntity>(this DbContext context, IElement<TEntity> entity) where TEntity : class
+    {
+        //if an entity is in the db it implements IElement<T>
+        return context.Set<TEntity>().Local.Any(e => ((IElement<TEntity>)e).ContextEquals(entity));
+    }
+
+    /// <summary>
+    /// Ensures you are tracking an existing entity's changes from point of call until 'SubmitChanges' or 'SumbitChangesAsync' is called primary key must be set otherwise it is added
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="context"></param>
+    /// <param name="entity"></param>
+    public static void Track<TEntity>(this DbContext context, IElement<TEntity> entity) where TEntity : class
+    {
+        if (!context.ExistsLocally(entity))
         {
-            if (!context.ExistsLocally(entity))
-            {
-                context.Attach(entity);
-            }
+            context.Attach(entity);
         }
     }
+
+    /// <summary>
+    /// primary key must be set for logical delete, otherwise entity is added
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="context"></param>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    public static bool LogicalDelete<TEntity>(this DbContext context, IElement<TEntity> entity) where TEntity : class
+    {
+        if (entity == null || !entity.Id.HasValue)
+        {
+            return false;
+        }
+        context.Track(entity);
+        entity.Active = false;
+        return true;
+    }
+
+    public static readonly Task<int> Uncommitted = Task.FromResult(0);
 }

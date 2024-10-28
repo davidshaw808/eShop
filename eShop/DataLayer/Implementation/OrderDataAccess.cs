@@ -1,6 +1,9 @@
 ﻿using Common;
 using DataLayer.Databases.Base;
+using DataLayer.Implementation.Extensions;
 using DataLayer.Interface;
+using DataLayer.Interface.General;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Implementation
 {
@@ -8,25 +11,16 @@ namespace DataLayer.Implementation
     {
         private readonly eShopBaseContext _db;
 
-        public OrderDataAccess(eShopBaseContext db)
+        public OrderDataAccess(IDbContextUnitOfWorkDataAccess unitOfWork)
         {
-            this._db = db;
+            this._db = unitOfWork.GetContext();
         }
 
-        public bool LogicalDelete(Common.Order t)
+        public int LogicalDelete(Order t, bool commit)
         {
-            if(t.AltId == null)
-            {
-                return false;
-            }
-            var o = this.Get((Guid)t.AltId);
-            if(o == null)
-            {
-                return false;
-            }
-            o.Active = false;
-            this._db.SaveChanges();
-            return true;
+            var delete = this._db.LogicalDelete(t);
+            this._db.Orders.;
+            return commit && delete ? this._db.SaveChanges() : 0;
         }
 
         public bool Generate(Order t)
@@ -35,7 +29,7 @@ namespace DataLayer.Implementation
             {
                 return false;
             }
-            t.AltId = Guid.NewGuid();
+            t.Key = Guid.NewGuid();
             this._db.Orders.Add(t);
             this._db.SaveChanges();
             return true;
@@ -52,7 +46,7 @@ namespace DataLayer.Implementation
             return true;
         }
 
-        public bool Update(PaymentDetails pd)
+        public int Update(PaymentDetails pd, bool commit)
         {
             if(pd.Order == null)
             {
@@ -61,16 +55,14 @@ namespace DataLayer.Implementation
             if (pd.Id == null)
             {
                 this._db.PaymentDetails.Add(pd);
-                return true;
             }
             this._db.PaymentDetails.Update(pd);
-            this._db.SaveChanges();
-            return true;
+            return commit ? this._db.SaveChanges() : 0;
         }
 
-        public Common.Order? Get(Guid altId)
+        public Order? Get(Guid Key)
         {
-            return this._db.Orders.FirstOrDefault(o => o.AltId == altId);
+            return this._db.Orders.FirstOrDefault(o => o.Key == Key);
         }
 
         public IEnumerable<Order> Get(Func<Order, bool> filter)
@@ -78,17 +70,64 @@ namespace DataLayer.Implementation
             return this._db.Orders.Where(filter);
         }
 
-        public bool Update(Order t)
+        public int Update(Order t, bool commit)
         {
             this._db.Orders.Update(t);
             this._db.SaveChanges();
-            return true;
         }
+
         public bool Update(IEnumerable<Order> t)
         {
             this._db.Orders.UpdateRange(t);
             this._db.SaveChanges();
             return true;
         }
+
+        public Task<Order?> GetAsync(Guid Key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAsyncEnumerable<Order> GetAsync(Func<Order, bool> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAsyncEnumerable<Order> GetOrdersAsync(Guid CustKey)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(PaymentDetails paymentDetails)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> GenerateAsync(Order t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> UpdateAsync(Order t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> LogicalDeleteAsync(Order t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Generate(Order t, bool commit)
+        {
+            throw new NotImplementedException();
+        }
+
+        private Func<eShopBaseContext, Guid, int?> GetCompiledOrderId() => EF.CompileQuery(
+       (eShopBaseContext db, Guid Key) => db.Orders
+           .Where(a => a.Key.Equals(Key))
+           .Select(a => a.Id)
+           .FirstOrDefault()
+       );
     }
 }
