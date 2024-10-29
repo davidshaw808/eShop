@@ -16,12 +16,12 @@ namespace DataLayer.Implementation
             this._db = unitOfWork.GetContext();
         }
 
-        public Task<int> AddChildAsync(Category p, Category c)
+        public Task<int> AddChildAsync(Category parent, Category child)
         {
-            _db.Track(p);//if not tracked ensure at least the added subcategories are added
-            p.Children ??= [];
-            p.Children.Add(c);
-            return this._db.SaveChangesAsync();
+            return _db.Categories
+                .Where(c => c.Key.Equals(parent.Key))
+               // .Include(c => c.Children)
+                .ExecuteUpdateAsync(p => p.SetProperty(c => c.Children, c => c.Children.Concat(new[] { child })));
         }
 
         public int LogicalDeleteAsync(Category t, bool commit)

@@ -1,11 +1,10 @@
-﻿using Common.Interface;
-
+﻿using Common;
 
 namespace DataLayer.Implementation.Extensions;
 
-public static class GenericServiceExtensions
+internal static class GenericServiceExtensions
 {
-    public static void AssignParentToChildren(this IParentChild t)
+    internal static void AssignParentToChildren(this Category t)
     {
         var parallelOptions = new ParallelOptions { MaxDegreeOfParallelism = 15 };
 

@@ -1,7 +1,7 @@
 ﻿namespace Common.Interface;
 
-public interface IParentChild
+public interface IParentChild<T>
 {
-    public IParentChild? Parent { get; set; }
-    public IList<IParentChild>? Children { get; set; }
+    public T? Parent { get; set; }
+    public IList<T>? Children { get; set; }
 }
