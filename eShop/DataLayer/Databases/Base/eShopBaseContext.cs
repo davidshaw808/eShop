@@ -16,6 +16,11 @@ public class eShopBaseContext : DbContext
     internal DbSet<PaymentDetails> PaymentDetails { get; set; }
     internal DbSet<Review> Reviews { get; set; }
 
+    public eShopBaseContext()
+    {
+
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         //modelBuilder.ApplyConfigurationsFromAssembly

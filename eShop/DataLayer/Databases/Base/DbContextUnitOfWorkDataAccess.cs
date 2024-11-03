@@ -15,7 +15,7 @@ namespace DataLayer.Databases.Base
             }
         }
 
-        public DbContextUnitOfWorkDataAccess(eShopBaseContext db) => _db = db;
+        public DbContextUnitOfWorkDataAccess(eShopBaseContext db, IVisi) => _db = db;
 
 
         public virtual eShopBaseContext GetContext() =>  _db;

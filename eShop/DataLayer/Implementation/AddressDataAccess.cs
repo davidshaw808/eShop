@@ -49,10 +49,8 @@ public class AddressDataAccess : IAddressDataAccess
         {
             var addressId = _addressIdGetter(_db, address.Key.Value);
             if (!addressId.HasValue)
-            {
                 return;
-            }
-            //set pk
+            //set pk and start change tracking - as we know it's currently not being tracked
             address.Id = addressId.Value;
             _db.Attach(address);
         }
@@ -65,7 +63,13 @@ public class AddressDataAccess : IAddressDataAccess
             return StaticExtensions.Uncommitted;
         return _db.Addresses
             .Where(a => a.Key.Equals(address.Key.Value))
-            .ExecuteUpdateAsync( a => a.SetProperty(p => p.Value, address));
+            //.Include(a => a.Customer)--not needed just an address update
+            .ExecuteUpdateAsync( setter => setter
+            .SetProperty(p => p.HouseNameNumber, address.HouseNameNumber)
+            .SetProperty(p => p.AddressLines, address.AddressLines)
+            .SetProperty(p => p.Active, address.Active)
+            .SetProperty(p => p.CityTown, address.CityTown) 
+            );
     }
 
     public Task<Address?> GetAsync(Guid Key, bool active) =>  this._addressGetterAsync(_db, Key, active);
@@ -74,13 +78,13 @@ public class AddressDataAccess : IAddressDataAccess
 
     public void LogicalDeleteElementInUow(Address address)
     {
+        if(!address.Key.HasValue)
+            return;
         if (!_db.ExistsLocally(address))
         {
             var addressId = _addressIdGetter(_db, address.Key.Value);
             if (!addressId.HasValue)
-            {
                 return;
-            }
             //set pk
             address.Id = addressId.Value;
         }

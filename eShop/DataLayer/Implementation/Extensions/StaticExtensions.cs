@@ -7,7 +7,7 @@ internal static class StaticExtensions
 {
     private static bool ContextEquals<TEntity>(this IElement<TEntity> me,  IElement<TEntity> other) where TEntity : class => me.Key.Equals(other.Key);
 
-    public static bool ExistsLocally<TEntity>(this DbContext context, IElement<TEntity> entity) where TEntity : class
+    internal static bool ExistsLocally<TEntity>(this DbContext context, IElement<TEntity> entity) where TEntity : class
     {
         //if an entity is in the db it implements IElement<T>
         return context.Set<TEntity>().Local.Any(e => ((IElement<TEntity>)e).ContextEquals(entity));
@@ -19,7 +19,7 @@ internal static class StaticExtensions
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="context"></param>
     /// <param name="entity"></param>
-    public static void Track<TEntity>(this DbContext context, IElement<TEntity> entity) where TEntity : class
+    internal static void Track<TEntity>(this DbContext context, IElement<TEntity> entity) where TEntity : class
     {
         if (!context.ExistsLocally(entity))
         {
@@ -34,7 +34,7 @@ internal static class StaticExtensions
     /// <param name="context"></param>
     /// <param name="entity"></param>
     /// <returns></returns>
-    public static bool LogicalDelete<TEntity>(this DbContext context, IElement<TEntity> entity) where TEntity : class
+    internal static bool LogicalDelete<TEntity>(this DbContext context, IElement<TEntity> entity) where TEntity : class
     {
         if (entity == null || !entity.Id.HasValue)
         {

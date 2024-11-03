@@ -6,7 +6,7 @@ namespace DataLayer.Interface
 {
     public interface ICategoryDataAccess : IUnitOfWorkCUD<Category>, IAtomicCRUD<Category>
     {
-        Task<int> AddChildAsync(Category p, Category c);
-        int Update(IEnumerable<Category> cats);
+        Task<int> AddChildAtomicAsync(Category p, Category c);
+        Task<int> UpdateAtomicAsync(IEnumerable<Category> cats);
     }
 }
