@@ -1,53 +1,62 @@
 ﻿using Common;
+using DataLayer.ClassHelpers.Extensions;
 using DataLayer.Databases.Base;
-using DataLayer.Implementation.Extensions;
 using DataLayer.Interface;
 using DataLayer.Interface.General;
 using Microsoft.EntityFrameworkCore;
-using Z.EntityFramework.Plus;
 
 namespace DataLayer.Implementation;
 
 public class AddressDataAccess : IAddressDataAccess
 {
     private readonly eShopBaseContext _db;
-    private readonly Func<eShopBaseContext,Guid,bool,Task<Address?>> _addressGetterAsync;
-    private readonly Func<eShopBaseContext, Guid, int?> _addressIdGetter;
+    private readonly Func<eShopBaseContext,Guid, Guid, bool,Task<Address?>> _addressGetterAsync;
+    private readonly Func<eShopBaseContext, Guid, Guid, int?> _addressIdGetter;
     private readonly Func<eShopBaseContext, Guid, bool, Task<IAsyncEnumerable<Address>>> _customerAddressGetterAsync;
+    private readonly IDatabaseChangeValidation _dbChangeValidation;
 
-    public AddressDataAccess(IDbContextUnitOfWorkDataAccess unitOfWork)
+    public AddressDataAccess (IDbContextUnitOfWorkDataAccess unitOfWork, IDatabaseChangeValidation dbChangeValidation) 
     {
         _db = unitOfWork.GetContext();
+        _dbChangeValidation = dbChangeValidation;
         _addressGetterAsync = GetAsyncCompiledAddressSetter();
         _customerAddressGetterAsync = GetAsyncCompiledAddressGetter();
         _addressIdGetter = GetCompiledAddressId();
     }
 
-    public Task<Address?> ReadAtomicAsync(Guid key)
+    public async ValueTask<Address?> ReadAtomicAsync(Guid key)
     {
-        return _db.Addresses.FirstOrDefaultAsync(a => a.Key.Equals(key));
+        return await _db.Addresses.FirstOrDefaultAsync(a => a.Key.Equals(key));
     }
 
     public void GenerateElementInUoW(Address address)
     {
-        Generate(address);
+        if (!_dbChangeValidation.Valid(address).Generate)
+            return;
+        address.Generate();
         _db.Addresses.Add(address);
     }
-
-    public Task GenerateAtomicAsync(Address address)
+    
+    public async ValueTask GenerateAtomicAsync(Address address)
     {
-        Generate(address);
-        return _db.Addresses.SingleInsertAsync(address);
+        if (!_dbChangeValidation.Valid(address).Generate)
+            return;
+        address.Generate();
+        await _db.Addresses.SingleInsertAsync(address);//ValueTask continuation builder
     }
 
     public void UpdateElementInUoW(Address address)
     {
-        if (!address.Key.HasValue)
+        if (!_dbChangeValidation.Valid(address).Generate)
             return;
+
+        if (!address.Key.HasValue || !address.Customer.Key.HasValue)
+            return;
+
         //possible to have multiple updates on the same object, if so and is currently tracked don't bother getting the Id from the db
         if (!_db.ExistsLocally(address))
         {
-            var addressId = _addressIdGetter(_db, address.Key.Value);
+            var addressId = _addressIdGetter(_db, address.Customer.Key.Value, address.Key.Value);
             if (!addressId.HasValue)
                 return;
             //set pk and start change tracking - as we know it's currently not being tracked
@@ -57,32 +66,45 @@ public class AddressDataAccess : IAddressDataAccess
         _db.Addresses.Update(address);
     }
 
-    public Task<int> UpdateAtomicAsync(Address address)
+    public async ValueTask<int> UpdateAtomicAsync(Address address)
     {
-        if (!address.Key.HasValue)
-            return StaticExtensions.Uncommitted;
-        return _db.Addresses
-            .Where(a => a.Key.Equals(address.Key.Value))
-            //.Include(a => a.Customer)--not needed just an address update
-            .ExecuteUpdateAsync( setter => setter
-            .SetProperty(p => p.HouseNameNumber, address.HouseNameNumber)
-            .SetProperty(p => p.AddressLines, address.AddressLines)
-            .SetProperty(p => p.Active, address.Active)
-            .SetProperty(p => p.CityTown, address.CityTown) 
-            );
+        //note to self, ef ccore does not allow multiple concurrent
+        //threads, also async updates are really only for leaf properties
+        //it can't handle anything graph related easily, the bulkupdate extension can
+        //but only works on tracked enumerable so it's two round trips to the db.
+        //This is probably the quickest way unless you generate multiple contexts and
+        //share a transaction between them all - though the set up for that will be more intense
+        //than this way
+        if (!_dbChangeValidation.Valid(address).Update)
+            return 0;
+
+        if (!address.Key.HasValue || (address.Customer?.Key == null))
+            return 0;
+
+        return await _db.Addresses
+                .Where(a => a.Key.Equals(address.Key.Value) && a.Customer.Key.Equals(address.Customer.Key))
+                .ExecuteUpdateAsync(setter => setter
+                .SetProperty(p => p.HouseNameNumber, address.HouseNameNumber)
+                .SetProperty(p => p.AddressLines, address.AddressLines)
+                .SetProperty(p => p.Active, address.Active)
+                );
     }
 
-    public Task<Address?> GetAsync(Guid Key, bool active) =>  this._addressGetterAsync(_db, Key, active);
+    public async ValueTask<Address?> GetAsync(Guid customerKey, Guid key, bool active) =>  await this._addressGetterAsync(_db, customerKey, key, active);
 
-    public Task<IAsyncEnumerable<Address>> GetAllAsync(Guid custId, bool active) => this._customerAddressGetterAsync(this._db, custId, active);
+    public async ValueTask<IAsyncEnumerable<Address>> GetAllAsync(Guid custKey, bool active) => await this._customerAddressGetterAsync(this._db, custKey, active);
 
     public void LogicalDeleteElementInUow(Address address)
     {
-        if(!address.Key.HasValue)
+        if (!_dbChangeValidation.Valid(address).Update)
             return;
+
+        if (!address.Key.HasValue || !address.Customer.Key.HasValue)
+            return;
+
         if (!_db.ExistsLocally(address))
         {
-            var addressId = _addressIdGetter(_db, address.Key.Value);
+            var addressId = _addressIdGetter(_db, address.Customer.Key.Value, address.Key.Value);
             if (!addressId.HasValue)
                 return;
             //set pk
@@ -91,22 +113,25 @@ public class AddressDataAccess : IAddressDataAccess
         _db.LogicalDelete(address);
     }
 
-    public Task<int> LogicalDeleteAtomicAsync(Address address)
+    public async ValueTask<int> LogicalDeleteAtomicAsync(Address address)
     {
-        if (!address.Key.HasValue)
-            return StaticExtensions.Uncommitted;
-        return _db.Addresses
-            .Where(a => a.Key.Equals(address.Key.Value))
+        if (!_dbChangeValidation.Valid(address).Update)
+            return 0;
+
+        if (!address.Key.HasValue && !address.Customer.Key.HasValue)
+            return 0;
+        return await _db.Addresses
+            .Where(a => a.Key.Equals(address.Key.Value) && a.Customer.Key.Equals(address.Customer.Key.Value))
             .ExecuteUpdateAsync(a => a.SetProperty(p => p.Active, false));
     }
 
-    private Func<eShopBaseContext, Guid, bool, Task<Address?>> GetAsyncCompiledAddressSetter() => EF.CompileAsyncQuery(
-        (eShopBaseContext db, Guid Key, bool active) => db.Addresses.FirstOrDefault(a => a.Key.Equals(Key) && a.Active.Equals(active))
+    private Func<eShopBaseContext, Guid, Guid, bool, Task<Address?>> GetAsyncCompiledAddressSetter() => EF.CompileAsyncQuery(
+        (eShopBaseContext db, Guid CustomerKey, Guid Key, bool active) => db.Addresses.FirstOrDefault(a => a.Key.Equals(Key) && a.Active.Equals(active) && a.Customer.Key.Equals(CustomerKey))
         );
 
-    private Func<eShopBaseContext, Guid, int?> GetCompiledAddressId() => EF.CompileQuery(
-        (eShopBaseContext db, Guid Key) => db.Addresses
-            .Where(a => a.Key.Equals(Key))
+    private Func<eShopBaseContext, Guid, Guid, int?> GetCompiledAddressId() => EF.CompileQuery(
+        (eShopBaseContext db, Guid customerKey, Guid key) => db.Addresses
+            .Where(a => a.Key.Equals(key) && a.Customer.Key.Equals(customerKey))
             .Select(a => a.Id)
             .FirstOrDefault()
         );
@@ -117,10 +142,4 @@ public class AddressDataAccess : IAddressDataAccess
             .Include(a => a.Customer)
             .Where(a => a.Customer.Key.Equals(custKey) && a.Active.Equals(active))
             .AsAsyncEnumerable());
-
-    private void Generate(Address address)
-    {
-        address.Id = null;
-        address.Key = Guid.NewGuid();
-    }
 }

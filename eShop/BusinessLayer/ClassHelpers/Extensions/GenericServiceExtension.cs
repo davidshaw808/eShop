@@ -1,8 +1,8 @@
 ﻿using Common;
 
-namespace DataLayer.Implementation.Extensions;
+namespace BusinessLayer.ClassHelpers.Extensions;
 
-internal static class GenericServiceExtensions
+internal static class GenericServiceExtension
 {
     internal static void AssignToParent(this Category category)
     {
@@ -35,29 +35,30 @@ internal static class GenericServiceExtensions
         pList.AddRange(category.Products);
         category.Parent.Products = pList;
     }
-        /*
-        var magicNumberOfChilderen = 15;
-        var reassign = (Category parent, Category child) =>
-        {
-            child.Parent = category.Parent;
-            //t.Parent.Children ??= [];//should never happen as t should be a member of it's parents children
-            category?.Parent?.Children?.Add(child);
-        };
+    /*
+    var magicNumberOfChilderen = 15;
+    var reassign = (Category parent, Category child) =>
+    {
+        child.Parent = category.Parent;
+        //t.Parent.Children ??= [];//should never happen as t should be a member of it's parents children
+        category?.Parent?.Children?.Add(child);
+    };
 
-        if(category.Children.Count < magicNumberOfChilderen)
-        {
-            foreach (var child in category.Children)
-            {
-                reassign (category, child);
-            }
-            return;
-        }
-        var parallelOptions = new ParallelOptions { MaxDegreeOfParallelism = magicNumberOfChilderen };
-
-        Parallel.ForEach (source: category.Children, parallelOptions: parallelOptions, body: (child) => 
+    if(category.Children.Count < magicNumberOfChilderen)
+    {
+        foreach (var child in category.Children)
         {
             reassign (category, child);
-        });
+        }
+        return;
+    }
+    var parallelOptions = new ParallelOptions { MaxDegreeOfParallelism = magicNumberOfChilderen };
 
-    }*/
+    Parallel.ForEach (source: category.Children, parallelOptions: parallelOptions, body: (child) => 
+    {
+        reassign (category, child);
+    });
+
+}*/
+
 }

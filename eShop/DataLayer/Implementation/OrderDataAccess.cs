@@ -1,6 +1,6 @@
 ﻿using Common;
+using DataLayer.ClassHelpers.Extensions;
 using DataLayer.Databases.Base;
-using DataLayer.Implementation.Extensions;
 using DataLayer.Interface;
 using DataLayer.Interface.General;
 using Microsoft.EntityFrameworkCore;

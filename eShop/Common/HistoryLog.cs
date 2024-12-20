@@ -1,11 +1,16 @@
-﻿namespace Common;
+﻿using Common.Interface;
 
-public class HistoryLog
-{
-    int? Id { get; set; }
-}
+namespace Common;
 
-public class HistoryLog
+public class HistoryLog : IElement<HistoryLog>
 {
+    public int? Id { get; set; }
     public string LogEvent { get; set; }
+    public bool Active { get; set; }
+    public Guid? Key { get; set; }
+
+    public U Visit<U>(IVisitor<HistoryLog, U> visitor)
+    {
+        return visitor.Visit(this);
+    }
 }

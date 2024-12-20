@@ -1,11 +1,11 @@
 ﻿using Common.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataLayer.Implementation.Extensions;
+namespace DataLayer.ClassHelpers.Extensions;
 
 internal static class StaticExtensions
 {
-    private static bool ContextEquals<TEntity>(this IElement<TEntity> me,  IElement<TEntity> other) where TEntity : class => me.Key.Equals(other.Key);
+    private static bool ContextEquals<TEntity>(this IElement<TEntity> me, IElement<TEntity> other) where TEntity : class => me.Key.Equals(other.Key);
 
     internal static bool ExistsLocally<TEntity>(this DbContext context, IElement<TEntity> entity) where TEntity : class
     {
@@ -45,5 +45,5 @@ internal static class StaticExtensions
         return true;
     }
 
-    public static readonly Task<int> Uncommitted = Task.FromResult(0);
+    //internal static readonly Task<int> Uncommitted = Task.FromResult(0);
 }

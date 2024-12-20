@@ -5,6 +5,6 @@ namespace DataLayer.Interface;
 
 public interface IAddressDataAccess : IUnitOfWorkCUD<Address>, IAtomicCRUD<Address>
 {
-    Task<IAsyncEnumerable<Address>> GetAllAsync(Guid customerKey, bool active);
-    Task<Address?> GetAsync(Guid Key, bool active);
+    ValueTask<IAsyncEnumerable<Address>> GetAllAsync(Guid customerKey, bool active);
+    ValueTask<Address?> GetAsync(Guid customerKey, Guid Key, bool active);
 }

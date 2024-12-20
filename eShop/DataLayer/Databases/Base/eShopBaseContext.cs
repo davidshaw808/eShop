@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Databases.Base;
@@ -15,11 +16,6 @@ public class eShopBaseContext : DbContext
     internal DbSet<OrderUpdate> OrderUpdates { get; set; }
     internal DbSet<PaymentDetails> PaymentDetails { get; set; }
     internal DbSet<Review> Reviews { get; set; }
-
-    public eShopBaseContext()
-    {
-
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -39,8 +35,7 @@ public class eShopBaseContext : DbContext
 
         modelBuilder.Entity<Category>()
             .HasOne(c => c.Parent)
-            .WithMany()
-            .HasForeignKey(a => a.ParentId);
+            .WithMany();
 
         modelBuilder.Entity<Category>()
             .HasMany(c => c.Products)

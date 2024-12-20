@@ -1,15 +1,15 @@
 ﻿namespace Common.Interface;
 
-public interface IVisitorCaller<A, AU, C, CU, FT, H, O, P, R> : 
-    IVisitor<Address, A>, 
-    IVisitor<AdminUser, AU>,
-    IVisitor<Category, C>,
-    IVisitor<Customer, CU>,
+public interface IVisitorCaller<Adr, AdUs, Cat, Cust, FT, Hist, Ord, Prod, Rev> : 
+    IVisitor<Address, Adr>, 
+    IVisitor<AdminUser, AdUs>,
+    IVisitor<Category, Cat>,
+    IVisitor<Customer, Cust>,
     IVisitor<FinancialTransaction, FT>,
-    IVisitor<HistoryLog, H>,
-    IVisitor<Order, O>,
-    IVisitor<Product, P>,
-    IVisitor<Review, R>
+    IVisitor<HistoryLog, Hist>,
+    IVisitor<Order, Ord>,
+    IVisitor<Product, Prod>,
+    IVisitor<Review, Rev>
 {
 }
 

@@ -6,7 +6,6 @@ public class Category : IElement<Category>, IParentChild<Category>
 {
     public int? Id { get; set; }
     public Guid? Key { get; set; }
-    public int? ParentId { get; set; }
     public string? Name { get; set; }
     public Category? Parent { get; set; }
     public IList<Category> Children { get; set; }

@@ -5,7 +5,7 @@ using System.Net.Mail;
 
 namespace BusinessLayer.CommonVisitor;
 
-public class EndpointValidation: IVisitor<Address, bool>, IVisitor<Person, bool>, IVisitor<Order, bool>, IVisitor<FinancialTransaction, bool>
+public class EndpointValidation: IVisitorCaller<bool>
 {
     /// <summary>
     /// validates that either a new address, no key - required fields, or existing address Key present

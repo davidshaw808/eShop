@@ -14,7 +14,7 @@ public abstract class Person : IElementId, IElementKey
     public Address Address { get; set; }
 
     public IEnumerable<Order>? OrderHistory { get; set; }
-    public IEnumerable<Product>? Basket { get; set; }
+    public IEnumerable<BasketItem>? Basket { get; set; }
     public bool LockBasket { get; set; }
     public bool Active { get; set; }
     public DateTime? DateOfBirth { get; set; }

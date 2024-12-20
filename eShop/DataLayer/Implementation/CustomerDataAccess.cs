@@ -1,6 +1,6 @@
 ﻿using Common;
+using DataLayer.ClassHelpers.Extensions;
 using DataLayer.Databases.Base;
-using DataLayer.Implementation.Extensions;
 using DataLayer.Interface;
 using DataLayer.Interface.General;
 using Microsoft.EntityFrameworkCore;
@@ -84,4 +84,35 @@ public class CustomerDataAccess : ICustomerDataAccess
             .Select(a => a.Id)
             .FirstOrDefault()
         );
+
+    public void GenerateElementInUoW(Customer customer)
+    {
+        customer.Generate();
+    }
+    public Task GenerateAtomicAsync(Customer t)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UpdateElementInUoW(Customer t)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void LogicalDeleteElementInUow(Customer t)
+    {
+        throw new NotImplementedException();
+    }
+
+    
+    public Task<Customer?> ReadAtomicAsync(Guid key)
+    {
+        throw new NotImplementedException();
+    }
+
+
+    public Task<int> LogicalDeleteAtomicAsync(Customer t)
+    {
+        throw new NotImplementedException();
+    }
 }

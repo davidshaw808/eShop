@@ -57,7 +57,7 @@ public class CustomerOrderService(ICustomerDataAccess customerDataAccess): ICust
             throw new ArgumentException("Invalid custoemr obect no Key found");
         }
         customer.LockBasket = true;
-        await this._customerDataAccess.UpdateAsync(customer);
+        await this._customerDataAccess.upda(customer);
         var currentCustomer = await this._customerDataAccess.GetAsync((Guid)customer.Key);
         currentCustomer.Basket = new List<Product>();
         return currentCustomer?.Basket ?? Enumerable.Empty<Product>();
