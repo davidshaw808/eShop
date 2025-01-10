@@ -12,11 +12,11 @@ public class Order : IElement<Order>
     public bool Active { get; set; }
     public Customer Customer { get; set; }
     public Address Address { get; set; }
-    public IList<OrderUpdate>? Updates { get; set; }
-    public IEnumerable<Product> Products { get; set; }
-    public IList<FinancialTransaction>? Refunds { get; set; }
-    public IList<FinancialTransaction>? PaymentRequests { get; set; }
-    public IList<PaymentDetails> PaymentDetails { get; set; }
+    public ICollection<OrderUpdate>? Updates { get; set; }
+    public ICollection<Product> Products { get; set; }
+    public ICollection<FinancialTransaction>? Refunds { get; set; }
+    public ICollection<FinancialTransaction>? PaymentRequests { get; set; }
+    public ICollection<PaymentDetails> PaymentDetails { get; set; }
 
     public bool Delivered { get; set; }
     public bool Cancelled { get; set; }

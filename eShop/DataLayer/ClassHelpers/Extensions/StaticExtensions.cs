@@ -1,4 +1,5 @@
-﻿using Common.Interface;
+﻿using Common;
+using Common.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.ClassHelpers.Extensions;
@@ -10,11 +11,12 @@ internal static class StaticExtensions
     internal static bool ExistsLocally<TEntity>(this DbContext context, IElement<TEntity> entity) where TEntity : class
     {
         //if an entity is in the db it implements IElement<T>
-        return context.Set<TEntity>().Local.Any(e => ((IElement<TEntity>)e).ContextEquals(entity));
+        return context.Set<TEntity>().Local.Any(e => (e as IElement<TEntity>)?.ContextEquals(entity) ?? false);
     }
 
     /// <summary>
     /// Ensures you are tracking an existing entity's changes from point of call until 'SubmitChanges' or 'SumbitChangesAsync' is called primary key must be set otherwise it is added
+    /// does not use FindAsync as this would incur a round trip to the db
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="context"></param>

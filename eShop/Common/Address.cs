@@ -13,7 +13,6 @@ public class Address : IElement<Address>
     public string? Region { get; set; }
     public string PostalCode { get; set; }
     public bool Active { get; set; }
- 
 
     public U Visit<U>(IVisitor<Address, U> visitor)
     {

@@ -4,6 +4,9 @@ using DataLayer.Databases.Base;
 using DataLayer.Interface;
 using DataLayer.Interface.General;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
+using System.Runtime.CompilerServices;
+using Z.BulkOperations;
 
 namespace DataLayer.Implementation;
 
@@ -11,6 +14,7 @@ public class CategoryDataAccess : ICategoryDataAccess
 {
     private readonly eShopBaseContext _db;
     private readonly Func<eShopBaseContext, Guid, int?> _categoryIdGetter;
+    private readonly Func<eShopBaseContext, Guid, IEnumerable<Tuple<int?, Guid?>>> _categoryProdutKeysGetter;
     private readonly Func<eShopBaseContext, Guid, Task<Category?>> _categoryGetter;
     private readonly IDatabaseChangeValidation _dbChangeValidation;
 
@@ -19,6 +23,7 @@ public class CategoryDataAccess : ICategoryDataAccess
         _db = unitOfWork.GetContext();
         _dbChangeValidation = dbChangeValidation;
         _categoryIdGetter = GetCompiledCategoryId();
+        _categoryProdutKeysGetter = GetCompiledCategoriesProductKeys();
         _categoryGetter = GetCompiledCategory();
     }
 
@@ -33,7 +38,7 @@ public class CategoryDataAccess : ICategoryDataAccess
         child.Id = null;
         //if child does not already exist generate key, otherwise get it's pk from the database
         if (!child.Key.HasValue)
-            child.Generate();
+            child.GenerateForDatabase();
         else
         {
             var childId = _categoryIdGetter(_db, child.Key.Value);
@@ -45,7 +50,7 @@ public class CategoryDataAccess : ICategoryDataAccess
         return await _db.Categories
             .Where(c => c.Key.Equals(parent.Key))
             .Include(c => c.Children)
-            .ExecuteUpdateAsync(p => p.SetProperty(c => c.Children, c => c.Children.Concat(new [] { child })));
+            .ExecuteUpdateAsync(p => p.SetProperty(c => c.Children, c => c.Children.Concat(new[] { child })));
     }
 
     public void LogicalDeleteElementInUow(Category category)
@@ -87,119 +92,90 @@ public class CategoryDataAccess : ICategoryDataAccess
 
     public void UpdateElementInUoW(Category category)
     {
-        if (!category.Key.HasValue)
-            return;
-        //possible to have multiple updates on the same object, if so and is currently tracked don't bother getting the Id from the db
         if (!_db.ExistsLocally(category))
         {
-            var categoryId = _categoryIdGetter(_db, category.Key.Value);
-            if (!categoryId.HasValue)
+            if (!UpdateCategoryWithIds(category))
                 return;
-            //set pk and start change tracking - as we know it's currently not being tracked
-            category.Id = categoryId.Value;
-            _db.Attach(category);
+        }
+        //update everything, alternative is to pull back the entity
+        //from the db and figure out what has changed and only update
+        //those bits but so far we've only done a light load of id's
+        //for ef core's tracking so this is not terrible
+        var productKeys = category.Products?.Select(p => p.Id)?.ToArray();
+        if (productKeys?.Length > 0)
+        {
+            _db.CategoryProducts
+                .Where(cp => cp.Category.Key.Equals(category.Key) && !productKeys.Contains(cp.Product.Key))
+                .dele();
         }
         _db.Categories.Update(category);
     }
 
-    public async ValueTask<int> UpdateAtomicAsync(Category category)
+    public async ValueTask UpdateAtomicAsync(Category category)
     {
-        //note to self, ef ccore does not allow multiple concurrent
+        //note to self, ef core does not allow multiple concurrent
         //threads, also async updates are really only for leaf properties
-        //it can't handle anything graph related easily, the bulkupdate extension can
-        //but only works on tracked enumerable so it's two round trips to the db.
+        //it can't handle anything graph related easily.
         //This is probably the quickest way unless you generate multiple contexts and
         //share a transaction between them all - though the set up for that will be more intense
         //than this way
 
-        if (!category.Key.HasValue ||
-            !_dbChangeValidation.Valid(category).Update ||
-            !_dbChangeValidation.Valid(category).Generate)
-            return 0;
-
-        using var transaction = await _db.Database.BeginTransactionAsync();
+        var transaction = await _db.Database.BeginTransactionAsync();
         try
         {
-            //do not update the parent and only update immediate children and products
-            if (category.Children.Any())
+            // await _db.Database.ExecuteSqlAsync($"delete old property references here using _db.OrderProductsTableName")
+            var productKeys = category.Products?.Select(p => p.Key)?.ToArray();
+            if(productKeys?.Length > 0) 
             { 
-                await UpdateCategories(category.Children, false);
+                await _db.CategoryProducts
+                    .Where(cp => cp.Category.Key.Equals(category.Key) && !productKeys.Contains(cp.Product.Key))
+                    .ExecuteDeleteAsync();
             }
 
-            if (category.Products.Any())
+            await _db.Categories.SingleMergeAsync(category, options =>
             {
-                category.Products.Where(p => !p.Key.HasValue).Generate();
-                await _db.Products.BulkUpdateAsync(
-                    category.Products,
-                    options => {
-                        options.ColumnPrimaryKeyExpression = c => c.Key.Value;
-                        options.IncludeGraph = false;
-                        options.IgnoreOnUpdateExpression = c => new { c.Id };
-                        options.InsertIfNotExists = true;
-                    });
-            }
-
-            int updated = await _db.Categories
-                .Where(c => c.Key.Equals(category.Key))
-                .ExecuteUpdateAsync();
-
+                options.ColumnPrimaryKeyExpression = c => c.Key;
+                options.IgnoreOnUpdateExpression = c => c.Id;
+                options.AllowUpdatePrimaryKeys = false;
+                options.IncludeGraph = true;
+                options.IncludeGraphOperationBuilder = operation =>
+                {
+                    if (operation is BulkOperation<Category>)
+                    {
+                        var bulk = (BulkOperation<Category>)operation;
+                        bulk.ColumnPrimaryKeyExpression = x => x.Key;
+                    }
+                    else if (operation is BulkOperation<Product>)
+                    {
+                        var bulk = (BulkOperation<Product>)operation;
+                        bulk.ColumnPrimaryKeyExpression = x => x.Key;
+                    }
+                };
+            });
             await transaction.CommitAsync();
-            return updated;
         }
         catch (Exception ex) 
-        { 
+        {
             await transaction.RollbackAsync();
-            return 0;
         }
     }
-    
+
     public void GenerateElementInUoW(Category category)
     {
-        category.Generate();
+        category.GenerateForDatabase();
         _db.Categories.Add(category);
     }
 
     public Task GenerateAtomicAsync(Category category)
     {
-        category.Generate();
+        category.GenerateForDatabase();
         return _db.Categories.SingleInsertAsync(category);
     }
 
     public Task<Category?> ReadAtomicAsync(Guid key)
     {
         return _categoryGetter(_db, key);
-    } 
-    
-    private async Task UpdateCategories(IEnumerable<Category> categories, bool includeGraph)
-    {
-        if (!_dbChangeValidation.Valid(categories).Update || !categories.Any())
-            return;
-        categories.Where(c => !c.Key.HasValue).Generate();
-
-        await _db.Categories.BulkUpdateAsync(
-            categories,
-            options => {
-                options.ColumnPrimaryKeyExpression = c => c.Key.Value;
-                options.IncludeGraph = true;
-                options.IgnoreOnUpdateExpression = c => new { c.Id };
-                options.InsertIfNotExists = true;
-            });
     }
-
-    private Func<eShopBaseContext, Guid, int?> GetCompiledCategoryId() => EF.CompileQuery(
-    (eShopBaseContext db, Guid Key) => db.Categories
-        .Where(a => a.Key.Equals(Key))
-        .Select(a => a.Id)
-        .FirstOrDefault()
-    );
-
-    private Func<eShopBaseContext, Guid, Task<Category?>> GetCompiledCategory() => EF.CompileAsyncQuery(
-    (eShopBaseContext db, Guid Key) => db.Categories
-        .Include(c => c.Products)
-        .Include(c => c.Parent)
-        .Include(c => c.Children)
-        .FirstOrDefault(c => c.Key.Equals(Key))
-    );
 
     public void AssignChildenToParent(Category category)
     {
@@ -215,4 +191,70 @@ public class CategoryDataAccess : ICategoryDataAccess
     {
         throw new NotImplementedException();
     }
+
+    private async Task UpdateCategories(IEnumerable<Category> categories, bool includeGraph)
+    {
+        if (!_dbChangeValidation.Valid(categories).Update || !categories.Any())
+            return;
+        categories.Where(c => !c.Key.HasValue).GenerateForDatabase();
+
+        await _db.Categories.BulkUpdateAsync(
+            categories,
+            options => {
+                options.ColumnPrimaryKeyExpression = c => c.Key.Value;
+                options.IncludeGraph = true;
+                options.IgnoreOnUpdateExpression = c => new { c.Id };
+                options.InsertIfNotExists = true;
+            });
+    }
+
+    private bool UpdateCategoryWithIds(Category category)
+    {
+        if (!_dbChangeValidation.Valid(category).Update ||
+            !_dbChangeValidation.Valid(category).Generate ||
+            !_dbChangeValidation.Valid(category.Products).Update ||
+            !_dbChangeValidation.Valid(category.Products).Generate)
+            return false;
+
+        IEnumerable<Tuple<int?, Guid?>> productKeys = [];
+        if (category.Key.HasValue)
+            productKeys = _categoryProdutKeysGetter(_db, category.Key.Value);
+
+        if (category.Parent?.Key.HasValue ?? false)
+            category.Parent.Id = _categoryIdGetter(_db, category.Parent.Key.Value);
+
+        if (productKeys.Any())
+        {
+            foreach (var p in category.Products)
+                p.Id = productKeys.FirstOrDefault(t => t.Item2.Equals(p.Key))?.Item1;
+        }
+        return true;
+    }
+
+    private Func<eShopBaseContext, Guid, int?> GetCompiledCategoryId() => EF.CompileQuery(
+    (eShopBaseContext db, Guid Key) => db.Categories
+        .Where(a => a.Key.Equals(Key))
+        .Select(a => a.Id)
+        .FirstOrDefault()
+    );
+
+    private Func<eShopBaseContext, Guid, IEnumerable<Tuple<int?, Guid?>>> GetCompiledCategoriesProductKeys() => EF.CompileQuery(
+    (eShopBaseContext db, Guid Key) => db.Categories
+        .Where(c => c.Key.Equals(Key))
+        .SelectMany(c => c.Products.Select(p => new Tuple<int?, Guid?>(p.Id, p.Key)))
+    );
+
+    private Func<eShopBaseContext, Guid, IEnumerable<Tuple<int?, Guid?>>> GetCompiledCategoryProductKeys() => EF.CompileQuery(
+    (eShopBaseContext db, Guid Key) => db.Categories
+        .Where(c => c.Key.Equals(Key))
+        .SelectMany(c => c.Products.Select(p => new Tuple<int?, Guid?>(p.Id, p.Key)))
+    );
+
+    private Func<eShopBaseContext, Guid, Task<Category?>> GetCompiledCategory() => EF.CompileAsyncQuery(
+    (eShopBaseContext db, Guid Key) => db.Categories
+        .Include(c => c.Products)
+        .Include(c => c.Parent)
+        .Include(c => c.Children)
+        .FirstOrDefault(c => c.Key.Equals(Key))
+    );
 }

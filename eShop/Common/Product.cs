@@ -12,8 +12,8 @@ public class Product : IElement<Product>
     public decimal Price { get; set; }
     public int? NumberInStock { get; set; }
     public int? RestrictedToAge { get; set; } 
-    public Category? Category { get; set; }
-    public IList<Review>? Reviews { get; set; }
+    public ICollection<Category> Categories { get; set; }
+    public ICollection<Review> Reviews { get; set; }
     public U Visit<U>(IVisitor<Product,U> visitor)
     {
         return visitor.Visit(this);

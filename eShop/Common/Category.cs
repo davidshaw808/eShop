@@ -8,8 +8,8 @@ public class Category : IElement<Category>, IParentChild<Category>
     public Guid? Key { get; set; }
     public string? Name { get; set; }
     public Category? Parent { get; set; }
-    public IList<Category> Children { get; set; }
-    public IList<Product> Products { get; set; }
+    public ICollection<Category> Children { get; set; }
+    public ICollection<Product> Products { get; set; }
     public bool Active { get; set; }
 
     public U Visit<U>(IVisitor<Category, U> visitor)

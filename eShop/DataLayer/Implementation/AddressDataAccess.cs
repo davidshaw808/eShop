@@ -33,7 +33,7 @@ public class AddressDataAccess : IAddressDataAccess
     {
         if (!_dbChangeValidation.Valid(address).Generate)
             return;
-        address.Generate();
+        address.GenerateForDatabase();
         _db.Addresses.Add(address);
     }
     
@@ -41,7 +41,7 @@ public class AddressDataAccess : IAddressDataAccess
     {
         if (!_dbChangeValidation.Valid(address).Generate)
             return;
-        address.Generate();
+        address.GenerateForDatabase();
         await _db.Addresses.SingleInsertAsync(address);//ValueTask continuation builder
     }
 
@@ -68,13 +68,13 @@ public class AddressDataAccess : IAddressDataAccess
 
     public async ValueTask<int> UpdateAtomicAsync(Address address)
     {
-        //note to self, ef ccore does not allow multiple concurrent
+        //note to self, ef core does not allow multiple concurrent
         //threads, also async updates are really only for leaf properties
-        //it can't handle anything graph related easily, the bulkupdate extension can
-        //but only works on tracked enumerable so it's two round trips to the db.
-        //This is probably the quickest way unless you generate multiple contexts and
-        //share a transaction between them all - though the set up for that will be more intense
-        //than this way
+        //it can't handle anything graph related easily.
+        //Address should not update customer so there is no advantage using
+        //ef core's bulk extension methods as all changes are leaf and atomic
+        //methonds should not require the use of graph or change tracker
+        
         if (!_dbChangeValidation.Valid(address).Update)
             return 0;
 

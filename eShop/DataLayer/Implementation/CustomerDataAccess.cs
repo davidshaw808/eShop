@@ -87,7 +87,7 @@ public class CustomerDataAccess : ICustomerDataAccess
 
     public void GenerateElementInUoW(Customer customer)
     {
-        customer.Generate();
+        customer.GenerateForDatabase();
     }
     public Task GenerateAtomicAsync(Customer t)
     {
