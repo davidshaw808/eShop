@@ -1,5 +1,5 @@
 ﻿using Common.Interface;
-using Common;
+using Common.Models.Mutable;
 
 
 namespace BusinessLayer.Interface.User;

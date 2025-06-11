@@ -1,4 +1,6 @@
 ﻿using Common.Interface;
+using Common.Models.Immutable;
+using Common.Models.Mutable;
 
 namespace Common.Base;
 
@@ -8,13 +10,12 @@ public abstract class Person : IElementId, IElementKey
     public Guid? Key { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
-    public string? UserName { get; set; }
     public string? Email { get; set; }
 
     public Address Address { get; set; }
 
     public IEnumerable<Order>? OrderHistory { get; set; }
-    public IEnumerable<BasketItem>? Basket { get; set; }
+    public IEnumerable<BasketItem>? BasketItems { get; set; }
     public bool LockBasket { get; set; }
     public bool Active { get; set; }
     public DateTime? DateOfBirth { get; set; }

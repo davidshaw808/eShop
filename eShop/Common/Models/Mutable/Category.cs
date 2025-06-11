@@ -1,6 +1,6 @@
 ﻿using Common.Interface;
 
-namespace Common;
+namespace Common.Models.Mutable;
 
 public class Category : IElement<Category>, IParentChild<Category>
 {

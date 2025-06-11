@@ -1,7 +1,7 @@
 ﻿using BusinessLayer.ClassHelpers.Extensions;
 using BusinessLayer.Implementation.User;
 using BusinessLayer.Interface.Admin;
-using Common;
+using Common.Models.Mutable;
 using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation.Admin;

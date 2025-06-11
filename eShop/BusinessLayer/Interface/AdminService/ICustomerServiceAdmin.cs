@@ -1,6 +1,6 @@
 ﻿using BusinessLayer.Interface.User;
-using Common;
 using Common.Interface;
+using Common.Models.Mutable;
 
 namespace BusinessLayer.Interface.Admin;
 

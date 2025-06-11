@@ -1,5 +1,5 @@
 ﻿using BusinessLayer.Interface.Admin;
-using Common;
+using Common.Models.Immutable;
 using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation.Admin;

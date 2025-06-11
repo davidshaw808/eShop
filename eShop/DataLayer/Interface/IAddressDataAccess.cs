@@ -1,10 +1,10 @@
-﻿using Common;
+﻿using Common.Models.Mutable;
 using DataLayer.Interface.General;
 
 namespace DataLayer.Interface;
 
-public interface IAddressDataAccess : IUnitOfWorkCUD<Address>, IAtomicCRUD<Address>
+public interface IAddressDataAccess : IUnitOfWorkCRUD<Address>, IAtomicCRUD<Address>
 {
-    ValueTask<IAsyncEnumerable<Address>> GetAllAsync(Guid customerKey, bool active);
-    ValueTask<Address?> GetAsync(Guid customerKey, Guid Key, bool active);
+    Task<IAsyncEnumerable<Address>> GetAllAsync(Guid customerKey, bool active);
+    Task<Address?> GetAsync(Guid customerKey, Guid Key, bool active);
 }

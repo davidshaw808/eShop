@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.ClassHelpers.Extensions;
 using BusinessLayer.Interface.User;
-using Common;
+using Common.Models.Immutable;
+using Common.Models.Mutable;
 using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation.User;
@@ -36,9 +37,9 @@ public class CustomerOrderService(ICustomerDataAccess customerDataAccess): ICust
         return (true, "");
     }
 
-    public ValueTask<bool> ClearBasket(Customer customer)
+    public Task<bool> ClearBasket(Customer customer)
     {
-        customer.Basket?.Clear();
+        customer.BasketItems?.Clear();
         customer.LockBasket = false;
         using ()
             return this._customerDataAccess.UpdateAsync(customer);
@@ -58,9 +59,9 @@ public class CustomerOrderService(ICustomerDataAccess customerDataAccess): ICust
         }
         customer.LockBasket = true;
         await this._customerDataAccess.upda(customer);
-        var currentCustomer = await this._customerDataAccess.GetAsync((Guid)customer.Key);
-        currentCustomer.Basket = new List<Product>();
-        return currentCustomer?.Basket ?? Enumerable.Empty<Product>();
+        var currentCustomer = await this._customerDataAccess.GetAtomicAsync((Guid)customer.Key);
+        currentCustomer.BasketItems = new List<Product>();
+        return currentCustomer?.BasketItems ?? Enumerable.Empty<Product>();
     }
 
     public bool Update(Customer customer)

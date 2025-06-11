@@ -1,6 +1,7 @@
-﻿using Common.Interface;
+﻿using Common.Enum;
+using Common.Interface;
 
-namespace Common;
+namespace Common.Models.Mutable;
 
 public class Address : IElement<Address>
 {
@@ -12,6 +13,7 @@ public class Address : IElement<Address>
     public string? CityTown { get; set; }
     public string? Region { get; set; }
     public string PostalCode { get; set; }
+    public Country Country { get; set; }
     public bool Active { get; set; }
 
     public U Visit<U>(IVisitor<Address, U> visitor)

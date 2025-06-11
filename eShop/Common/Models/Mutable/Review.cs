@@ -1,7 +1,7 @@
 ﻿using Common.Base;
 using Common.Interface;
 
-namespace Common;
+namespace Common.Models.Mutable;
 
 public class Review : IElement<Review>
 {

@@ -1,9 +1,10 @@
-﻿using Common;
-using Common.Base;
+﻿using Common.Base;
 using Common.Interface;
+using Common.Models.Immutable;
+using Common.Models.Mutable;
 using System.Net.Mail;
 
-namespace BusinessLayer.CommonVisitor;
+namespace BusinessLayer.Visitor;
 
 public class EndpointValidation: IVisitorCaller<bool>
 {
@@ -24,14 +25,21 @@ public class EndpointValidation: IVisitorCaller<bool>
     }
 
     /// <summary>
-    /// validates that the key is present, Order is system generated
+    /// Key is present, Order is system generated
     /// </summary>
     /// <param name="visitor"></param>
     /// <returns></returns>
-    public bool Visit(Order visitor) => visitor.Key != null;
+    public bool Visit(Order visitor)
+    {
+        var valid = visitor switch 
+        {
+            { } when visitor.Products.Any(p => p.Key is null)
+        }
+
+    }
 
     /// <summary>
-    /// validates that the key is present, FinancialTransaction is system generated
+    /// Key is present, FinancialTransaction is system generated
     /// </summary>
     /// <param name="visitor"></param>
     /// <returns></returns>
@@ -46,19 +54,20 @@ public class EndpointValidation: IVisitorCaller<bool>
             { } when visitor.NumberInStock == null  => false,
             _ => true,
         };
-        return visitor.Key == null && !valid;
+        return valid;
     }
 
-    public bool Visit(Person visitor)
+    public bool Visit(Customer visitor)
     {
         var valid = visitor switch {
             { } when string.IsNullOrWhiteSpace(visitor.Email) => false,
+            { } when !visitor.Key.HasValue => false,
+            { } when visitor.OrderHistory?.Any() ?? false => false,
             { } when !visitor.DateOfBirth.HasValue => false,
-            { } when string.IsNullOrWhiteSpace(visitor.UserName) => false,
             _ => true,
         };
 
-        if (visitor.Key == null && !valid)
+        if (!valid)
         {
             return false;
         }
@@ -71,5 +80,30 @@ public class EndpointValidation: IVisitorCaller<bool>
         {
             return false;
         }
+    }
+
+    public bool Visit(AdminUser visitor)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Visit(Category visitor)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Visit(Customer visitor)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Visit(HistoryLog visitor)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Visit(Review visitor)
+    {
+        throw new NotImplementedException();
     }
 }

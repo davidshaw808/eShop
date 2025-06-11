@@ -2,7 +2,7 @@
 
 namespace DataLayer.Databases.Base.NonDomainEntites
 {
-    internal class CategoryProducts
+    internal class CategoryProduct
     {
         internal int CategoryId { get; set; }
         internal int ProductId { get; set; }

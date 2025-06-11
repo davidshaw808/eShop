@@ -1,11 +1,11 @@
 ﻿using Common;
+using Common.Models.Mutable;
 using DataLayer.Interface.General;
 
 namespace DataLayer.Interface;
 
-public interface ICategoryDataAccess : IUnitOfWorkCUD<Category>, IAtomicCRUD<Category>
+public interface ICategoryDataAccess : IUnitOfWorkCRUD<Category>, IAtomicCRUD<Category>
 {
-    ValueTask<int> AddChildAtomicAsync(Category parent, Category child);
-    ValueTask<int> UpdateAtomicAsync(IEnumerable<Category> categories);
-    void AssignChildenToParent(Category category);
+    Task AddChildAtomicAsync(Category parent, Category child);
+    Task UpdateAtomicAsync(IEnumerable<Category> categories);
 }

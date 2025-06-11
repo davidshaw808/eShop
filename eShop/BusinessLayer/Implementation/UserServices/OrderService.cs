@@ -1,7 +1,7 @@
 ﻿using BusinessLayer.ClassHelpers;
 using BusinessLayer.Interface.User;
-using Common;
 using Common.Enum;
+using Common.Models.Immutable;
 using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation.User;

@@ -1,7 +1,8 @@
 ﻿using BusinessLayer.Interface.User;
-using Common;
 using Common.Enum;
 using Common.Interface;
+using Common.Models.Immutable;
+using Common.Models.Mutable;
 
 namespace BusinessLayer.Interface.Admin;
 
@@ -12,6 +13,6 @@ public interface IOrderServiceAdmin : IOrderService
     IEnumerable<Order>? GetAllAwaitingDelivery();
     bool AddRefund(Guid orderId, FinancialTransaction refund);
     bool BeforePayment(Customer customer);
-    bool UpdateRefund(Guid orderId, Guid refundId, string? jsonPaymentResponse, PaymentProvider provider);
+    bool UpdateRefund(Guid orderId, Guid refundId, string jsonPaymentResponse, PaymentProvider provider);
     Guid? Generate(Customer customer, string paymentId, string? jsonPaymentResponse, decimal paidAmount, Currency currency, PaymentProvider paymentProvider, AddressInternal? a);
 }

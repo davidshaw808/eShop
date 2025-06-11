@@ -1,7 +1,8 @@
 ﻿using BusinessLayer.ClassHelpers;
 using BusinessLayer.ClassHelpers.Extensions;
 using BusinessLayer.Interface.Admin;
-using Common;
+using Common.Models.Immutable;
+using Common.Models.Mutable;
 using DataLayer.Interface;
 using System.Text;
 
@@ -23,7 +24,7 @@ public class ProductOrderServiceAdmin(IProductDataAccess productDataAccess) : IP
         creditAmmount = this.PrcessProductsCredit(groupedProducts, products, error);
         _productDataAccess.UpdateAll(products);
         order.Amount = order.Products.Sum(p => p.Price);
-        var paid = order.PaymentDetails.Sum(p => p.Amount);
+        var paid = order.Payments.Where(p => !p.Credit).Sum(p => p.AmountNet * p.Vat.Rate);
         var paymentDiscrepancy = order.Amount - paid;
         if(paymentDiscrepancy > 0)
         {

@@ -1,6 +1,6 @@
 ﻿using Common.Interface;
 
-namespace Common;
+namespace Common.Models.Mutable;
 
 public class Product : IElement<Product>
 {
@@ -9,12 +9,13 @@ public class Product : IElement<Product>
     public bool Active { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
-    public decimal Price { get; set; }
-    public int? NumberInStock { get; set; }
-    public int? RestrictedToAge { get; set; } 
+    public decimal NetPrice { get; set; }
+    public bool Vatable { get; set; }
+    public uint? NumberInStock { get; set; }
+    public uint? RestrictedToAge { get; set; }
     public ICollection<Category> Categories { get; set; }
     public ICollection<Review> Reviews { get; set; }
-    public U Visit<U>(IVisitor<Product,U> visitor)
+    public U Visit<U>(IVisitor<Product, U> visitor)
     {
         return visitor.Visit(this);
     }

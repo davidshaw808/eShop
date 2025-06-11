@@ -1,11 +1,10 @@
 ﻿using BusinessLayer.Implementation.User;
 using BusinessLayer.Interface.Admin;
 using BusinessLayer.Interface.User;
-using BusinessLayer.Interface.UserService;
-using Common;
 using Common.Enum;
+using Common.Models.Immutable;
+using Common.Models.Mutable;
 using DataLayer.Interface;
-using Newtonsoft.Json;
 using System.Transactions;
 
 namespace BusinessLayer.Implementation.Admin;
@@ -34,8 +33,8 @@ public class OrderServiceAdmin(IOrderDataAccess orderDataAccess,
         {
             return false;
         }
-        order.Refunds ??= new List<FinancialTransaction>();
-        order.Refunds.Add(refund);
+        order.Payments ??= new List<FinancialTransaction>();
+        order.Payments.Add(refund);
         return this._orderDataAccess.Update(order);
     }
 
@@ -92,14 +91,14 @@ public class OrderServiceAdmin(IOrderDataAccess orderDataAccess,
         return _orderDataAccess.Update(order);
     }
 
-    protected FinancialTransaction GenerateCreditRequest(Order order, decimal amount, string description)
+    protected FinancialTransaction GenerateCreditRequest(Order order, decimal amountNet, string description)
     {
         var refund = new FinancialTransaction()
         {
             Order = order,
             Description = description,
-            Amount = amount,
-            DateGenerated = DateTime.UtcNow,
+            AmountNet = amountNet,
+            Created = DateTime.UtcNow,
         };
         _finTransactionDataAccess.Generate(refund);
         return refund;
@@ -107,12 +106,12 @@ public class OrderServiceAdmin(IOrderDataAccess orderDataAccess,
 
     public bool UpdateRefund(Guid orderId,
         Guid refundId,
-        string? jsonPaymentGatewayResponse,
+        string jsonPaymentGatewayResponse,
         PaymentProvider provider)
     {
         var order = this._orderDataAccess.Get(orderId) ?? throw new ArgumentException("OrderId provided is invalid");
-        var refund = order?.Refunds?.FirstOrDefault(r => r.Key == refundId) ?? throw new ArgumentException("RefundId provided is invalid");
-        refund.jsonPaymentProviderResponse = jsonPaymentGatewayResponse;
+        var refund = order?.Payments?.FirstOrDefault(r => r.Key == refundId) ?? throw new ArgumentException("RefundId provided is invalid");
+        refund.JsonPaymentProviderResponse = jsonPaymentGatewayResponse;
         refund.DatePaid = DateTime.UtcNow;
         refund.PaymentProvider = provider;
         return this._orderDataAccess.Update(order);
@@ -129,7 +128,7 @@ public class OrderServiceAdmin(IOrderDataAccess orderDataAccess,
         {
             Order = order,
             Description = description,
-            Amount = amount,
+            AmountNet = amount,
             DateGenerated = DateTime.UtcNow,
         };
         _finTransactionDataAccess.Generate(payment);
@@ -154,25 +153,24 @@ public class OrderServiceAdmin(IOrderDataAccess orderDataAccess,
         return AddOrderUpdate((Guid)order.Key, ou);
     }
 
-    protected (PaymentDetails paymentDetails, Order order) BuildOrder(string paymentId,
+    protected (FinancialTransaction paymentDetails, Order order) BuildOrder(string paymentId,
         string? jsonPaymentResponse,
         Currency currency,
         decimal paidAmount,
         PaymentProvider paymentProvider,
         Customer customer,
-        AddressInternal? address
+        Address? address
         )
     {
         if (customer.Key == null || (address == null && customer.Address == null))
         {
             throw new InvalidDataException("Cannot complete order, it must contain an address.");
         }
-        var paymentDetails =  new PaymentDetails()
+        var financialTransaction =  new FinancialTransaction()
         {
-            PaymentProviderId = paymentId,
             JsonPaymentProviderResponse = jsonPaymentResponse,
             Currency = currency,
-            Amount = paidAmount,
+            AmountNet = paidAmount,
             PaymentProvider = paymentProvider,
             Created = DateTime.UtcNow
         };
@@ -180,12 +178,12 @@ public class OrderServiceAdmin(IOrderDataAccess orderDataAccess,
         {
             Customer = customer,
             Address = address ?? customer.Address,
-            Products = customer.Basket,
-            PaymentDetails = [paymentDetails],
+            Products = customer.BasketItems.Select(b => b.Product).ToHashSet(),
+            Payments = [financialTransaction],
             Active = true,
-            Amount = customer.Basket?.Sum(p => p.Price) ?? 0
+            Amount = customer.BasketItems?.Sum(p => p.Price) ?? 0
         };
-        return (paymentDetails, order);
+        return (financialTransaction, order);
     }
     private void ProcessAfterSale(Order order, decimal debitAmount, decimal creditAmount, string message)
     {

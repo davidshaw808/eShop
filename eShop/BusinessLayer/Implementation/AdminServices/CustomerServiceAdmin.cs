@@ -1,7 +1,7 @@
 ﻿using BusinessLayer.Implementation.User;
 using BusinessLayer.Interface.Admin;
-using Common;
 using Common.Enum;
+using Common.Models.Mutable;
 using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation.Admin;
@@ -17,9 +17,9 @@ public class CustomerServiceAdmin(IOrderCustomerServiceAdmin orderCustomerServic
         return _customerDataAccess.GetAsync(c => c.RemoveAllCustomerDataRequest != null);
     }
 
-    public async ValueTask<bool> RemoveAllCustomerInfoAsync(Guid id, string email)
+    public async Task<bool> RemoveAllCustomerInfoAsync(Guid id, string email)
     {
-        var deletedCustomer = await _customerDataAccess.GetAsync(id);
+        var deletedCustomer = await _customerDataAccess.GetAtomicAsync(id);
         if (deletedCustomer == null || deletedCustomer.Email != email || deletedCustomer.RemoveAllCustomerDataRequest == null)
         {
             return false;//possible malicious query
@@ -32,7 +32,8 @@ public class CustomerServiceAdmin(IOrderCustomerServiceAdmin orderCustomerServic
         Generate(dummyCustomer);
         dummyCustomer.Key ??= Guid.NewGuid();
         _orderCustomerServiceAdmin.TransferOrderHistory(id, dummyCustomer);
-        return _customerDataAccess.PermanentlyRemoveCustomer(id);
+        TransferAddress
+        return _customerDataAccess.PermanentlyRemoveCustomerDetailsAsync(deletedCustomer);
     }
 
     private Customer GenerateDummyCustomer(string email)
@@ -43,8 +44,8 @@ public class CustomerServiceAdmin(IOrderCustomerServiceAdmin orderCustomerServic
             LastName = Guid.NewGuid().ToString(),
             Active = false,
             Email = email,
-            Address = null,
-            Basket = null
+            Address = ,
+            BasketItems = null
         };
     }
 

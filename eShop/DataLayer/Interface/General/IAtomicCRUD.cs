@@ -6,8 +6,8 @@
 /// <typeparam name="T">the domain object to perform the operation on</typeparam>
 public interface IAtomicCRUD<T>
 {
-    ValueTask GenerateAtomicAsync(T t);
-    ValueTask<T?> ReadAtomicAsync(Guid key);
-    ValueTask<int> UpdateAtomicAsync(T t);
-    ValueTask<int> LogicalDeleteAtomicAsync(T t);
+    Task GenerateAtomicAsync(T t);
+    Task<T?> GetAtomicAsync(Guid key);
+    Task<bool> UpdateAtomicAsync(T t);
+    Task<bool> LogicalDeleteAtomicAsync(T t);
 }

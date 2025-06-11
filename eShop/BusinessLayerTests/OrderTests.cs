@@ -3,8 +3,8 @@ using BusinessLayer.Implementation.User;
 using BusinessLayer.Interface.Admin;
 using BusinessLayer.Interface.User;
 using BusinessLayerTests.TestingHelpers;
-using Common;
 using Common.Enum;
+using Common.Models.Mutable;
 using DataLayer.Databases;
 
 namespace BusinessLayerTests
@@ -48,7 +48,7 @@ namespace BusinessLayerTests
             productservice.Generate(product);
             var addr = new AddressInternal() { Active = true, HouseNameNumber = houseNumber, PostalCode = postalCode };
             addressService.Generate(addr); 
-            var cust = new Customer() { Active = true, Address = addr, Email = email, Basket = [product] };
+            var cust = new Customer() { Active = true, Address = addr, Email = email, BasketItems = [product] };
             customerService.Generate(cust);
             //act
             var canProcess = orderService.CanProcessBasket((Guid)cust.Key);
@@ -79,7 +79,7 @@ namespace BusinessLayerTests
             productservice.Generate(product);
             var addr = new AddressInternal() { Active = true, HouseNameNumber = "22", PostalCode = "test" };
             addressService.Generate(addr);
-            var cust = new Customer() { Active = true, Address = addr, Email = "test@test", Basket = [product] };
+            var cust = new Customer() { Active = true, Address = addr, Email = "test@test", BasketItems = [product] };
             customerService.Generate(cust);
             //act
             var canProcess = orderService.CanProcessBasket((Guid)cust.Key);
@@ -89,7 +89,7 @@ namespace BusinessLayerTests
             Assert.IsNotNull(result);
             var order = orderService.GetOrder((Guid)result);
             Assert.AreEqual(product.NumberInStock, numberInStock - 1);
-            Assert.AreEqual(order.Refunds.First().Amount, (decimal)5.99);
+            Assert.AreEqual(order.Payments.First().AmountNet, (decimal)5.99);
         }
 
         [TestMethod]
@@ -123,7 +123,7 @@ namespace BusinessLayerTests
             var addr = new AddressInternal() { HouseNameNumber = "The Red Lion", PostalCode = "N21 8NQ" };
             addressService.Generate(addr);
             var basket = new List<Product>() { product, product2 };
-            var cust = new Customer() { Address = addr, Email = "noreply@theredlion.co.uk", Basket = basket };
+            var cust = new Customer() { Address = addr, Email = "noreply@theredlion.co.uk", BasketItems = basket };
             customerService.Generate(cust);
             //act
             var orderId = orderservice.Generate(cust, "0123456", "{ id:0123456, paymentDate:'12/3/24' payment:89.99 }", (decimal)56.49, Currency.GBP, PaymentProvider.Paypal, addr);

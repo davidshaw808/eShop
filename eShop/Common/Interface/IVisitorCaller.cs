@@ -1,4 +1,7 @@
-﻿namespace Common.Interface;
+﻿using Common.Models.Immutable;
+using Common.Models.Mutable;
+
+namespace Common.Interface;
 
 public interface IVisitorCaller<Adr, AdUs, Cat, Cust, FT, Hist, Ord, Prod, Rev> : 
     IVisitor<Address, Adr>, 
