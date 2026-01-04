@@ -4,6 +4,7 @@ using BusinessLayer.Interface.Admin;
 using BusinessLayer.Interface.User;
 using BusinessLayerTests.TestingHelpers;
 using Common.Enum;
+using Common.Models.Immutable;
 using Common.Models.Mutable;
 using DataLayer.Databases;
 
@@ -15,7 +16,7 @@ namespace BusinessLayerTests
         private readonly InMemoryContext _db;
 
         public OrderTests() {
-            this._db = new InMemoryContext();
+            _db = new InMemoryContext();
             _db.Database.EnsureCreated();
         }
 
@@ -31,10 +32,10 @@ namespace BusinessLayerTests
             string jsonPaymentResponse
             )
         {
-            var productservice = TestingHelper.GetService<IProductServiceAdmin>(this._db);
-            var orderService = TestingHelper.GetService<IOrderServiceAdmin>(this._db);
-            var customerService = TestingHelper.GetService<ICustomerService>(this._db);
-            var addressService = TestingHelper.GetService<IAddressService>(this._db);
+            var productservice = TestingHelper.GetService<IProductServiceAdmin>(_db);
+            var orderService = TestingHelper.GetService<IOrderServiceAdmin>(_db);
+            var customerService = TestingHelper.GetService<ICustomerService>(_db);
+            var addressService = TestingHelper.GetService<IAddressService>(_db);
             var numberInStock = 10;
             //arrange
             var product = new Product()
@@ -62,10 +63,10 @@ namespace BusinessLayerTests
         [TestMethod]
         public void GenerateOrderWithRefundAdmin()
         {
-            var productservice = TestingHelper.GetService<IProductServiceAdmin>(this._db);
-            var orderService = TestingHelper.GetService<IOrderServiceAdmin>(this._db);
-            var customerService = TestingHelper.GetService<ICustomerService>(this._db);
-            var addressService = TestingHelper.GetService<IAddressService>(this._db);
+            var productservice = TestingHelper.GetService<IProductServiceAdmin>(_db);
+            var orderService = TestingHelper.GetService<IOrderServiceAdmin>(_db);
+            var customerService = TestingHelper.GetService<ICustomerService>(_db);
+            var addressService = TestingHelper.GetService<IAddressService>(_db);
             var numberInStock = 10;
             //arrange
             var product = new Product()
@@ -95,10 +96,10 @@ namespace BusinessLayerTests
         [TestMethod]
         public void UpdateOrderAdmin()
         {
-            var productservice = TestingHelper.GetService<IProductServiceAdmin>(this._db);
-            var orderservice = TestingHelper.GetService<IOrderServiceAdmin>(this._db);
-            var addressService = TestingHelper.GetService<IAddressService>(this._db);
-            var customerService = TestingHelper.GetService<ICustomerService>(this._db);
+            var productservice = TestingHelper.GetService<IProductServiceAdmin>(_db);
+            var orderservice = TestingHelper.GetService<IOrderServiceAdmin>(_db);
+            var addressService = TestingHelper.GetService<IAddressService>(_db);
+            var customerService = TestingHelper.GetService<ICustomerService>(_db);
             //arrange
             var deliveredToCourier = "Delivered to courier";
             var product = new Product()
@@ -146,9 +147,9 @@ namespace BusinessLayerTests
         [TestMethod]
         public void UpdateOrderCustomer()
         {
-            var productservice = TestingHelper.GetService<IProductServiceAdmin>(this._db);
-            var customerService = TestingHelper.GetService<ICustomerService>(this._db);
-            var orderService = TestingHelper.GetService<IOrderService>(this._db);
+            var productservice = TestingHelper.GetService<IProductServiceAdmin>(_db);
+            var customerService = TestingHelper.GetService<ICustomerService>(_db);
+            var orderService = TestingHelper.GetService<IOrderService>(_db);
             //arrange
             var product = new Product()
             {
@@ -189,9 +190,9 @@ namespace BusinessLayerTests
         }
 
         ~OrderTests() {
-            if (this._db != null)
+            if (_db != null)
             { 
-                this._db.Dispose(); 
+                _db.Dispose(); 
             }
         }
     }

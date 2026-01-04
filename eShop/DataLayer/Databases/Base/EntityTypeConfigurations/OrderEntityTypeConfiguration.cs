@@ -1,4 +1,4 @@
-﻿using Common.Models.Immutable;
+﻿using Common.Models.Mutable;
 using DataLayer.Databases.Base.NonDomainEntites;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -8,9 +8,9 @@ internal sealed class OrderEntityTypeConfiguration() : IEntityTypeConfiguration<
 {
     public void Configure(EntityTypeBuilder<Order> builder)
     {
-        builder.ToTable(nameof(Order), eShopBaseContext.ReadAndInsertOnlySchemaName);
+        builder.ToTable(nameof(Order));
 
-        builder.Property(b => b.Key).HasDefaultValue(Guid.NewGuid());
+        builder.Property(b => b.Key).HasDefaultValue(Guid.CreateVersion7());
 
         //build non-clustered index
         builder.HasIndex(a => a.Key);

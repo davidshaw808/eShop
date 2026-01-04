@@ -14,7 +14,6 @@ public class CustomerDataAccess : ICustomerDataAccess
     private readonly Func<eShopBaseContext, Guid, Task<int?>> _customerIdGetter;
     private readonly Func<eShopBaseContext, Guid, Task<Customer?>> _customerGetterNoTrackAsync;
     private readonly Func<eShopBaseContext, string, Task<Customer?>> _customerByEmailNoTrackAsync;
-    private readonly Func<eShopBaseContext, Guid, bool, Task<Customer?>> _customersAllGetterTrackingAsync;
     private readonly Func<eShopBaseContext, Guid, Task<Customer?>> _customerGetterTrackingAsync;
 
     public CustomerDataAccess(IDbContextUnitOfWorkDataAccess unitOfWork)
@@ -23,15 +22,14 @@ public class CustomerDataAccess : ICustomerDataAccess
         _customerIdGetter = GetCompiledCustomerId();
         _customerGetterNoTrackAsync = GetCompiledCustomerByKeyNoTrack();
         _customerByEmailNoTrackAsync = GetCompiledCustomerByEmailNoTrack();
-        _customersAllGetterTrackingAsync = GetAsyncCompiledCustomerSetter();
         _customerGetterTrackingAsync = GetCompiledCustomerByKeyTracking();
     }
 
-    public IEnumerable<Customer> Get(Func<Customer, bool> filter) => this._db.Customers.Where(filter);
+    public IEnumerable<Customer> Get(Func<Customer, bool> filter) => _db.Customers.Where(filter);
 
     public IAsyncEnumerable<Customer> GetAsync(Func<Customer, bool> filter)
     {
-        return this._db.Customers.Where(filter).AsQueryable().AsAsyncEnumerable();
+        return _db.Customers.Where(filter).AsQueryable().AsAsyncEnumerable();
     }
 
     public void GenerateElementInUoW(Customer customer)
@@ -156,17 +154,17 @@ public class CustomerDataAccess : ICustomerDataAccess
         .Include(c => c.Address)
         .Include(c => c.BasketItems)
         .Include(c => c.OrderHistory)
-        .Where(a => a.Key.Equals(Key))
+        .Where(c => c.Key.Equals(Key))
         .FirstOrDefault()
     );
 
     private Func<eShopBaseContext, Guid, Task<Customer?>> GetCompiledCustomerByKeyNoTrack() => EF.CompileAsyncQuery(
         (eShopBaseContext db, Guid Key) => db.Customers
-        .AsNoTracking()
+        .AsNoTrackingWithIdentityResolution()
         .Include(c => c.Address)
         .Include(c => c.BasketItems)
         .Include(c => c.OrderHistory)
-        .Where(a => a.Key.Equals(Key))
+        .Where(c => c.Key.Equals(Key))
         .FirstOrDefault()
     );
 
@@ -176,24 +174,14 @@ public class CustomerDataAccess : ICustomerDataAccess
         .Include(c => c.Address)
         .Include(c => c.BasketItems)
         .Include(c => c.OrderHistory)
-        .Where(a => a.Email != null &&  a.Email.Equals(email))
+        .Where(c => c.Email != null &&  c.Email.Equals(email))
         .FirstOrDefault()
     );
 
     private Func<eShopBaseContext, Guid, Task<int?>> GetCompiledCustomerId() => EF.CompileAsyncQuery(
         (eShopBaseContext db, Guid Key) => db.Customers
-            .Where(a => a.Key.Equals(Key))
-            .Select(a => a.Id)
+            .Where(c => c.Key.Equals(Key))
+            .Select(c => a.Id)
             .FirstOrDefault()
         );
-
-    private Func<eShopBaseContext, Guid, bool, Task<Customer?>> GetAsyncCompiledCustomerSetter() => EF.CompileAsyncQuery(
-        (eShopBaseContext db, Guid Key, bool active) => db.Customers
-        .Include(c => c.Address)
-        .Include(c => c.BasketItems)
-        .Include(c => c.OrderHistory)
-        .FirstOrDefault(c => c.Key.Equals(Key))
-        );
-
-   
 }

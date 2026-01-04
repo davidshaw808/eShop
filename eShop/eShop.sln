@@ -5,11 +5,11 @@ VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShop", "eShop\eShop.csproj", "{8EC1DE8E-F755-4755-85FC-5E0AC7FB0113}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "DataLayer\DataLayer.csproj", "{CFC3A740-DBB6-42BA-A059-32C68D19D745}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "DataLayer\Persistence.csproj", "{CFC3A740-DBB6-42BA-A059-32C68D19D745}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Common\Domain.csproj", "{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{521ED21B-9FAF-47E4-96D1-170D107C3FCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "BusinessLayer\Application.csproj", "{521ED21B-9FAF-47E4-96D1-170D107C3FCF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayerTests", "BusinessLayerTests\BusinessLayerTests.csproj", "{F6D15D87-F39F-45F9-930B-0491175BBBAC}"
 EndProject

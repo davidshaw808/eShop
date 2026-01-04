@@ -1,4 +1,4 @@
-﻿using Common.Models.Immutable;
+﻿using Common.Models.Mutable;
 
 namespace BusinessLayer.Interface.Admin;
 

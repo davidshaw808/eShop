@@ -47,7 +47,6 @@ public class CustomerOrderService(ICustomerDataAccess customerDataAccess): ICust
 
     public Task<int> Generate(Customer customer)
     {
-        customer.Key = Guid.NewGuid();
         return _customerDataAccess.GenerateAsync(customer);
     }
 

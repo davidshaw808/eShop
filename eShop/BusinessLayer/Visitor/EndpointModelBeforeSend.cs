@@ -4,7 +4,7 @@ using Common.Models.Mutable;
 
 namespace BusinessLayer.Visitor;
 
-public class EndpointModelBeforeSend : IVisitorCaller<Address, AdminUser, Category, Customer, FinancialTransaction, HistoryLog, Order, Product, Review>
+public class EndpointModelBeforeSend : IVisitorCaller
 {
     public Address Visit(Address visitor) => RemoveId(visitor);
 

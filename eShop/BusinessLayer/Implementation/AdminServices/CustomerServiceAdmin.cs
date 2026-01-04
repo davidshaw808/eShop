@@ -30,7 +30,7 @@ public class CustomerServiceAdmin(IOrderCustomerServiceAdmin orderCustomerServic
         }
         var dummyCustomer = GenerateDummyCustomer("Removed@Customer.com");
         Generate(dummyCustomer);
-        dummyCustomer.Key ??= Guid.NewGuid();
+      //  dummyCustomer.Key ??= Guid.NewGuid();
         _orderCustomerServiceAdmin.TransferOrderHistory(id, dummyCustomer);
         TransferAddress
         return _customerDataAccess.PermanentlyRemoveCustomerDetailsAsync(deletedCustomer);

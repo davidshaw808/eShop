@@ -1,10 +1,8 @@
-﻿using Common;
+﻿using Common.Models.Immutable;
 using DataLayer.Databases.Base;
-using DataLayer.Implementation.Extensions;
 using DataLayer.Interface;
 using DataLayer.Interface.General;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace DataLayer.Implementation
@@ -12,151 +10,58 @@ namespace DataLayer.Implementation
     public class FinancialTransactionDataAccess: IFinancialTransactionDataAccess
     {
         private readonly eShopBaseContext _db;
+        Func<eShopBaseContext, Guid, Task<FinancialTransaction?>> _getFinancialTransactionNoTrack;
+        Func<eShopBaseContext, Guid, Task<FinancialTransaction?>> _getFinancialTransactionTracking;
 
         public FinancialTransactionDataAccess(IDbContextUnitOfWorkDataAccess unitOfWork)
         {
-            this._db = unitOfWork.GetContext();
+            _db = unitOfWork.GetContext();
+            _getFinancialTransactionNoTrack = GetCompiledFinancialTransactionNoTrack();
+            _getFinancialTransactionTracking = GetCompiledFinancialTransactionTracking();
         }
 
-        public bool LogicalDelete(FinancialTransaction t)
+        public async Task<IEnumerable<FinancialTransaction>> GetAllAsync(Func<FinancialTransaction, bool> condition)
         {
-            if(!t.Validate())
-            {
-                return false;
-            }
-
-            var r = this._db.FinancialTransactions.FirstOrDefault(r => r.Key == t.Key);
-            if (r == null)
-            {
-                return false;
-            }
-            r.Active = false;
-            this._db.SaveChanges();
-            return true;
+           return _db.FinancialTransactions.Where(condition);
         }
 
-        public bool Generate(FinancialTransaction t)
-        {
-            if(t.Id != null) 
-            {
-                return false;
-            }
-            Populate(t);
-            this._db.FinancialTransactions.Add(t);
-            return this._db.SaveChanges() > 0;
-        }
-
-        public IEnumerable<FinancialTransaction> GetAll(Func<FinancialTransaction, bool> condition)
-        {
-           return this._db.FinancialTransactions.Where(condition);
-        }
-
-        public bool Update(FinancialTransaction t)
-        {
-            this._db.FinancialTransactions.Update(t);
-            return this._db.SaveChanges() > 0;
-        }
-
-        public bool LogicalDelete(PaymentRequest t)
-        {
-            if (!t.Validate())
-            {
-                return false;
-            }
-            var r = this._db.FinancialTransactions.FirstOrDefault(r => r.Key == t.Key);
-            if (r == null)
-            {
-                return false;
-            }
-            r.Active = false;
-            this._db.SaveChanges();
-            return true;
-        }
-
-        public bool Generate(PaymentRequest t)
-        {
-            if (t.Id != null)
-            {
-                return false;
-            }
-            Populate(t);
-            this._db.FinancialTransactions.Add(t);
-            return this._db.SaveChanges() > 0;
-        }
-
-        public FinancialTransaction? Get(Guid id)
-        {
-            return this._db.FinancialTransactions.FirstOrDefault(r => r.Key == id);
-        }
-
-        public IEnumerable<PaymentRequest> GetAll(Func<PaymentRequest, bool> condition)
-        {
-            return this._db.FinancialTransactions.Where(condition);
-        }
-
-        public bool Update(PaymentRequest t)
-        {
-            this._db.FinancialTransactions.Update(t);
-            return this._db.SaveChanges() > 0;
-        }
-
-        public IAsyncEnumerable<PaymentRequest> GetAllAsync(Expression<Func<PaymentRequest, bool>> condition)
-        {
-            return this._db.FinancialTransactions.Where(condition).AsAsyncEnumerable();
-        }
+        public async Task<FinancialTransaction?> GetAtomicAsync(Guid key) => await _getFinancialTransactionNoTrack(_db, key);
 
         public IAsyncEnumerable<FinancialTransaction?> GetAllAsync(Expression<Func<FinancialTransaction, bool>> condition)
         {
-            return this._db.FinancialTransactions.Where(condition).AsAsyncEnumerable();
+            return _db.FinancialTransactions.Where(condition).AsAsyncEnumerable();
         }
 
-        public Task<int> GenerateAsync(FinancialTransaction t)
+        public async Task<bool> GenerateAtomicAsync(FinancialTransaction financialTranasaction)
         {
-            if (t.Id != null)
-            {
-                return Task.FromResult(0);
-            }
-            Populate(t);
-            this._db.FinancialTransactions.Add(t);
-            return this._db.SaveChangesAsync();
+            var task = _db.FinancialTransactions.SingleInsertAsync(financialTranasaction);
+            await task;
+            return task.IsCompletedSuccessfully;
         }
 
-        public Task<int> UpdateASync(FinancialTransaction t)
+        public async Task<FinancialTransaction?> GetInUoW(Guid key) => await _getFinancialTransactionTracking(_db, key);
+
+        public void GenerateInUoW(FinancialTransaction financialTranasaction)
         {
-            this._db.FinancialTransactions.Update(t);
-            return this._db.SaveChangesAsync();
+            var task = _db.FinancialTransactions.Add(financialTranasaction);
         }
 
-        public Task<int> LogicalDeleteAsync(FinancialTransaction t)
-        {
-            
-        }
+        private Func<eShopBaseContext, Guid, Task<FinancialTransaction?>> GetCompiledFinancialTransactionNoTrack() => EF.CompileAsyncQuery(
+            (eShopBaseContext db, Guid key) => db.FinancialTransactions
+            .AsNoTrackingWithIdentityResolution()
+            .Include(ft => ft.Order)
+            .Include(ft => ft.PaymentRequest)
+            .Include(ft => ft.Vat)
+            .Where(ft => ft.Key.Equals(key))
+            .FirstOrDefault()
+        );
 
-        public Task<int> GenerateAsync(PaymentRequest t)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> UpdateAsync(PaymentRequest t)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> LogicalDeleteAsync(PaymentRequest t)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Populate(FinancialTransaction t)
-        {
-            t.Key = Guid.NewGuid();
-            t.DateGenerated = DateTime.UtcNow;
-        }
-
-        private Func<eShopBaseContext, Guid, int?> GetCompiledFinancialTransactionId() => EF.CompileQuery(
-        (eShopBaseContext db, Guid Key) => db.FinancialTransactions
-            .Where(a => a.Key.Equals(Key))
-            .Select(a => a.Id)
+        private Func<eShopBaseContext, Guid, Task<FinancialTransaction?>> GetCompiledFinancialTransactionTracking() => EF.CompileAsyncQuery(
+            (eShopBaseContext db, Guid key) => db.FinancialTransactions
+            .Include(ft => ft.Order)
+            .Include(ft => ft.PaymentRequest)
+            .Include(ft => ft.Vat)
+            .Where(ft => ft.Key.Equals(key))
             .FirstOrDefault()
         );
     }

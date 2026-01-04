@@ -1,4 +1,4 @@
-﻿using Common.Models.Mutable;
+﻿using Common.Models.Immutable;
 
 namespace BusinessLayer.ClassHelpers;
 

@@ -27,13 +27,12 @@ public class ReviewDataAccess : IReviewDataAccess
     public Task GenerateAsync(Review review)
     {
         review.Id = null;
-        review.Key = Guid.NewGuid();
         return _db.Reviews.AddRange(review);
     }
 
     public IEnumerable<Review> GetReviewsForProduct(Guid productId)
     {
-        return this._db.Products.FirstOrDefault(p => p.Key == productId)?.Reviews?.ToArray() ?? Enumerable.Empty<Review>();
+        return _db.Products.FirstOrDefault(p => p.Key == productId)?.Reviews?.ToArray() ?? Enumerable.Empty<Review>();
     }
 
     public Task UpdateAsync(Review t)

@@ -7,7 +7,7 @@ internal static class GenericServiceExtensions
     internal static void GenerateForDatabase<T>(this IElement<T> element)
     {
         element.Id = null;
-        element.Key = Guid.NewGuid();
+
     }
 
     internal static void GenerateForDatabase<T>(this IEnumerable<IElement<T>> elements)
@@ -15,7 +15,6 @@ internal static class GenericServiceExtensions
         foreach (var element in elements)
         {
             element.Id = null;
-            element.Key = Guid.NewGuid();
         }
     }
 

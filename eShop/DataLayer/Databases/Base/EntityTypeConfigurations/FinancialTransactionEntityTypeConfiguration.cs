@@ -10,7 +10,7 @@ internal sealed class FinancialTransactionEntityTypeConfiguration() : IEntityTyp
     public void Configure(EntityTypeBuilder<FinancialTransaction> builder)
     {
         builder.ToTable(nameof(FinancialTransaction), eShopBaseContext.ReadAndInsertOnlySchemaName );
-        builder.Property(b => b.Key).HasDefaultValue(Guid.NewGuid());
+        builder.Property(b => b.Key).HasDefaultValue(Guid.CreateVersion7());
         //build non-clustered index
         builder.HasIndex(a => a.Key);
     }

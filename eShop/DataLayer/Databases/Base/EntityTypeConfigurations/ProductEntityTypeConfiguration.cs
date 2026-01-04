@@ -1,4 +1,4 @@
-﻿using Common.Models.Mutable;
+﻿using Common.Models.Immutable;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,7 +8,8 @@ internal sealed class ProductEntityTypeConfiguration() : IEntityTypeConfiguratio
 {
     public void Configure(EntityTypeBuilder<Product> builder)
     {
-        builder.Property(b => b.Key).HasDefaultValue(Guid.NewGuid());
+        builder.ToTable(nameof(Product), eShopBaseContext.ReadAndInsertOnlySchemaName);
+        builder.Property(b => b.Key).HasDefaultValue(Guid.CreateVersion7());
         //build non-clustered index
         builder.HasIndex(a => a.Key);
         builder.HasMany(p => p.Reviews)

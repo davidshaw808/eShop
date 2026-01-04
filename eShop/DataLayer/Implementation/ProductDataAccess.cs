@@ -12,7 +12,7 @@ namespace DataLayer.Implementation
 
         public ProductDataAccess(IDbContextUnitOfWorkDataAccess unitOfWork)
         {
-            this._db = unitOfWork.GetContext();
+            _db = unitOfWork.GetContext();
         }
 
         public bool LogicalDelete(Product t)
@@ -27,7 +27,7 @@ namespace DataLayer.Implementation
                 return false;
             }
             p.Active = false;
-            this._db.SaveChanges();
+            _db.SaveChanges();
             return true;
         }
 
@@ -37,33 +37,33 @@ namespace DataLayer.Implementation
             {
                 return false;
             }
-            this._db.Products.Add(t);
-            this._db.SaveChanges();
+            _db.Products.Add(t);
+            _db.SaveChanges();
             return true;
         }
 
         public Product? Get(Guid Key)
         {
-            return this._db.Products.FirstOrDefault(p => p.Key == Key);
+            return _db.Products.FirstOrDefault(p => p.Key == Key);
         }
 
         public bool Update(Product t)
         {
-            this._db.Products.Update(t);
-            this._db.SaveChanges();
+            _db.Products.Update(t);
+            _db.SaveChanges();
             return true;
         }
 
         public bool UpdateAll(IEnumerable<Product> products)
         {
-            this._db.Products.UpdateRange(products);
-            this._db.SaveChanges();
+            _db.Products.UpdateRange(products);
+            _db.SaveChanges();
             return true;
         }
 
         public IEnumerable<Product>? GetAll(IEnumerable<Guid> Keys)
         {
-            return this._db.Products.Join(Keys, p => p.Key, aid => aid, (p, aid) =>  p).ToArray();
+            return _db.Products.Join(Keys, p => p.Key, aid => aid, (p, aid) =>  p).ToArray();
         }
 
         private Func<eShopBaseContext, Guid, int?> GetCompiledProductId() => EF.CompileQuery(

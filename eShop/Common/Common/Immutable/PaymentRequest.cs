@@ -3,7 +3,7 @@ using Common.Interface;
 
 namespace Common.Models.Immutable;
 
-public record PaymentRequest : IElementImmutable<PaymentRequest>
+public sealed record PaymentRequest : IElementImmutable<PaymentRequest>
 {
     public int Id { get; init; }
     public decimal AmountNet { get; set; }

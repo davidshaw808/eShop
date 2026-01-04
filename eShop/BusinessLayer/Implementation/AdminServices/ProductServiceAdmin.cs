@@ -1,7 +1,7 @@
 ﻿using BusinessLayer.ClassHelpers.Extensions;
 using BusinessLayer.Implementation.User;
 using BusinessLayer.Interface.Admin;
-using Common.Models.Mutable;
+using Common.Models.Immutable;
 using DataLayer.Interface;
 
 namespace BusinessLayer.Implementation.Admin;
@@ -23,7 +23,7 @@ public class ProductServiceAdmin(IProductDataAccess productDataAccess,
 
     public bool Generate(Product t)
     {
-        t.Key = Guid.NewGuid();
+        t.Key = Guid.CreateVersion7();
         return _productDataAccess.Generate(t);
     }
 

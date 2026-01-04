@@ -1,11 +1,12 @@
 ﻿using Common.Interface;
+using Common.Models.Mutable;
 
-namespace Common.Models.Mutable;
+namespace Common.Models.Immutable;
 
-public class Product : IElement<Product>
+public sealed record Product : IElementImmutable<Product>
 {
-    public int? Id { get; set; }
-    public Guid? Key { get; set; }
+    public int Id { get; init; }
+    public Guid Key { get; init; }
     public bool Active { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }

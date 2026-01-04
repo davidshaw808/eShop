@@ -1,13 +1,13 @@
 ﻿using Common.Enum;
 using Common.Interface;
-using Common.Models.Mutable;
+using Common.Models.Immutable;
 
-namespace Common.Models.Immutable;
+namespace Common.Models.Mutable;
 
-public sealed record Order : IElementImmutable<Order>
+public sealed class Order : IElement<Order>
 {
-    public int Id { get; init; }
-    public Guid Key { get; init; }
+    public int? Id { get; set; }
+    public Guid? Key { get; set; }
     public decimal Amount { get; set; }
     public Currency Currency { get; set; }
     public bool Active { get; set; }
@@ -27,7 +27,7 @@ public sealed record Order : IElementImmutable<Order>
     }
 }
 
-public record OrderUpdate
+public class OrderUpdate
 {
     public DateTime CreatedDate { get; set; }
     public string UpdateText { get; set; }

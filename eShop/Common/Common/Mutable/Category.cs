@@ -1,4 +1,5 @@
 ﻿using Common.Interface;
+using Common.Models.Immutable;
 
 namespace Common.Models.Mutable;
 

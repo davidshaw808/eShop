@@ -17,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
-    <ProjectReference Include="..\Common\Common.csproj" />
-    <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+    <ProjectReference Include="..\BusinessLayer\Application.csproj" />
+    <ProjectReference Include="..\Common\Domain.csproj" />
+    <ProjectReference Include="..\DataLayer\Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

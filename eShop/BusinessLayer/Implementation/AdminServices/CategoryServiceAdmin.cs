@@ -2,14 +2,14 @@
 using Common.Models.Mutable;
 using DataLayer.Interface;
 
-namespace BusinessLayer.Implementation.User;
+namespace BusinessLayer.Implementation.AdminServices;
 
-public class CategoryService : ICategoryServiceAdmin
+public class CategoryServiceAdmin : ICategoryServiceAdmin
 {
     readonly ICategoryDataAccess _categoryDataAccess;
     readonly IProductServiceAdmin _productService;
 
-    public CategoryService(ICategoryDataAccess categoryDataAccess, IProductServiceAdmin productService)
+    public CategoryServiceAdmin(ICategoryDataAccess categoryDataAccess, IProductServiceAdmin productService)
     {
         _categoryDataAccess = categoryDataAccess;
         _productService = productService;

@@ -10,7 +10,7 @@ public class RefundServiceAdmin(IFinancialTransactionDataAccess dataAccess) : IR
 
     public bool ApproveRefund(Guid refundId)
     {
-        var refund = _dataAccess.Get(refundId);
+        var refund = _dataAccess.GetAtomicAsync(refundId);
         if (refund == null)
         {
             return false;

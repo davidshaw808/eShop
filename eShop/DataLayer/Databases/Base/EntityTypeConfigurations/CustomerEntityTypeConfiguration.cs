@@ -10,7 +10,7 @@ internal sealed class CustomerEntityTypeConfiguration() : IEntityTypeConfigurati
         var fk_name = "CustomerId";//shadow state prop
 
         builder.Property(b => b.Key)
-            .HasDefaultValue(Guid.NewGuid());
+            .HasDefaultValue(Guid.CreateVersion7());
         builder
             .HasMany(c => c.OrderHistory)
             .WithOne(o => o.Customer)

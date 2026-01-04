@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.ClassHelpers.Extensions;
 using BusinessLayer.Interface.User;
+using Common.Models.Immutable;
 using Common.Models.Mutable;
 using DataLayer.Interface;
 

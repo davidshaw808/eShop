@@ -1,0 +1,897 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Code\\eShop\\eShop\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\implementation\\manager\\adminmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\implementation\\manager\\adminmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|c:\\code\\eshop\\eshop\\common\\common\\mutable\\address.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|solutionrelative:common\\common\\mutable\\address.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|c:\\code\\eshop\\eshop\\common\\extensions\\addressextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|solutionrelative:common\\extensions\\addressextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|c:\\code\\eshop\\eshop\\common\\common\\immutable\\financialtransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|solutionrelative:common\\common\\immutable\\financialtransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8EC1DE8E-F755-4755-85FC-5E0AC7FB0113}|eShop\\eShop.csproj|c:\\code\\eshop\\eshop\\eshop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8EC1DE8E-F755-4755-85FC-5E0AC7FB0113}|eShop\\eShop.csproj|solutionrelative:eshop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\persistence.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\persistence.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|c:\\code\\eshop\\eshop\\common\\common\\immutable\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|solutionrelative:common\\common\\immutable\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|c:\\code\\eshop\\eshop\\common\\common\\immutable\\paymentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|solutionrelative:common\\common\\immutable\\paymentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|c:\\code\\eshop\\eshop\\common\\common\\mutable\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|solutionrelative:common\\common\\mutable\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|c:\\code\\eshop\\eshop\\common\\common\\mutable\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|solutionrelative:common\\common\\mutable\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|c:\\code\\eshop\\eshop\\common\\common\\mutable\\shipping.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|solutionrelative:common\\common\\mutable\\shipping.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\interface\\manager\\ithirdpartymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\interface\\manager\\ithirdpartymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\implementation\\manager\\usermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\implementation\\manager\\usermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\interface\\manager\\iadminmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\interface\\manager\\iadminmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\interface\\manager\\iusermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\interface\\manager\\iusermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\interface\\userservice\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\interface\\userservice\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\implementation\\financialtransactiondataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\implementation\\financialtransactiondataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\databases\\base\\entitytypeconfigurations\\shippingentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\databases\\base\\entitytypeconfigurations\\shippingentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\implementation\\orderdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\implementation\\orderdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\implementation\\productdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\implementation\\productdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\interface\\adminservice\\icategoryserviceadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\interface\\adminservice\\icategoryserviceadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\implementation\\customerdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\implementation\\customerdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\implementation\\userservices\\addressservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\implementation\\userservices\\addressservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\implementation\\adminservices\\customerserviceadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\implementation\\adminservices\\customerserviceadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\databases\\base\\entitytypeconfigurations\\vatentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\databases\\base\\entitytypeconfigurations\\vatentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\implementation\\categorydataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\implementation\\categorydataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\implementation\\addressdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\implementation\\addressdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\implementation\\adminservices\\orderserviceadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\implementation\\adminservices\\orderserviceadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\implementation\\adminservices\\productserviceadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\implementation\\adminservices\\productserviceadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\implementation\\userservices\\customerorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\implementation\\userservices\\customerorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\classhelpers\\extensions\\genericserviceextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\classhelpers\\extensions\\genericserviceextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\databases\\base\\entitytypeconfigurations\\customerentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\databases\\base\\entitytypeconfigurations\\customerentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\databases\\base\\entitytypeconfigurations\\categoryentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\databases\\base\\entitytypeconfigurations\\categoryentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\implementation\\reviewdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\implementation\\reviewdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\databases\\base\\entitytypeconfigurations\\addressentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\databases\\base\\entitytypeconfigurations\\addressentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\databases\\base\\entitytypeconfigurations\\reviewentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\databases\\base\\entitytypeconfigurations\\reviewentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\databases\\base\\entitytypeconfigurations\\historylogenitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\databases\\base\\entitytypeconfigurations\\historylogenitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\databases\\base\\entitytypeconfigurations\\financialtransactionentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\databases\\base\\entitytypeconfigurations\\financialtransactionentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\databases\\base\\entitytypeconfigurations\\productentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\databases\\base\\entitytypeconfigurations\\productentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\databases\\base\\entitytypeconfigurations\\orderentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\databases\\base\\entitytypeconfigurations\\orderentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\interface\\icategorydataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\interface\\icategorydataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\visitor\\endpointvalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\visitor\\endpointvalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|c:\\code\\eshop\\eshop\\common\\interface\\ivisitorcaller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|solutionrelative:common\\interface\\ivisitorcaller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\visitor\\endpointmodelbeforesend.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\visitor\\endpointmodelbeforesend.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|c:\\code\\eshop\\eshop\\businesslayer\\identity\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{521ED21B-9FAF-47E4-96D1-170D107C3FCF}|BusinessLayer\\Application.csproj|solutionrelative:businesslayer\\identity\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\interface\\iorderdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\interface\\iorderdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\interface\\general\\iunitofworkimmutable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\interface\\general\\iunitofworkimmutable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\interface\\iaddressdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\interface\\iaddressdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\interface\\general\\iatomiccrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\interface\\general\\iatomiccrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\interface\\general\\iunitofworkcrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\interface\\general\\iunitofworkcrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\interface\\general\\idunitofworkdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\interface\\general\\idunitofworkdataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\interface\\ifinancialtransactiondataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\interface\\ifinancialtransactiondataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|c:\\code\\eshop\\eshop\\datalayer\\interface\\general\\iatomicimmutable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFC3A740-DBB6-42BA-A059-32C68D19D745}|DataLayer\\Persistence.csproj|solutionrelative:datalayer\\interface\\general\\iatomicimmutable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|c:\\code\\eshop\\eshop\\common\\base\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18218A4B-8AA4-4D43-B571-B9A1E90B5DC1}|Common\\Domain.csproj|solutionrelative:common\\base\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\eShop\\Program.cs",
+              "RelativeDocumentMoniker": "eShop\\Program.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\eShop\\Program.cs",
+              "RelativeToolTip": "eShop\\Program.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAkAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-26T08:29:42.233Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Persistence.csproj",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Persistence.csproj",
+              "RelativeDocumentMoniker": "DataLayer\\Persistence.csproj",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Persistence.csproj",
+              "RelativeToolTip": "DataLayer\\Persistence.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-08-26T08:29:40.565Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FinancialTransaction.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\Common\\Common\\Immutable\\FinancialTransaction.cs",
+              "RelativeDocumentMoniker": "Common\\Common\\Immutable\\FinancialTransaction.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\Common\\Common\\Immutable\\FinancialTransaction.cs",
+              "RelativeToolTip": "Common\\Common\\Immutable\\FinancialTransaction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T22:20:02.26Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AddressExtensions.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\Common\\Extensions\\AddressExtensions.cs",
+              "RelativeDocumentMoniker": "Common\\Extensions\\AddressExtensions.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\Common\\Extensions\\AddressExtensions.cs",
+              "RelativeToolTip": "Common\\Extensions\\AddressExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T22:18:40.053Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Address.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\Common\\Common\\Mutable\\Address.cs",
+              "RelativeDocumentMoniker": "Common\\Common\\Mutable\\Address.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\Common\\Common\\Mutable\\Address.cs",
+              "RelativeToolTip": "Common\\Common\\Mutable\\Address.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T20:39:43.022Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "IThirdPartyManager.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Interface\\Manager\\IThirdPartyManager.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Interface\\Manager\\IThirdPartyManager.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Interface\\Manager\\IThirdPartyManager.cs",
+              "RelativeToolTip": "BusinessLayer\\Interface\\Manager\\IThirdPartyManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T23:23:07.055Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AdminManager.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Implementation\\Manager\\AdminManager.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Implementation\\Manager\\AdminManager.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Implementation\\Manager\\AdminManager.cs",
+              "RelativeToolTip": "BusinessLayer\\Implementation\\Manager\\AdminManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T23:22:29.33Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UserManager.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Implementation\\Manager\\UserManager.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Implementation\\Manager\\UserManager.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Implementation\\Manager\\UserManager.cs",
+              "RelativeToolTip": "BusinessLayer\\Implementation\\Manager\\UserManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T23:22:12.932Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IAdminManager.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Interface\\Manager\\IAdminManager.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Interface\\Manager\\IAdminManager.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Interface\\Manager\\IAdminManager.cs",
+              "RelativeToolTip": "BusinessLayer\\Interface\\Manager\\IAdminManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T23:21:43.738Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "IUserManager.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Interface\\Manager\\IUserManager.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Interface\\Manager\\IUserManager.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Interface\\Manager\\IUserManager.cs",
+              "RelativeToolTip": "BusinessLayer\\Interface\\Manager\\IUserManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T23:21:25.029Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "IOrderService.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Interface\\UserService\\IOrderService.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Interface\\UserService\\IOrderService.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Interface\\UserService\\IOrderService.cs",
+              "RelativeToolTip": "BusinessLayer\\Interface\\UserService\\IOrderService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T23:05:52.313Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "FinancialTransactionDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Implementation\\FinancialTransactionDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Implementation\\FinancialTransactionDataAccess.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Implementation\\FinancialTransactionDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Implementation\\FinancialTransactionDataAccess.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAkwDIAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T11:17:34.826Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ShippingEntityTypeConfiguration.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\ShippingEntityTypeConfiguration.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\ShippingEntityTypeConfiguration.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\ShippingEntityTypeConfiguration.cs",
+              "RelativeToolTip": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\ShippingEntityTypeConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T22:47:07.831Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "OrderDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Implementation\\OrderDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Implementation\\OrderDataAccess.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Implementation\\OrderDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Implementation\\OrderDataAccess.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAEoAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-03T20:51:23.84Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "ProductDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Implementation\\ProductDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Implementation\\ProductDataAccess.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Implementation\\ProductDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Implementation\\ProductDataAccess.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-03T20:51:27.21Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ICategoryServiceAdmin.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Interface\\AdminService\\ICategoryServiceAdmin.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Interface\\AdminService\\ICategoryServiceAdmin.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Interface\\AdminService\\ICategoryServiceAdmin.cs",
+              "RelativeToolTip": "BusinessLayer\\Interface\\AdminService\\ICategoryServiceAdmin.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T23:01:20.432Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "CustomerDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Implementation\\CustomerDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Implementation\\CustomerDataAccess.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Implementation\\CustomerDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Implementation\\CustomerDataAccess.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKIAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T11:21:49.581Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "AddressService.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Implementation\\UserServices\\AddressService.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Implementation\\UserServices\\AddressService.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Implementation\\UserServices\\AddressService.cs",
+              "RelativeToolTip": "BusinessLayer\\Implementation\\UserServices\\AddressService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T23:02:13.022Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "CustomerServiceAdmin.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Implementation\\AdminServices\\CustomerServiceAdmin.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Implementation\\AdminServices\\CustomerServiceAdmin.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Implementation\\AdminServices\\CustomerServiceAdmin.cs",
+              "RelativeToolTip": "BusinessLayer\\Implementation\\AdminServices\\CustomerServiceAdmin.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAvwCAAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T22:47:32.279Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "VatEntityTypeConfiguration.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\VatEntityTypeConfiguration.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\VatEntityTypeConfiguration.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\VatEntityTypeConfiguration.cs",
+              "RelativeToolTip": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\VatEntityTypeConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T22:47:15.208Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "CategoryDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Implementation\\CategoryDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Implementation\\CategoryDataAccess.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Implementation\\CategoryDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Implementation\\CategoryDataAccess.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJwAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-03T20:50:12.437Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "AddressDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Implementation\\AddressDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Implementation\\AddressDataAccess.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Implementation\\AddressDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Implementation\\AddressDataAccess.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T11:24:59.244Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "OrderServiceAdmin.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Implementation\\AdminServices\\OrderServiceAdmin.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Implementation\\AdminServices\\OrderServiceAdmin.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Implementation\\AdminServices\\OrderServiceAdmin.cs",
+              "RelativeToolTip": "BusinessLayer\\Implementation\\AdminServices\\OrderServiceAdmin.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAgwBgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T11:45:16.211Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "ProductServiceAdmin.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Implementation\\AdminServices\\ProductServiceAdmin.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Implementation\\AdminServices\\ProductServiceAdmin.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Implementation\\AdminServices\\ProductServiceAdmin.cs",
+              "RelativeToolTip": "BusinessLayer\\Implementation\\AdminServices\\ProductServiceAdmin.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAASwBkAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T22:48:22.71Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "CustomerOrderService.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Implementation\\UserServices\\CustomerOrderService.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Implementation\\UserServices\\CustomerOrderService.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Implementation\\UserServices\\CustomerOrderService.cs",
+              "RelativeToolTip": "BusinessLayer\\Implementation\\UserServices\\CustomerOrderService.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAEwDAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T22:49:16.482Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "GenericServiceExtensions.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\ClassHelpers\\Extensions\\GenericServiceExtensions.cs",
+              "RelativeDocumentMoniker": "DataLayer\\ClassHelpers\\Extensions\\GenericServiceExtensions.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\ClassHelpers\\Extensions\\GenericServiceExtensions.cs",
+              "RelativeToolTip": "DataLayer\\ClassHelpers\\Extensions\\GenericServiceExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T22:49:37.497Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "CustomerEntityTypeConfiguration.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\CustomerEntityTypeConfiguration.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\CustomerEntityTypeConfiguration.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\CustomerEntityTypeConfiguration.cs",
+              "RelativeToolTip": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\CustomerEntityTypeConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T22:46:12.102Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "CategoryEntityTypeConfiguration.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\CategoryEntityTypeConfiguration.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\CategoryEntityTypeConfiguration.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\CategoryEntityTypeConfiguration.cs",
+              "RelativeToolTip": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\CategoryEntityTypeConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T22:46:02.61Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "ReviewDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Implementation\\ReviewDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Implementation\\ReviewDataAccess.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Implementation\\ReviewDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Implementation\\ReviewDataAccess.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAnwBwAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-03T20:51:29.012Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "AddressEntityTypeConfiguration.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\AddressEntityTypeConfiguration.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\AddressEntityTypeConfiguration.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\AddressEntityTypeConfiguration.cs",
+              "RelativeToolTip": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\AddressEntityTypeConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T22:45:37.865Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "ReviewEntityTypeConfiguration.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\ReviewEntityTypeConfiguration.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\ReviewEntityTypeConfiguration.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\ReviewEntityTypeConfiguration.cs",
+              "RelativeToolTip": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\ReviewEntityTypeConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T22:45:15.031Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "HistoryLogEnityTypeConfiguration.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\HistoryLogEnityTypeConfiguration.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\HistoryLogEnityTypeConfiguration.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\HistoryLogEnityTypeConfiguration.cs",
+              "RelativeToolTip": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\HistoryLogEnityTypeConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T22:44:26.083Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "FinancialTransactionEntityTypeConfiguration.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\FinancialTransactionEntityTypeConfiguration.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\FinancialTransactionEntityTypeConfiguration.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\FinancialTransactionEntityTypeConfiguration.cs",
+              "RelativeToolTip": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\FinancialTransactionEntityTypeConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T22:43:50.76Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "ProductEntityTypeConfiguration.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\ProductEntityTypeConfiguration.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\ProductEntityTypeConfiguration.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\ProductEntityTypeConfiguration.cs",
+              "RelativeToolTip": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\ProductEntityTypeConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T22:43:45.847Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "OrderEntityTypeConfiguration.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\OrderEntityTypeConfiguration.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\OrderEntityTypeConfiguration.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Databases\\Base\\EntityTypeConfigurations\\OrderEntityTypeConfiguration.cs",
+              "RelativeToolTip": "DataLayer\\Databases\\Base\\EntityTypeConfigurations\\OrderEntityTypeConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T22:42:38.037Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "ICategoryDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\ICategoryDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Interface\\ICategoryDataAccess.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\ICategoryDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Interface\\ICategoryDataAccess.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T21:09:42.853Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "EndpointValidation.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Visitor\\EndpointValidation.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Visitor\\EndpointValidation.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Visitor\\EndpointValidation.cs",
+              "RelativeToolTip": "BusinessLayer\\Visitor\\EndpointValidation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T12:25:27.05Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "IVisitorCaller.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\Common\\Interface\\IVisitorCaller.cs",
+              "RelativeDocumentMoniker": "Common\\Interface\\IVisitorCaller.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\Common\\Interface\\IVisitorCaller.cs",
+              "RelativeToolTip": "Common\\Interface\\IVisitorCaller.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAYAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T12:23:16.872Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "EndpointModelBeforeSend.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Visitor\\EndpointModelBeforeSend.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Visitor\\EndpointModelBeforeSend.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Visitor\\EndpointModelBeforeSend.cs",
+              "RelativeToolTip": "BusinessLayer\\Visitor\\EndpointModelBeforeSend.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T12:23:13.606Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "Roles.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Identity\\Roles.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Identity\\Roles.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\BusinessLayer\\Identity\\Roles.cs",
+              "RelativeToolTip": "BusinessLayer\\Identity\\Roles.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T12:22:56.155Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\Common\\Common\\Immutable\\Product.cs",
+              "RelativeDocumentMoniker": "Common\\Common\\Immutable\\Product.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\Common\\Common\\Immutable\\Product.cs",
+              "RelativeToolTip": "Common\\Common\\Immutable\\Product.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-03T21:10:27.942Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "IOrderDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\IOrderDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Interface\\IOrderDataAccess.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\IOrderDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Interface\\IOrderDataAccess.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-03T21:02:34.558Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Order.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\Common\\Common\\Mutable\\Order.cs",
+              "RelativeDocumentMoniker": "Common\\Common\\Mutable\\Order.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\Common\\Common\\Mutable\\Order.cs",
+              "RelativeToolTip": "Common\\Common\\Mutable\\Order.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-03T20:57:19.901Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Customer.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\Common\\Common\\Mutable\\Customer.cs",
+              "RelativeDocumentMoniker": "Common\\Common\\Mutable\\Customer.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\Common\\Common\\Mutable\\Customer.cs",
+              "RelativeToolTip": "Common\\Common\\Mutable\\Customer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-03T20:59:06.009Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Shipping.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\Common\\Common\\Mutable\\Shipping.cs",
+              "RelativeDocumentMoniker": "Common\\Common\\Mutable\\Shipping.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\Common\\Common\\Mutable\\Shipping.cs",
+              "RelativeToolTip": "Common\\Common\\Mutable\\Shipping.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-03T20:56:42.845Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PaymentRequest.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\Common\\Common\\Immutable\\PaymentRequest.cs",
+              "RelativeDocumentMoniker": "Common\\Common\\Immutable\\PaymentRequest.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\Common\\Common\\Immutable\\PaymentRequest.cs",
+              "RelativeToolTip": "Common\\Common\\Immutable\\PaymentRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAUAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-24T11:37:23.768Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "IUnitOfWorkImmutable.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\General\\IUnitOfWorkImmutable.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Interface\\General\\IUnitOfWorkImmutable.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\General\\IUnitOfWorkImmutable.cs",
+              "RelativeToolTip": "DataLayer\\Interface\\General\\IUnitOfWorkImmutable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAsAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T11:20:20.818Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "IAddressDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\IAddressDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Interface\\IAddressDataAccess.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\IAddressDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Interface\\IAddressDataAccess.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAUAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T11:23:43.36Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "IAtomicCRUD.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\General\\IAtomicCRUD.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Interface\\General\\IAtomicCRUD.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\General\\IAtomicCRUD.cs",
+              "RelativeToolTip": "DataLayer\\Interface\\General\\IAtomicCRUD.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T11:25:12.109Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "IUnitOfWorkCRUD.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\General\\IUnitOfWorkCRUD.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Interface\\General\\IUnitOfWorkCRUD.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\General\\IUnitOfWorkCRUD.cs",
+              "RelativeToolTip": "DataLayer\\Interface\\General\\IUnitOfWorkCRUD.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T11:21:35.448Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "IDUnitOfWorkDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\General\\IDUnitOfWorkDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Interface\\General\\IDUnitOfWorkDataAccess.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\General\\IDUnitOfWorkDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Interface\\General\\IDUnitOfWorkDataAccess.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T11:19:21.448Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "IFinancialTransactionDataAccess.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\IFinancialTransactionDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Interface\\IFinancialTransactionDataAccess.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\IFinancialTransactionDataAccess.cs",
+              "RelativeToolTip": "DataLayer\\Interface\\IFinancialTransactionDataAccess.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAcAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T11:16:12.543Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "IAtomicImmutable.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\General\\IAtomicImmutable.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Interface\\General\\IAtomicImmutable.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\DataLayer\\Interface\\General\\IAtomicImmutable.cs",
+              "RelativeToolTip": "DataLayer\\Interface\\General\\IAtomicImmutable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAUAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T11:18:29.343Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "Person.cs",
+              "DocumentMoniker": "C:\\Code\\eShop\\eShop\\Common\\Base\\Person.cs",
+              "RelativeDocumentMoniker": "Common\\Base\\Person.cs",
+              "ToolTip": "C:\\Code\\eShop\\eShop\\Common\\Base\\Person.cs",
+              "RelativeToolTip": "Common\\Base\\Person.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA8AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T11:41:21.134Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

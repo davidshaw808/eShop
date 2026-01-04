@@ -1,4 +1,5 @@
-﻿using Common.Models.Mutable;
+﻿using Common.Models.Immutable;
+using Common.Models.Mutable;
 
 namespace BusinessLayer.ClassHelpers.Extensions;
 

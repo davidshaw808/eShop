@@ -1,28 +1,12 @@
 ﻿using Common;
+using Common.Models.Immutable;
+using DataLayer.Interface.General;
 using System.Linq.Expressions;
 
 namespace DataLayer.Interface;
 
-public interface IFinancialTransactionDataAccess
+public interface IFinancialTransactionDataAccess : IUnitOfWorkImmutable<FinancialTransaction>, IAtomicImmutable<FinancialTransaction>
 {
-    FinancialTransaction? Get(Guid id);
-    IEnumerable<PaymentRequest?> GetAll(Func<PaymentRequest, bool> condition);
-    IEnumerable<FinancialTransaction?> GetAll(Func<FinancialTransaction, bool> condition);
-
-    IAsyncEnumerable<PaymentRequest?> GetAllAsync(Expression<Func<PaymentRequest, bool>> condition);
+    Task<IEnumerable<FinancialTransaction?>> GetAllAsync(Func<FinancialTransaction, bool> condition);
     IAsyncEnumerable<FinancialTransaction?> GetAllAsync(Expression<Func<FinancialTransaction, bool>> condition);
-
-    bool Generate(FinancialTransaction t);
-    bool Update(FinancialTransaction t);
-    bool LogicalDelete(FinancialTransaction t);
-    Task<int> GenerateAsync(FinancialTransaction t);
-    Task<int> UpdateASync(FinancialTransaction t);
-    Task<int> LogicalDeleteAsync(FinancialTransaction t);
-
-    bool Generate(PaymentRequest t);
-    bool Update(PaymentRequest t);
-    bool LogicalDelete(PaymentRequest t);
-    Task<int> GenerateAsync(PaymentRequest t);
-    Task<int> UpdateAsync(PaymentRequest t);
-    Task<int> LogicalDeleteAsync(PaymentRequest t);
 }

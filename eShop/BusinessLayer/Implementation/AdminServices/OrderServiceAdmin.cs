@@ -12,13 +12,13 @@ namespace BusinessLayer.Implementation.Admin;
 public class OrderServiceAdmin(IOrderDataAccess orderDataAccess,
     IFinancialTransactionDataAccess refundDataAccess,
     IAddressOrderService addressOrderService,
-    ICustomerOrderServiceAdmin customerOrderServiceAdmin,
-    IProductOrderServiceAdmin productOrderService) : OrderService(orderDataAccess, customerOrderServiceAdmin), IOrderServiceAdmin
+    IOrderCustomerServiceAdmin orderCustomerServiceAdmin,
+    IProductOrderServiceAdmin productOrderService) : OrderService(orderDataAccess, orderCustomerServiceAdmin), IOrderServiceAdmin
 {
     readonly IOrderDataAccess _orderDataAccess = orderDataAccess;
     readonly IFinancialTransactionDataAccess _finTransactionDataAccess = refundDataAccess;
     readonly IAddressOrderService _addressOrderService = addressOrderService;
-    readonly ICustomerOrderServiceAdmin _customerOrderServiceAdmin = customerOrderServiceAdmin;
+    readonly IOrderCustomerServiceAdmin _customerOrderServiceAdmin = orderCustomerServiceAdmin;
     readonly IProductOrderServiceAdmin _productOrderService = productOrderService; 
 
     public IEnumerable<Order>? GetAllAwaitingDelivery()

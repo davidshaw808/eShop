@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Implementation.Admin;
+using BusinessLayer.Implementation.AdminServices;
 using BusinessLayer.Implementation.User;
 using BusinessLayer.Implementation.UserServices;
 using BusinessLayer.Interface.Admin;
@@ -34,7 +35,7 @@ namespace BusinessLayerTests.TestingHelpers
                 .AddSingleton<ICustomerOrderService, CustomerOrderServiceAdmin>()
                 .AddSingleton<ICustomerOrderServiceAdmin, CustomerOrderServiceAdmin>()
                 .AddSingleton<IOrderService, OrderService>()
-                .AddSingleton<ICategoryServiceAdmin, CategoryService>()
+                .AddSingleton<ICategoryServiceAdmin, CategoryServiceAdmin>()
 
                 .AddSingleton<IOrderServiceAdmin, OrderServiceAdmin>()
                 .AddSingleton<IOrderCustomerServiceAdmin, OrderCustomerServiceAdmin>()

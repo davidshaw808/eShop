@@ -9,7 +9,7 @@ internal sealed class CategoryEntityTypeConfiguration() : IEntityTypeConfigurati
 {
     public void Configure(EntityTypeBuilder<Category> builder)
     {
-        builder.Property(b => b.Key).HasDefaultValue(Guid.NewGuid());
+        builder.Property(b => b.Key).HasDefaultValue(Guid.CreateVersion7());
         //build non-clustered index
         builder.HasIndex(a => a.Key);
 

@@ -8,7 +8,7 @@ internal sealed class ReviewEntityTypeConfiguration() : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<Review> builder)
     {
-        builder.Property(b => b.Key).HasDefaultValue(Guid.NewGuid());
+        builder.Property(b => b.Key).HasDefaultValue(Guid.CreateVersion7());
         //build non-clustered index
         builder.HasIndex(a => a.Key);
     }

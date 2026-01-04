@@ -10,6 +10,7 @@ public record Shipping : IElementImmutable<Shipping>
     public decimal Cost { get; set; }
     public bool Active { get; set; }
     public Guid Key { get; init; }
+    DateTime Shipped { get; set; }
 
     public U Visit<U>(IVisitor<Shipping, U> visitor)
     {
